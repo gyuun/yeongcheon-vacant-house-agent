@@ -1,0 +1,134 @@
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+from enum import Enum
+from typing import Any
+
+
+class RiskLevel(str, Enum):
+    """Risk severity returned by the patrol image anomaly agent."""
+
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"
+
+
+class MaintenancePriority(str, Enum):
+    """Maintenance priority returned by the vacant-house recommendation agent."""
+
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"
+    URGENT = "urgent"
+
+
+@dataclass(frozen=True)
+class PatrolImageInput:
+    """Image comparison request submitted by a patrol robot.
+
+    The patrol agent compares `captured_image_base64` with
+    `baseline_image_base64` for one house and one fixed camera spot.
+    `metadata` can carry robot ID, GPS coordinates, weather, camera angle,
+    or other sensor context that may help later routing and auditing.
+    """
+
+    house_id: str = field(metadata={"description": "Vacant house identifier."})
+    spot_id: str = field(metadata={"description": "Fixed patrol camera spot identifier."})
+    captured_image_base64: str = field(
+        metadata={"description": "Base64-encoded image captured by the patrol robot."}
+    )
+    baseline_image_base64: str = field(
+        metadata={"description": "Base64-encoded baseline image for normal-state comparison."}
+    )
+    captured_at: str | None = field(
+        default=None,
+        metadata={"description": "Image capture timestamp. ISO 8601 string is recommended."},
+    )
+    metadata: dict[str, Any] = field(
+        default_factory=dict,
+        metadata={"description": "Additional patrol context such as robot ID, GPS, weather, or angle."},
+    )
+
+
+@dataclass(frozen=True)
+class PatrolImageAssessment:
+    """Normalized anomaly assessment for one patrol image comparison.
+
+    `is_anomaly` indicates whether the current image differs meaningfully from
+    the baseline image. `risk_level` expresses response urgency, and
+    `evidence` records visible clues or model-observed differences.
+    `recommended_actions` lists next actions such as reinspection, staff
+    notification, or keeping the regular patrol cadence. `raw_model_output`
+    preserves the original Gemini response when available.
+    """
+
+    house_id: str = field(metadata={"description": "Vacant house identifier."})
+    spot_id: str = field(metadata={"description": "Fixed patrol camera spot identifier."})
+    is_anomaly: bool = field(
+        metadata={"description": "Whether the current patrol image shows abnormal changes."}
+    )
+    risk_level: RiskLevel = field(metadata={"description": "Risk severity of the detected condition."})
+    summary: str = field(metadata={"description": "Human-readable summary of the image assessment."})
+    evidence: list[str] = field(
+        metadata={"description": "Visible clues or model-observed differences supporting the assessment."}
+    )
+    recommended_actions: list[str] = field(
+        metadata={"description": "Suggested follow-up actions for city staff or patrol operations."}
+    )
+    raw_model_output: str | None = field(
+        default=None,
+        metadata={"description": "Original model response text, when available."},
+    )
+
+
+@dataclass(frozen=True)
+class VacantHouseRecord:
+    """Source record for one vacant house from public data or a mock adapter.
+
+    This model is the priority recommendation agent's main input. It captures
+    condition, vacancy duration, complaints, accessibility, and land-size
+    signals used by the current scoring heuristic. API-specific fields that do
+    not yet belong in the core schema can be stored in `metadata`.
+    """
+
+    house_id: str = field(metadata={"description": "Vacant house identifier."})
+    address: str = field(metadata={"description": "Address or administrative area of the vacant house."})
+    building_age_years: int = field(metadata={"description": "Building age in years."})
+    vacancy_years: int = field(metadata={"description": "Number of years the property has been vacant."})
+    structure_grade: str = field(
+        metadata={"description": "Structural condition grade. The current heuristic assumes A to E."}
+    )
+    complaints_last_year: int = field(
+        metadata={"description": "Number of civil complaints reported in the last year."}
+    )
+    distance_to_road_m: float = field(metadata={"description": "Distance to the nearest road in meters."})
+    distance_to_public_facility_m: float = field(
+        metadata={"description": "Distance to the nearest public facility in meters."}
+    )
+    land_area_m2: float = field(metadata={"description": "Land area in square meters."})
+    metadata: dict[str, Any] = field(
+        default_factory=dict,
+        metadata={"description": "Additional public-data source fields or raw API context."},
+    )
+
+
+@dataclass(frozen=True)
+class PriorityRecommendation:
+    """Maintenance priority and reuse recommendation for one vacant house.
+
+    `priority` and `score` summarize how urgently the house should be handled.
+    `recommended_use` describes the proposed direction, `rationale` explains
+    the decision, and `required_data` lists administrative data needed before a
+    real-world decision is finalized.
+    """
+
+    house_id: str = field(metadata={"description": "Vacant house identifier."})
+    priority: MaintenancePriority = field(metadata={"description": "Recommended maintenance priority."})
+    score: float = field(metadata={"description": "Priority score, currently normalized to a 0-100 range."})
+    recommended_use: str = field(
+        metadata={"description": "Suggested maintenance or reuse direction for the vacant property."}
+    )
+    rationale: list[str] = field(metadata={"description": "Decision rationale behind the recommendation."})
+    required_data: list[str] = field(
+        metadata={"description": "Additional administrative data needed before final action."}
+    )
