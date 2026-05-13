@@ -10,8 +10,8 @@ from src.models import (
     PriorityRecommendation,
     VacantHouseRecord,
 )
+from src.agents.tools import PRIORITY_RECOMMENDATION_TOOLS, get_nearby_public_data_bundle
 from src.services.public_data import MockPublicDataClient, PublicDataClient
-from src.services.local_csv_data import LocalCsvGeoDataRepository
 
 
 class PriorityState(TypedDict, total=False):
@@ -20,6 +20,8 @@ class PriorityState(TypedDict, total=False):
     longitude: float
     radius_km: float
     administrative_area: str
+    max_records_per_layer: int
+    max_total_records: int
     record: VacantHouseRecord
     nearby_context: NearbyGeoDataBundle
     recommendation: PriorityRecommendation
@@ -35,11 +37,13 @@ def fetch_public_data(
 
     if "latitude" in state and "longitude" in state:
         radius_km = state.get("radius_km", 2.0)
-        next_state["nearby_context"] = LocalCsvGeoDataRepository().find_nearby(
+        next_state["nearby_context"] = get_nearby_public_data_bundle(
             latitude=state["latitude"],
             longitude=state["longitude"],
             radius_km=radius_km,
             administrative_area=state.get("administrative_area"),
+            max_records_per_layer=state.get("max_records_per_layer", 20),
+            max_total_records=state.get("max_total_records", 100),
         )
 
     return next_state
@@ -90,11 +94,10 @@ def recommend_priority(state: PriorityState) -> PriorityState:
     nearby_context = state.get("nearby_context")
     if nearby_context is not None:
         matched_layers = [layer for layer in nearby_context.layers if layer.objects]
-        nearby_count = sum(len(layer.objects) for layer in matched_layers)
-        if nearby_count:
+        if nearby_context.matched_records:
             rationale.append(
                 f"반경 {nearby_context.radius_km}km 내 공공데이터 {len(matched_layers)}개 레이어 "
-                f"{nearby_count}건 확인"
+                f"{nearby_context.matched_records}건 확인, {nearby_context.returned_records}건 반영"
             )
         if nearby_context.administrative_area:
             rationale.append(f"{nearby_context.administrative_area} 행정구역 단위 데이터 포함")
@@ -123,3 +126,6 @@ def build_priority_recommendation_graph(public_data_client: PublicDataClient | N
     graph.add_edge("fetch_public_data", "recommend_priority")
     graph.add_edge("recommend_priority", END)
     return graph.compile()
+
+
+priority_recommendation_tools = PRIORITY_RECOMMENDATION_TOOLS

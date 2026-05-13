@@ -39,6 +39,7 @@ uv run yeongcheon-agent priority --house-id YC-001
 uv run yeongcheon-agent priority --house-id YC-001 --lat 35.9682723 --lon 128.931526 --radius-km 2
 uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2
 uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2 --admin-area 동부동
+uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2 --max-per-layer 10 --max-total 50
 ```
 
 또는:
@@ -56,6 +57,8 @@ src/
   agents/
     patrol_image.py              # 순찰 이미지 추론 LangGraph
     priority_recommendation.py   # 정비 우선순위/용도 추천 LangGraph
+    tools/
+      local_csv_geo_data.py      # 주변 공공 CSV 검색 LangChain tool
   services/
     gemini.py                    # Gemini 모델 생성 어댑터
     local_csv_data.py            # data/ CSV 좌표 객체화 및 반경 검색

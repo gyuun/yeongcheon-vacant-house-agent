@@ -43,11 +43,21 @@ def run_priority_demo(
     longitude: float | None = None,
     radius_km: float = 2.0,
     administrative_area: str | None = None,
+    max_records_per_layer: int | None = 20,
+    max_total_records: int | None = 100,
 ) -> dict[str, Any]:
     graph = build_priority_recommendation_graph()
     payload: dict[str, Any] = {"house_id": house_id}
     if latitude is not None and longitude is not None:
-        payload.update({"latitude": latitude, "longitude": longitude, "radius_km": radius_km})
+        payload.update(
+            {
+                "latitude": latitude,
+                "longitude": longitude,
+                "radius_km": radius_km,
+                "max_records_per_layer": max_records_per_layer,
+                "max_total_records": max_total_records,
+            }
+        )
     if administrative_area is not None:
         payload["administrative_area"] = administrative_area
     return graph.invoke(payload)
@@ -58,6 +68,8 @@ def run_nearby_data(
     longitude: float,
     radius_km: float,
     administrative_area: str | None = None,
+    max_records_per_layer: int | None = 20,
+    max_total_records: int | None = 100,
 ) -> dict[str, Any]:
     repository = LocalCsvGeoDataRepository()
     bundle = repository.find_nearby(
@@ -65,6 +77,8 @@ def run_nearby_data(
         longitude=longitude,
         radius_km=radius_km,
         administrative_area=administrative_area,
+        max_records_per_layer=max_records_per_layer,
+        max_total_records=max_total_records,
     )
     return {
         "center": bundle.center,
@@ -74,7 +88,8 @@ def run_nearby_data(
         "summary": {
             "csv_layers": bundle.total_layers,
             "layers_with_matches": len(bundle.layers),
-            "nearby_objects": sum(len(layer.objects) for layer in bundle.layers),
+            "matched_objects": bundle.matched_records,
+            "returned_objects": bundle.returned_records,
             "coordinate_layers_with_matches": sum(
                 1 for layer in bundle.layers if layer.kind.value == "coordinate"
             ),
@@ -83,6 +98,8 @@ def run_nearby_data(
             ),
             "coordinate_records": bundle.coordinate_records,
             "unresolved_records": bundle.unresolved_records,
+            "max_records_per_layer": bundle.max_records_per_layer,
+            "max_total_records": bundle.max_total_records,
         },
     }
 
@@ -99,19 +116,38 @@ def main() -> None:
     priority_parser.add_argument("--lon", type=float, help="Longitude for nearby CSV context")
     priority_parser.add_argument("--radius-km", type=float, default=2.0, help="Nearby context radius")
     priority_parser.add_argument("--admin-area", help="Administrative area resolved from the coordinate")
+    priority_parser.add_argument("--max-per-layer", type=int, default=20, help="Maximum results per CSV layer")
+    priority_parser.add_argument("--max-total", type=int, default=100, help="Maximum results across all layers")
 
     nearby_parser = subparsers.add_parser("nearby", help="Find local CSV objects near a coordinate")
     nearby_parser.add_argument("--lat", type=float, required=True, help="Latitude in decimal degrees")
     nearby_parser.add_argument("--lon", type=float, required=True, help="Longitude in decimal degrees")
     nearby_parser.add_argument("--radius-km", type=float, default=2.0, help="Search radius in kilometers")
     nearby_parser.add_argument("--admin-area", help="Administrative area resolved from the coordinate")
+    nearby_parser.add_argument("--max-per-layer", type=int, default=20, help="Maximum results per CSV layer")
+    nearby_parser.add_argument("--max-total", type=int, default=100, help="Maximum results across all layers")
     args = parser.parse_args()
 
     if args.command == "patrol":
         result = run_patrol_demo()
     elif args.command == "priority":
-        result = run_priority_demo(args.house_id, args.lat, args.lon, args.radius_km, args.admin_area)
+        result = run_priority_demo(
+            args.house_id,
+            args.lat,
+            args.lon,
+            args.radius_km,
+            args.admin_area,
+            args.max_per_layer,
+            args.max_total,
+        )
     else:
-        result = run_nearby_data(args.lat, args.lon, args.radius_km, args.admin_area)
+        result = run_nearby_data(
+            args.lat,
+            args.lon,
+            args.radius_km,
+            args.admin_area,
+            args.max_per_layer,
+            args.max_total,
+        )
 
     print(json.dumps(result, ensure_ascii=False, indent=2, default=_json_default))

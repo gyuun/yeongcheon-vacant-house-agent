@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import math
 import re
+import unicodedata
 from pathlib import Path
 from typing import Iterable
 
@@ -69,6 +70,32 @@ CATEGORY_COLUMNS = (
     "행정동",
     "읍면동",
 )
+PROPERTY_COLUMN_RULES: tuple[tuple[str, tuple[str, ...]], ...] = (
+    ("빈집 현황", ("용도지역", "법정동", "빈집판정일자", "등급산정일자", "빈집점수", "등급판정결과")),
+    ("읍면동별기초수급자", ("기초생계급여", "기초의료급여", "기초주거급여", "기초교육급여", "총인원", "데이터기준일자")),
+    ("착한가격업소", ("주요품목", "전화번호", "데이터기준일자")),
+    ("노인복지시설", ("전화번호", "데이터기준일자")),
+    ("보건지소", ("전화번호", "위치 안내")),
+    ("급식소", ("우편번호",)),
+    ("도시공원", ("개수", "담당부서", "기준일자")),
+    ("산사태", ("리", "지번", "기타지번", "소유별", "취약지역 지정사유 및 목적", "지정일")),
+    ("공장", ("대표업종번호", "업종명", "전화번호", "생산품", "용지면적", "건축면적")),
+    ("관내양돈농가", ("축종", "사육두수", "오폐수처리시설")),
+    ("대기배출시설", ("대표업종", "종")),
+    ("모텔", ("전화번호", "지역")),
+    ("버스쉘터", ("온열체어 유무", "에어커튼 유무", "조명등 유무", "공공와이파이 유무", "비상벨 유무")),
+    ("버스승강장", ("쉴터유형", "정류소안내기", "온열체어", "에어커튼", "조명등", "공공와이파이", "비상벨")),
+    ("숙박업", ("전화번호", "데이터기준일자")),
+    ("산불", ("일자", "원인", "피해면적(ha)", "데이터 기준일자")),
+    ("원룸", ("허가일", "사용승인일", "주용도", "부속용도", "세대수", "호수", "가구수")),
+    ("일자리유관기관", ("연락처", "홈페이지바로가기")),
+    ("제조업체", ("대표업종", "업종명", "전화번호", "종업원수")),
+    ("운영시설현황", ("전화번호", "연면적(m2)", "주요시설")),
+    ("공원및녹지점용허가", ("유형명", "토지면적", "허가시작일자", "허가종료일자", "공시지가", "점용료", "데이터기준일자")),
+    ("기타테마파크업소", ("전화번호",)),
+    ("무더위쉼터", ("시설면적", "이용가능인원(명)", "운영일", "시작시간", "종료시간", "선풍기", "에어컨")),
+    ("일반음식점", ("전화번호",)),
+)
 
 
 class LocalCsvGeoDataRepository:
@@ -88,6 +115,7 @@ class LocalCsvGeoDataRepository:
             for row_number, row in enumerate(self._read_csv(csv_path), start=1):
                 total_records += 1
                 clean_row = _clean_row(row)
+                source = _source_name(csv_path)
                 if first_row is None:
                     first_row = clean_row
                 coordinate = _extract_coordinate(clean_row)
@@ -98,7 +126,7 @@ class LocalCsvGeoDataRepository:
 
                 objects.append(
                     GeoDataObject(
-                        source=_source_name(csv_path),
+                        source=source,
                         source_file=csv_path.name,
                         row_number=row_number,
                         name=_first_present(clean_row, NAME_COLUMNS),
@@ -106,7 +134,7 @@ class LocalCsvGeoDataRepository:
                         address=_first_present(clean_row, ADDRESS_COLUMNS),
                         administrative_area=_first_present(clean_row, ADMINISTRATIVE_AREA_COLUMNS),
                         coordinate=coordinate,
-                        properties=clean_row,
+                        properties=_agent_properties(source, clean_row),
                     )
                 )
 
@@ -133,6 +161,8 @@ class LocalCsvGeoDataRepository:
         administrative_area: str | None = None,
         sources: Iterable[str] | None = None,
         include_empty_layers: bool = False,
+        max_records_per_layer: int | None = 20,
+        max_total_records: int | None = 100,
     ) -> NearbyGeoDataBundle:
         """Return CSV rows relevant to a coordinate query, grouped by CSV.
 
@@ -145,6 +175,7 @@ class LocalCsvGeoDataRepository:
         center = Coordinate(latitude=latitude, longitude=longitude)
         source_filter = {source.casefold() for source in sources} if sources else None
         nearby_layers: list[NearbyGeoDataLayer] = []
+        matched_layer_counts: dict[str, int] = {}
         total_layers = 0
         coordinate_records = 0
         unresolved_records = 0
@@ -163,7 +194,10 @@ class LocalCsvGeoDataRepository:
             else:
                 nearby_objects = []
 
-            nearby_objects.sort(key=lambda item: item.distance_km)
+            nearby_objects.sort(key=lambda item: _nearby_sort_key(layer.kind, item))
+            matched_layer_counts[layer.source_file] = len(nearby_objects)
+            if max_records_per_layer is not None:
+                nearby_objects = nearby_objects[:max_records_per_layer]
             if not nearby_objects and not include_empty_layers:
                 continue
 
@@ -173,19 +207,33 @@ class LocalCsvGeoDataRepository:
                     source_file=layer.source_file,
                     kind=layer.kind,
                     objects=nearby_objects,
+                    matched_records=matched_layer_counts[layer.source_file],
+                    returned_records=len(nearby_objects),
                     total_records=layer.total_records,
                     coordinate_records=layer.coordinate_records,
                     unresolved_records=layer.unresolved_records,
                 )
             )
 
+        nearby_layers = _limit_layers_by_total_records(
+            nearby_layers,
+            max_total_records=max_total_records,
+        )
+        nearby_layers.sort(key=_layer_sort_key)
+        matched_records = sum(matched_layer_counts.values())
+        returned_records = sum(layer.returned_records for layer in nearby_layers)
+
         return NearbyGeoDataBundle(
             center=center,
             radius_km=radius_km,
             layers=nearby_layers,
             total_layers=total_layers,
+            matched_records=matched_records,
+            returned_records=returned_records,
             coordinate_records=coordinate_records,
             unresolved_records=unresolved_records,
+            max_records_per_layer=max_records_per_layer,
+            max_total_records=max_total_records,
             administrative_area=administrative_area,
         )
 
@@ -279,6 +327,62 @@ def _find_administrative_objects(
     ]
 
 
+def _limit_layers_by_total_records(
+    layers: list[NearbyGeoDataLayer],
+    max_total_records: int | None,
+) -> list[NearbyGeoDataLayer]:
+    if max_total_records is None:
+        return layers
+
+    kept_items: list[tuple[NearbyGeoDataLayer, NearbyGeoDataObject]] = []
+    for layer in layers:
+        for obj in layer.objects:
+            kept_items.append((layer, obj))
+
+    kept_items.sort(key=lambda item: _nearby_sort_key(item[0].kind, item[1]))
+    kept_items = kept_items[:max_total_records]
+
+    limited_layers: list[NearbyGeoDataLayer] = []
+    for layer in layers:
+        objects = [obj for candidate_layer, obj in kept_items if candidate_layer.source_file == layer.source_file]
+        if not objects:
+            continue
+        limited_layers.append(
+            NearbyGeoDataLayer(
+                source=layer.source,
+                source_file=layer.source_file,
+                kind=layer.kind,
+                objects=objects,
+                matched_records=layer.matched_records,
+                returned_records=len(objects),
+                total_records=layer.total_records,
+                coordinate_records=layer.coordinate_records,
+                unresolved_records=layer.unresolved_records,
+            )
+        )
+
+    return limited_layers
+
+
+def _nearby_sort_key(
+    layer_kind: GeoDataLayerKind,
+    item: NearbyGeoDataObject,
+) -> tuple[int, float, str, int]:
+    kind_order = 0 if layer_kind == GeoDataLayerKind.COORDINATE else 1
+    return (
+        kind_order,
+        item.distance_km,
+        item.object.source,
+        item.object.row_number,
+    )
+
+
+def _layer_sort_key(layer: NearbyGeoDataLayer) -> tuple[int, float, str]:
+    nearest_distance = min((item.distance_km for item in layer.objects), default=math.inf)
+    kind_order = 0 if layer.kind == GeoDataLayerKind.COORDINATE else 1
+    return (kind_order, nearest_distance, layer.source)
+
+
 def _clean_row(row: dict[str, str | None]) -> dict[str, str]:
     clean: dict[str, str] = {}
     for key, value in row.items():
@@ -289,6 +393,19 @@ def _clean_row(row: dict[str, str | None]) -> dict[str, str]:
         if clean_key and clean_value:
             clean[clean_key] = clean_value
     return clean
+
+
+def _agent_properties(source: str, row: dict[str, str]) -> dict[str, str]:
+    selected_columns = _property_columns_for_source(source)
+    return {column: row[column] for column in selected_columns if row.get(column)}
+
+
+def _property_columns_for_source(source: str) -> tuple[str, ...]:
+    normalized_source = unicodedata.normalize("NFC", source)
+    for source_key, columns in PROPERTY_COLUMN_RULES:
+        if source_key in normalized_source:
+            return columns
+    return ()
 
 
 def _extract_coordinate(row: dict[str, str]) -> Coordinate | None:
@@ -329,7 +446,7 @@ def _same_administrative_area(value: str | None, administrative_area: str) -> bo
 
 
 def _normalize_area_name(value: str) -> str:
-    return re.sub(r"\s+", "", value.strip())
+    return re.sub(r"\s+", "", unicodedata.normalize("NFC", value).strip())
 
 
 def _dms_to_decimal(row: dict[str, str], prefix: str) -> float | None:
@@ -370,4 +487,4 @@ def _to_float(value: str | None) -> float | None:
 
 
 def _source_name(csv_path: Path) -> str:
-    return CSV_DATE_SUFFIX.sub("", csv_path.stem)
+    return unicodedata.normalize("NFC", CSV_DATE_SUFFIX.sub("", csv_path.stem))

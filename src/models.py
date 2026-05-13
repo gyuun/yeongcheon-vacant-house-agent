@@ -97,6 +97,8 @@ class NearbyGeoDataLayer:
     source_file: str = field(metadata={"description": "CSV file name."})
     kind: GeoDataLayerKind = field(metadata={"description": "Join strategy for this source CSV."})
     objects: list[NearbyGeoDataObject] = field(metadata={"description": "Nearby objects in this layer."})
+    matched_records: int = field(metadata={"description": "Rows matched before query result limits."})
+    returned_records: int = field(metadata={"description": "Rows returned after query result limits."})
     total_records: int = field(metadata={"description": "Total row count in the CSV."})
     coordinate_records: int = field(metadata={"description": "Rows with usable coordinates."})
     unresolved_records: int = field(metadata={"description": "Rows without usable coordinates."})
@@ -110,8 +112,18 @@ class NearbyGeoDataBundle:
     radius_km: float = field(metadata={"description": "Search radius in kilometers."})
     layers: list[NearbyGeoDataLayer] = field(metadata={"description": "Source-grouped nearby objects."})
     total_layers: int = field(metadata={"description": "Total CSV layers scanned."})
+    matched_records: int = field(metadata={"description": "Total rows matched before query result limits."})
+    returned_records: int = field(metadata={"description": "Total rows returned after query result limits."})
     coordinate_records: int = field(metadata={"description": "Total rows with usable coordinates scanned."})
     unresolved_records: int = field(metadata={"description": "Total rows without usable coordinates scanned."})
+    max_records_per_layer: int | None = field(
+        default=None,
+        metadata={"description": "Maximum returned rows per layer, when applied."},
+    )
+    max_total_records: int | None = field(
+        default=None,
+        metadata={"description": "Maximum returned rows across all layers, when applied."},
+    )
     administrative_area: str | None = field(
         default=None,
         metadata={"description": "Administrative area used to attach area-level layers."},
