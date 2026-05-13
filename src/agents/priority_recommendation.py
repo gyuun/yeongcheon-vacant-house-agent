@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from dataclasses import replace
 from datetime import UTC, datetime
 from hashlib import sha1
 from typing import TypedDict
@@ -73,13 +74,22 @@ def fetch_public_data(
         record = client.get_vacant_house(state["house_id"])
     else:
         address = state["address"]
-        record = _record_from_address(address)
+        record = _record_from_address(
+            address,
+            latitude=state.get("latitude"),
+            longitude=state.get("longitude"),
+        )
+
+    latitude = state.get("latitude", record.latitude)
+    longitude = state.get("longitude", record.longitude)
+    if latitude is not None and longitude is not None:
+        record = replace(record, latitude=latitude, longitude=longitude)
 
     address = state.get("address") or record.address
     building_ledger = fetch_building_ledger_by_address(address, record)
     building_ledger_report = _summarize_building_ledger(building_ledger, record)
 
-    return {
+    next_state: PriorityState = {
         **state,
         "house_id": record.house_id,
         "address": address,
@@ -87,9 +97,17 @@ def fetch_public_data(
         "building_ledger": building_ledger,
         "building_ledger_report": building_ledger_report,
     }
+    if latitude is not None and longitude is not None:
+        next_state["latitude"] = latitude
+        next_state["longitude"] = longitude
+    return next_state
 
 
-def _record_from_address(address: str) -> VacantHouseRecord:
+def _record_from_address(
+    address: str,
+    latitude: float | None = None,
+    longitude: float | None = None,
+) -> VacantHouseRecord:
     address_id = int(sha1(address.encode("utf-8")).hexdigest()[:8], 16) % 100000
     return VacantHouseRecord(
         house_id=f"ADDR-{address_id}",
@@ -101,6 +119,8 @@ def _record_from_address(address: str) -> VacantHouseRecord:
         distance_to_road_m=30.0,
         distance_to_public_facility_m=180.0,
         land_area_m2=100.0,
+        latitude=latitude,
+        longitude=longitude,
         metadata={"source": "address-placeholder"},
     )
 

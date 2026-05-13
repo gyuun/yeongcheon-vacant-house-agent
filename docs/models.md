@@ -66,6 +66,8 @@
 | `distance_to_road_m` | `float` | 도로까지의 거리 |
 | `distance_to_public_facility_m` | `float` | 공공시설까지의 거리 |
 | `land_area_m2` | `float` | 토지 면적 |
+| `latitude` | `float \| None` | WGS84 위도. 좌표가 없는 지번-only 데이터는 `None` |
+| `longitude` | `float \| None` | WGS84 경도. 좌표가 없는 지번-only 데이터는 `None` |
 | `metadata` | `dict[str, Any]` | 데이터 출처, API 응답 원문 ID, 행정동 코드 등 부가 정보 |
 
 ## BuildingLedgerInfo

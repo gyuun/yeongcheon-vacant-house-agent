@@ -269,8 +269,11 @@ class VacantHouseRecord:
 
     This model is the priority recommendation agent's main input. It captures
     condition, vacancy duration, complaints, accessibility, and land-size
-    signals used by the current scoring heuristic. API-specific fields that do
-    not yet belong in the core schema can be stored in `metadata`.
+    signals used by the current scoring heuristic. Latitude/longitude are
+    optional so records can represent the current parcel-only source while also
+    supporting coordinate-aware nearby-context analysis when coordinates are
+    provided. API-specific fields that do not yet belong in the core schema can
+    be stored in `metadata`.
     """
 
     house_id: str = field(metadata={"description": "Vacant house identifier."})
@@ -288,6 +291,14 @@ class VacantHouseRecord:
         metadata={"description": "Distance to the nearest public facility in meters."}
     )
     land_area_m2: float = field(metadata={"description": "Land area in square meters."})
+    latitude: float | None = field(
+        default=None,
+        metadata={"description": "WGS84 latitude in decimal degrees, when available."},
+    )
+    longitude: float | None = field(
+        default=None,
+        metadata={"description": "WGS84 longitude in decimal degrees, when available."},
+    )
     metadata: dict[str, Any] = field(
         default_factory=dict,
         metadata={"description": "Additional public-data source fields or raw API context."},

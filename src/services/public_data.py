@@ -28,6 +28,8 @@ class MockPublicDataClient(PublicDataClient):
                 distance_to_road_m=12.0,
                 distance_to_public_facility_m=280.0,
                 land_area_m2=142.5,
+                latitude=35.9682723,
+                longitude=128.931526,
                 metadata={"source": "mock"},
             ),
             "YC-002": VacantHouseRecord(
@@ -40,6 +42,8 @@ class MockPublicDataClient(PublicDataClient):
                 distance_to_road_m=38.0,
                 distance_to_public_facility_m=90.0,
                 land_area_m2=84.0,
+                latitude=35.9614,
+                longitude=128.9381,
                 metadata={"source": "mock"},
             ),
         }
