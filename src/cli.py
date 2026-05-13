@@ -46,8 +46,8 @@ def run_redevelopment_demo(
     longitude: float | None = None,
     radius_km: float = 0.5,
     administrative_area: str | None = None,
-    max_records_per_layer: int | None = 20,
-    max_total_records: int | None = 100,
+    max_records_per_layer: int | None = 5,
+    max_total_records: int | None = 20,
 ) -> dict[str, Any]:
     graph = build_redevelopment_recommendation_graph()
     payload: dict[str, Any] = {}
@@ -80,8 +80,8 @@ def run_nearby_data(
     longitude: float,
     radius_km: float,
     administrative_area: str | None = None,
-    max_records_per_layer: int | None = 20,
-    max_total_records: int | None = 100,
+    max_records_per_layer: int | None = 5,
+    max_total_records: int | None = 20,
 ) -> dict[str, Any]:
     repository = LocalCsvGeoDataRepository()
     bundle = repository.find_nearby(
@@ -136,16 +136,16 @@ def main() -> None:
     redevelopment_parser.add_argument("--lon", type=float, help="Longitude for nearby CSV context")
     redevelopment_parser.add_argument("--radius-km", type=float, default=0.5, help="Nearby context radius")
     redevelopment_parser.add_argument("--admin-area", help="Administrative area resolved from the coordinate")
-    redevelopment_parser.add_argument("--max-per-layer", type=int, default=20, help="Maximum results per CSV layer")
-    redevelopment_parser.add_argument("--max-total", type=int, default=100, help="Maximum results across all layers")
+    redevelopment_parser.add_argument("--max-per-layer", type=int, default=5, help="Maximum results per CSV layer")
+    redevelopment_parser.add_argument("--max-total", type=int, default=20, help="Maximum results across all layers")
 
     nearby_parser = subparsers.add_parser("nearby", help="Find local CSV objects near a coordinate")
     nearby_parser.add_argument("--lat", type=float, required=True, help="Latitude in decimal degrees")
     nearby_parser.add_argument("--lon", type=float, required=True, help="Longitude in decimal degrees")
     nearby_parser.add_argument("--radius-km", type=float, default=0.5, help="Search radius in kilometers")
     nearby_parser.add_argument("--admin-area", help="Administrative area resolved from the coordinate")
-    nearby_parser.add_argument("--max-per-layer", type=int, default=20, help="Maximum results per CSV layer")
-    nearby_parser.add_argument("--max-total", type=int, default=100, help="Maximum results across all layers")
+    nearby_parser.add_argument("--max-per-layer", type=int, default=5, help="Maximum results per CSV layer")
+    nearby_parser.add_argument("--max-total", type=int, default=20, help="Maximum results across all layers")
     args = parser.parse_args()
 
     if args.command == "serve":

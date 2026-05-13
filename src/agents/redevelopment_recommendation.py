@@ -265,8 +265,8 @@ def analyze_nearby_context(state: RedevelopmentState) -> RedevelopmentState:
         longitude=state["longitude"],
         radius_km=state.get("radius_km", 0.5),
         administrative_area=state.get("administrative_area"),
-        max_records_per_layer=state.get("max_records_per_layer", 20),
-        max_total_records=state.get("max_total_records", 100),
+        max_records_per_layer=state.get("max_records_per_layer", 5),
+        max_total_records=state.get("max_total_records", 20),
     )
     return {"nearby_report": _summarize_nearby_context(nearby_context)}
 

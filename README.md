@@ -44,7 +44,7 @@ uv run yeongcheon-agent redevelopment --house-id YC-001 --lat 35.9682723 --lon 1
 uv run yeongcheon-agent redevelopment --address "경상북도 영천시 중앙동" --photo-base64 "<base64-photo>" --lat 35.9682723 --lon 128.931526 --radius-km 2
 uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2
 uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2 --admin-area 동부동
-uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2 --max-per-layer 10 --max-total 50
+uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2 --max-per-layer 5 --max-total 20
 ```
 
 또는:

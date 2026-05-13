@@ -14,8 +14,8 @@ def get_nearby_public_data_bundle(
     longitude: float,
     radius_km: float = 0.5,
     administrative_area: str | None = None,
-    max_records_per_layer: int | None = 20,
-    max_total_records: int | None = 100,
+    max_records_per_layer: int | None = 5,
+    max_total_records: int | None = 20,
 ) -> NearbyGeoDataBundle:
     """Return nearby public CSV context as typed models for graph nodes."""
 
@@ -35,8 +35,8 @@ def find_nearby_public_data(
     longitude: float,
     radius_km: float = 0.5,
     administrative_area: str | None = None,
-    max_records_per_layer: int | None = 20,
-    max_total_records: int | None = 100,
+    max_records_per_layer: int | None = 5,
+    max_total_records: int | None = 20,
 ) -> dict[str, Any]:
     """Find Yeongcheon public CSV rows relevant to a coordinate query.
 

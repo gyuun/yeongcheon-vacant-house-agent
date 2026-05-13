@@ -161,8 +161,8 @@ class LocalCsvGeoDataRepository:
         administrative_area: str | None = None,
         sources: Iterable[str] | None = None,
         include_empty_layers: bool = False,
-        max_records_per_layer: int | None = 20,
-        max_total_records: int | None = 100,
+        max_records_per_layer: int | None = 5,
+        max_total_records: int | None = 20,
     ) -> NearbyGeoDataBundle:
         """Return CSV rows relevant to a coordinate query, grouped by CSV.
 

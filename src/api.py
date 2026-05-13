@@ -25,8 +25,8 @@ class RedevelopmentRecommendationRequest(BaseModel):
     photo_image_mime_type: str = Field(default="image/jpeg", description="Photo MIME type.")
     radius_km: float = Field(default=0.5, description="Nearby context radius.")
     administrative_area: str | None = Field(default=None, description="Administrative area name.")
-    max_records_per_layer: int | None = Field(default=20, description="Maximum results per CSV layer.")
-    max_total_records: int | None = Field(default=100, description="Maximum results across all CSV layers.")
+    max_records_per_layer: int | None = Field(default=5, description="Maximum results per CSV layer.")
+    max_total_records: int | None = Field(default=20, description="Maximum results across all CSV layers.")
 
 
 class NearbyDataRequest(BaseModel):
@@ -34,8 +34,8 @@ class NearbyDataRequest(BaseModel):
     longitude: float = Field(description="WGS84 longitude.")
     radius_km: float = Field(default=0.5, description="Search radius in kilometers.")
     administrative_area: str | None = Field(default=None, description="Administrative area name.")
-    max_records_per_layer: int | None = Field(default=20, description="Maximum results per CSV layer.")
-    max_total_records: int | None = Field(default=100, description="Maximum results across all CSV layers.")
+    max_records_per_layer: int | None = Field(default=5, description="Maximum results per CSV layer.")
+    max_total_records: int | None = Field(default=20, description="Maximum results across all CSV layers.")
 
 
 def _jsonable(value: Any) -> Any:
