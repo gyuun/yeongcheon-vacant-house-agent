@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import base64
+from pathlib import Path
 from typing import TypedDict
 
 from langchain_core.messages import HumanMessage
@@ -35,6 +37,12 @@ class PatrolImageDecision(BaseModel):
         default_factory=list,
         description="Suggested follow-up actions for city staff or patrol operations.",
     )
+
+
+def image_to_base64(image_path: str | Path) -> str:
+    """Return an image file as a plain base64 string."""
+
+    return base64.b64encode(Path(image_path).read_bytes()).decode("ascii")
 
 
 def _build_prompt(request: PatrolImageInput) -> list[dict[str, object]]:
