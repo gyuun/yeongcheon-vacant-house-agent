@@ -8,6 +8,7 @@ from langchain_core.messages import HumanMessage
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel, Field, ValidationError
 
+from src.agents.prompts import load_prompt
 from src.models import (
     BuildingLedgerInfo,
     MaintenancePriority,
@@ -205,14 +206,9 @@ def interpret_photo(state: PriorityState) -> PriorityState:
         return {"photo_report": _mock_photo_report(state)}
 
     mime_type = state.get("photo_image_mime_type", "image/jpeg")
-    prompt = (
-        "당신은 영천시 빈집 사진 해석 서브에이전트입니다. "
-        "입력 사진에서 붕괴, 균열, 화재 흔적, 폐기물, 출입 흔적, 안전 위해 요소와 "
-        "재활용 가능성을 한국어 구조화 리포트로 판단하세요."
-    )
     message = HumanMessage(
         content=[
-            {"type": "text", "text": prompt},
+            {"type": "text", "text": load_prompt("priority_photo_interpretation_prompt.md")},
             {
                 "type": "image_url",
                 "image_url": f"data:{mime_type};base64,{state['photo_image_base64']}",

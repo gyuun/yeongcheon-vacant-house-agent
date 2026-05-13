@@ -6,6 +6,7 @@ from langchain_core.messages import HumanMessage
 from langgraph.graph import END, StateGraph
 from pydantic import BaseModel, Field, ValidationError
 
+from src.agents.prompts import load_prompt
 from src.models import (
     PatrolImageAssessment,
     PatrolImageInput,
@@ -37,15 +38,8 @@ class PatrolImageDecision(BaseModel):
 
 
 def _build_prompt(request: PatrolImageInput) -> list[dict[str, object]]:
-    text = (
-        "You are a vacant-house patrol inspection agent for Yeongcheon city. "
-        "Compare the baseline image and current patrol image. Identify visible "
-        "changes such as break-in traces, fire/smoke damage, illegal dumping, "
-        "structural collapse, water leakage, vandalism, or safety hazards. "
-        "Return the requested structured assessment only."
-    )
     return [
-        {"type": "text", "text": text},
+        {"type": "text", "text": load_prompt("patrol_prompt.md")},
         {
             "type": "image_url",
             "image_url": f"data:image/jpeg;base64,{request.baseline_image_base64}",
