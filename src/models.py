@@ -22,6 +22,102 @@ class MaintenancePriority(str, Enum):
     URGENT = "urgent"
 
 
+class GeoDataLayerKind(str, Enum):
+    """How a CSV layer can be joined to a coordinate query."""
+
+    COORDINATE = "coordinate"
+    ADMINISTRATIVE_AREA = "administrative_area"
+    ADDRESS_UNRESOLVED = "address_unresolved"
+
+
+@dataclass(frozen=True)
+class Coordinate:
+    """WGS84 latitude/longitude coordinate."""
+
+    latitude: float = field(metadata={"description": "Latitude in decimal degrees."})
+    longitude: float = field(metadata={"description": "Longitude in decimal degrees."})
+
+
+@dataclass(frozen=True)
+class GeoDataObject:
+    """One row from a local public-data CSV, normalized around location.
+
+    `source` identifies the CSV layer. `properties` preserves the original row
+    so recommendation agents can inspect fields that are specific to one CSV.
+    Rows without coordinates are still represented with `coordinate=None`; they
+    can be geocoded later without changing the surrounding-data contract.
+    """
+
+    source: str = field(metadata={"description": "Human-readable source CSV layer name."})
+    source_file: str = field(metadata={"description": "CSV file name."})
+    row_number: int = field(metadata={"description": "1-based data row number in the source CSV."})
+    name: str | None = field(default=None, metadata={"description": "Best-effort display name."})
+    category: str | None = field(default=None, metadata={"description": "Best-effort row category/type."})
+    address: str | None = field(default=None, metadata={"description": "Best-effort address field."})
+    administrative_area: str | None = field(
+        default=None,
+        metadata={"description": "Best-effort administrative area such as 읍면동, 행정동, or 법정동."},
+    )
+    coordinate: Coordinate | None = field(
+        default=None,
+        metadata={"description": "Row coordinate when the CSV provides one."},
+    )
+    properties: dict[str, Any] = field(
+        default_factory=dict,
+        metadata={"description": "Original CSV row with empty values removed."},
+    )
+
+
+@dataclass(frozen=True)
+class GeoDataLayer:
+    """Objects loaded from one CSV file."""
+
+    source: str = field(metadata={"description": "Human-readable source CSV layer name."})
+    source_file: str = field(metadata={"description": "CSV file name."})
+    kind: GeoDataLayerKind = field(metadata={"description": "Join strategy for this source CSV."})
+    objects: list[GeoDataObject] = field(metadata={"description": "Rows from this CSV."})
+    total_records: int = field(metadata={"description": "Total row count in the CSV."})
+    coordinate_records: int = field(metadata={"description": "Rows with usable coordinates."})
+    unresolved_records: int = field(metadata={"description": "Rows without usable coordinates."})
+
+
+@dataclass(frozen=True)
+class NearbyGeoDataObject:
+    """A geospatial CSV row that falls within a requested radius."""
+
+    object: GeoDataObject = field(metadata={"description": "Original normalized CSV object."})
+    distance_km: float = field(metadata={"description": "Distance from query point in kilometers."})
+
+
+@dataclass(frozen=True)
+class NearbyGeoDataLayer:
+    """Nearby objects grouped by their source CSV layer."""
+
+    source: str = field(metadata={"description": "Human-readable source CSV layer name."})
+    source_file: str = field(metadata={"description": "CSV file name."})
+    kind: GeoDataLayerKind = field(metadata={"description": "Join strategy for this source CSV."})
+    objects: list[NearbyGeoDataObject] = field(metadata={"description": "Nearby objects in this layer."})
+    total_records: int = field(metadata={"description": "Total row count in the CSV."})
+    coordinate_records: int = field(metadata={"description": "Rows with usable coordinates."})
+    unresolved_records: int = field(metadata={"description": "Rows without usable coordinates."})
+
+
+@dataclass(frozen=True)
+class NearbyGeoDataBundle:
+    """All nearby CSV data grouped by source layer."""
+
+    center: Coordinate = field(metadata={"description": "Query center coordinate."})
+    radius_km: float = field(metadata={"description": "Search radius in kilometers."})
+    layers: list[NearbyGeoDataLayer] = field(metadata={"description": "Source-grouped nearby objects."})
+    total_layers: int = field(metadata={"description": "Total CSV layers scanned."})
+    coordinate_records: int = field(metadata={"description": "Total rows with usable coordinates scanned."})
+    unresolved_records: int = field(metadata={"description": "Total rows without usable coordinates scanned."})
+    administrative_area: str | None = field(
+        default=None,
+        metadata={"description": "Administrative area used to attach area-level layers."},
+    )
+
+
 @dataclass(frozen=True)
 class PatrolImageInput:
     """Image comparison request submitted by a patrol robot.

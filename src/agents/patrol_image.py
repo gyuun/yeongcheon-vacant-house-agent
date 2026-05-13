@@ -1,10 +1,10 @@
 from __future__ import annotations
 
-import json
 from typing import TypedDict
 
 from langchain_core.messages import HumanMessage
 from langgraph.graph import END, StateGraph
+from pydantic import BaseModel, Field, ValidationError
 
 from src.models import (
     PatrolImageAssessment,
@@ -20,14 +20,29 @@ class PatrolImageState(TypedDict, total=False):
     error: str
 
 
+class PatrolImageDecision(BaseModel):
+    """Model-owned fields for one patrol image assessment."""
+
+    is_anomaly: bool = Field(description="Whether the current patrol image shows abnormal changes.")
+    risk_level: RiskLevel = Field(description="Risk severity of the detected condition.")
+    summary: str = Field(description="Human-readable summary of the image assessment.", min_length=1)
+    evidence: list[str] = Field(
+        default_factory=list,
+        description="Visible clues or model-observed differences supporting the assessment.",
+    )
+    recommended_actions: list[str] = Field(
+        default_factory=list,
+        description="Suggested follow-up actions for city staff or patrol operations.",
+    )
+
+
 def _build_prompt(request: PatrolImageInput) -> list[dict[str, object]]:
     text = (
         "You are a vacant-house patrol inspection agent for Yeongcheon city. "
         "Compare the baseline image and current patrol image. Identify visible "
         "changes such as break-in traces, fire/smoke damage, illegal dumping, "
         "structural collapse, water leakage, vandalism, or safety hazards. "
-        "Return compact JSON with keys: is_anomaly, risk_level, summary, "
-        "evidence, recommended_actions."
+        "Return the requested structured assessment only."
     )
     return [
         {"type": "text", "text": text},
@@ -42,43 +57,33 @@ def _build_prompt(request: PatrolImageInput) -> list[dict[str, object]]:
     ]
 
 
-def _parse_model_output(request: PatrolImageInput, raw: str) -> PatrolImageAssessment:
-    try:
-        parsed = json.loads(raw)
-    except json.JSONDecodeError:
-        return PatrolImageAssessment(
-            house_id=request.house_id,
-            spot_id=request.spot_id,
-            is_anomaly=True,
-            risk_level=RiskLevel.MEDIUM,
-            summary=raw.strip() or "모델 응답을 JSON으로 파싱하지 못했습니다.",
-            evidence=["unstructured_model_output"],
-            recommended_actions=["담당자 육안 검토"],
-            raw_model_output=raw,
-        )
-
-    try:
-        risk_level = RiskLevel(parsed.get("risk_level", RiskLevel.MEDIUM.value))
-    except ValueError:
-        risk_level = RiskLevel.MEDIUM
-
-    evidence = parsed.get("evidence", [])
-    if isinstance(evidence, str):
-        evidence = [evidence]
-
-    recommended_actions = parsed.get("recommended_actions", [])
-    if isinstance(recommended_actions, str):
-        recommended_actions = [recommended_actions]
-
+def _build_assessment(
+    request: PatrolImageInput,
+    decision: PatrolImageDecision,
+    raw_model_output: str | None = None,
+) -> PatrolImageAssessment:
     return PatrolImageAssessment(
         house_id=request.house_id,
         spot_id=request.spot_id,
-        is_anomaly=bool(parsed.get("is_anomaly", False)),
-        risk_level=risk_level,
-        summary=str(parsed.get("summary", "")),
-        evidence=list(evidence),
-        recommended_actions=list(recommended_actions),
-        raw_model_output=raw,
+        is_anomaly=decision.is_anomaly,
+        risk_level=decision.risk_level,
+        summary=decision.summary,
+        evidence=decision.evidence,
+        recommended_actions=decision.recommended_actions,
+        raw_model_output=raw_model_output,
+    )
+
+
+def _fallback_assessment(request: PatrolImageInput, error: Exception) -> PatrolImageAssessment:
+    return PatrolImageAssessment(
+        house_id=request.house_id,
+        spot_id=request.spot_id,
+        is_anomaly=True,
+        risk_level=RiskLevel.MEDIUM,
+        summary="모델 응답을 구조화된 순찰 이미지 판정으로 변환하지 못했습니다.",
+        evidence=["structured_output_failure"],
+        recommended_actions=["담당자 육안 검토"],
+        raw_model_output=str(error),
     )
 
 
@@ -109,9 +114,15 @@ def infer_image_anomaly(state: PatrolImageState) -> PatrolImageState:
         return {"request": request, "assessment": _mock_assessment(request)}
 
     message = HumanMessage(content=_build_prompt(request))
-    response = model.invoke([message])
-    raw = str(response.content)
-    return {"request": request, "assessment": _parse_model_output(request, raw)}
+    structured_model = model.with_structured_output(PatrolImageDecision)
+    try:
+        decision = structured_model.invoke([message])
+        if not isinstance(decision, PatrolImageDecision):
+            decision = PatrolImageDecision.model_validate(decision)
+    except (ValidationError, ValueError, TypeError) as exc:
+        return {"request": request, "assessment": _fallback_assessment(request, exc)}
+
+    return {"request": request, "assessment": _build_assessment(request, decision)}
 
 
 def build_patrol_image_graph():

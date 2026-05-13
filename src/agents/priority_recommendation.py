@@ -6,15 +6,22 @@ from langgraph.graph import END, StateGraph
 
 from src.models import (
     MaintenancePriority,
+    NearbyGeoDataBundle,
     PriorityRecommendation,
     VacantHouseRecord,
 )
 from src.services.public_data import MockPublicDataClient, PublicDataClient
+from src.services.local_csv_data import LocalCsvGeoDataRepository
 
 
 class PriorityState(TypedDict, total=False):
     house_id: str
+    latitude: float
+    longitude: float
+    radius_km: float
+    administrative_area: str
     record: VacantHouseRecord
+    nearby_context: NearbyGeoDataBundle
     recommendation: PriorityRecommendation
 
 
@@ -24,7 +31,18 @@ def fetch_public_data(
 ) -> PriorityState:
     client = public_data_client or MockPublicDataClient()
     record = client.get_vacant_house(state["house_id"])
-    return {"house_id": state["house_id"], "record": record}
+    next_state: PriorityState = {**state, "record": record}
+
+    if "latitude" in state and "longitude" in state:
+        radius_km = state.get("radius_km", 2.0)
+        next_state["nearby_context"] = LocalCsvGeoDataRepository().find_nearby(
+            latitude=state["latitude"],
+            longitude=state["longitude"],
+            radius_km=radius_km,
+            administrative_area=state.get("administrative_area"),
+        )
+
+    return next_state
 
 
 def _score(record: VacantHouseRecord) -> float:
@@ -62,17 +80,31 @@ def recommend_priority(state: PriorityState) -> PriorityState:
     record = state["record"]
     score = _score(record)
     priority = _priority(score)
+    rationale = [
+        f"건축물 노후도 {record.building_age_years}년",
+        f"공실 기간 {record.vacancy_years}년",
+        f"구조 등급 {record.structure_grade}",
+        f"최근 1년 민원 {record.complaints_last_year}건",
+    ]
+
+    nearby_context = state.get("nearby_context")
+    if nearby_context is not None:
+        matched_layers = [layer for layer in nearby_context.layers if layer.objects]
+        nearby_count = sum(len(layer.objects) for layer in matched_layers)
+        if nearby_count:
+            rationale.append(
+                f"반경 {nearby_context.radius_km}km 내 공공데이터 {len(matched_layers)}개 레이어 "
+                f"{nearby_count}건 확인"
+            )
+        if nearby_context.administrative_area:
+            rationale.append(f"{nearby_context.administrative_area} 행정구역 단위 데이터 포함")
+
     recommendation = PriorityRecommendation(
         house_id=record.house_id,
         priority=priority,
         score=score,
         recommended_use=_recommend_use(record, priority),
-        rationale=[
-            f"건축물 노후도 {record.building_age_years}년",
-            f"공실 기간 {record.vacancy_years}년",
-            f"구조 등급 {record.structure_grade}",
-            f"최근 1년 민원 {record.complaints_last_year}건",
-        ],
+        rationale=rationale,
         required_data=[
             "소유자 동의 여부",
             "토지/건축물대장 상세",
