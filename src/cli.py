@@ -38,7 +38,10 @@ def run_patrol_demo() -> dict[str, Any]:
 
 
 def run_priority_demo(
-    house_id: str,
+    house_id: str | None = None,
+    address: str | None = None,
+    photo_image_base64: str | None = None,
+    photo_image_mime_type: str = "image/jpeg",
     latitude: float | None = None,
     longitude: float | None = None,
     radius_km: float = 2.0,
@@ -47,7 +50,16 @@ def run_priority_demo(
     max_total_records: int | None = 100,
 ) -> dict[str, Any]:
     graph = build_priority_recommendation_graph()
-    payload: dict[str, Any] = {"house_id": house_id}
+    payload: dict[str, Any] = {}
+    if house_id is not None:
+        payload["house_id"] = house_id
+    if address is not None:
+        payload["address"] = address
+    if "house_id" not in payload and "address" not in payload:
+        payload["house_id"] = "YC-001"
+    if photo_image_base64 is not None:
+        payload["photo_image_base64"] = photo_image_base64
+        payload["photo_image_mime_type"] = photo_image_mime_type
     if latitude is not None and longitude is not None:
         payload.update(
             {
@@ -111,7 +123,10 @@ def main() -> None:
     subparsers.add_parser("patrol", help="Run patrol image assessment demo")
 
     priority_parser = subparsers.add_parser("priority", help="Run priority recommendation demo")
-    priority_parser.add_argument("--house-id", default="YC-001", help="Vacant house identifier")
+    priority_parser.add_argument("--house-id", help="Vacant house identifier")
+    priority_parser.add_argument("--address", help="Vacant house address")
+    priority_parser.add_argument("--photo-base64", help="Base64-encoded vacant-house photo")
+    priority_parser.add_argument("--photo-mime-type", default="image/jpeg", help="Photo MIME type")
     priority_parser.add_argument("--lat", type=float, help="Latitude for nearby CSV context")
     priority_parser.add_argument("--lon", type=float, help="Longitude for nearby CSV context")
     priority_parser.add_argument("--radius-km", type=float, default=2.0, help="Nearby context radius")
@@ -132,13 +147,16 @@ def main() -> None:
         result = run_patrol_demo()
     elif args.command == "priority":
         result = run_priority_demo(
-            args.house_id,
-            args.lat,
-            args.lon,
-            args.radius_km,
-            args.admin_area,
-            args.max_per_layer,
-            args.max_total,
+            house_id=args.house_id,
+            address=args.address,
+            photo_image_base64=args.photo_base64,
+            photo_image_mime_type=args.photo_mime_type,
+            latitude=args.lat,
+            longitude=args.lon,
+            radius_km=args.radius_km,
+            administrative_area=args.admin_area,
+            max_records_per_layer=args.max_per_layer,
+            max_total_records=args.max_total,
         )
     else:
         result = run_nearby_data(

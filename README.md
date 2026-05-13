@@ -13,13 +13,15 @@
 
 ## Agent 2: 빈집 정비 우선순위 및 용도 추천
 
-공공데이터 API가 확정되기 전까지 `MockPublicDataClient`를 통해 빈집 데이터를 공급합니다. 이후 실제 API 래퍼가 정해지면 `PublicDataClient` 구현체만 교체하면 됩니다.
+메인 에이전트는 빈집 주소와 사진을 입력받아 주소 기반 건축물대장 조회를 먼저 수행합니다. 건축물대장 API가 확정되기 전까지는 `fetch_building_ledger_by_address` 목업 경계를 사용합니다.
+이후 사진 해석 서브에이전트와 좌표 주변 공공데이터 분석 서브에이전트를 호출하고, 건축물대장 정보와 두 리포트를 종합해 최종 우선순위와 활용 방향을 판단합니다.
+기존 `house_id` 기반 데모는 `MockPublicDataClient`를 통해 계속 지원합니다. 이후 실제 API 래퍼가 정해지면 `PublicDataClient` 구현체와 건축물대장 조회 함수만 교체하면 됩니다.
 판단 결과는 DB에 저장됩니다.
 우선 순위 및 용도 추천은 LLM as Judge 를 통해 결정 됩니다.
 
-- 입력: `house_id`
+- 입력: `address`, `photo_image_base64`, 선택적으로 `house_id`, `latitude`, `longitude`
 - 출력: `PriorityRecommendation`
-- 현재 판단 요소: 노후도, 공실 기간, 구조 등급, 민원 건수, 도로 접근성, 공공시설 거리, 토지 면적
+- 현재 판단 요소: 건축물대장 정보, 사진 기반 외관 위험 신호, 주변 공공데이터, 노후도, 공실 기간, 구조 등급, 민원 건수, 도로 접근성, 공공시설 거리, 토지 면적
 
 `data/` 아래 CSV들은 `LocalCsvGeoDataRepository`가 CSV별 레이어로 읽습니다. 각 행은 `GeoDataObject`로 정규화되고, 원본 row는 `properties`에 보존됩니다.
 
@@ -36,7 +38,9 @@ CSV 레이어는 세 종류로 나뉩니다.
 ```bash
 uv run yeongcheon-agent patrol
 uv run yeongcheon-agent priority --house-id YC-001
+uv run yeongcheon-agent priority --address "경상북도 영천시 중앙동" --photo-base64 "<base64-photo>"
 uv run yeongcheon-agent priority --house-id YC-001 --lat 35.9682723 --lon 128.931526 --radius-km 2
+uv run yeongcheon-agent priority --address "경상북도 영천시 중앙동" --photo-base64 "<base64-photo>" --lat 35.9682723 --lon 128.931526 --radius-km 2
 uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2
 uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2 --admin-area 동부동
 uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2 --max-per-layer 10 --max-total 50
