@@ -87,7 +87,7 @@
 | `source` | `str` | 데이터 출처 어댑터 |
 | `raw` | `dict[str, Any]` | 원문 API 응답 또는 디버깅 정보 |
 
-## PriorityRecommendation
+## RedevelopmentRecommendation
 
 빈집 재건축 용도 추천 에이전트의 결과 데이터다.
 

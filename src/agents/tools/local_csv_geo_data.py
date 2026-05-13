@@ -12,7 +12,7 @@ from src.services.local_csv_data import LocalCsvGeoDataRepository
 def get_nearby_public_data_bundle(
     latitude: float,
     longitude: float,
-    radius_km: float = 2.0,
+    radius_km: float = 0.5,
     administrative_area: str | None = None,
     max_records_per_layer: int | None = 20,
     max_total_records: int | None = 100,
@@ -33,7 +33,7 @@ def get_nearby_public_data_bundle(
 def find_nearby_public_data(
     latitude: float,
     longitude: float,
-    radius_km: float = 2.0,
+    radius_km: float = 0.5,
     administrative_area: str | None = None,
     max_records_per_layer: int | None = 20,
     max_total_records: int | None = 100,
@@ -57,4 +57,4 @@ def find_nearby_public_data(
     return asdict(bundle)
 
 
-PRIORITY_RECOMMENDATION_TOOLS = [find_nearby_public_data]
+REDEVELOPMENT_RECOMMENDATION_TOOLS = [find_nearby_public_data]

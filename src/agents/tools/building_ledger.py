@@ -26,7 +26,7 @@ def search_building_ledger_by_jibun(jibun_address: str) -> dict[str, Any]:
     The input must be a parcel-lot address, not a road-name address. The tool
     parses the address into building-register API request parameters, calls
     `/getBrBasisOulnInfo` and `/getBrTitleInfo`, and returns only the fields
-    used by the priority recommendation agent plus raw API payloads.
+    used by the redevelopment recommendation agent plus raw API payloads.
     """
 
     try:

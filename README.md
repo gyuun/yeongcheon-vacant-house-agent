@@ -13,14 +13,14 @@
 
 ## Agent 2: 빈집 재건축 용도 추천
 
-메인 에이전트는 빈집 주소, 좌표, 사진을 입력받아 주소 기반 건축물대장 조회를 먼저 수행합니다. 건축물대장 API가 확정되기 전까지는 `fetch_building_ledger_by_address` 목업 경계를 사용합니다.
+메인 에이전트는 빈집 주소, 좌표, 사진을 입력받아 주소 기반 건축물대장 조회를 먼저 수행합니다. 지번 주소의 법정동코드는 `data/법정동코드 조회자료.csv`에서 자동 검색하고, `BUILDING_OPEN_API_KEY_ENCODING` 또는 `BUILDING_OPEN_API_KEY_DECODING`이 설정되어 있으면 건축물대장 기본개요/표제부 API를 호출합니다. API 키가 없거나 조회가 실패하면 데모 흐름 유지를 위해 목업 건축물대장 정보로 fallback합니다.
 이후 사진 해석 서브에이전트와 좌표 주변 공공데이터 분석 서브에이전트를 호출하고, 건축물대장 정보와 두 리포트를 종합해 최종 재건축 용도를 추천합니다.
-기존 `house_id` 기반 데모는 `MockPublicDataClient`를 통해 계속 지원합니다. 이후 실제 API 래퍼가 정해지면 `PublicDataClient` 구현체와 건축물대장 조회 함수만 교체하면 됩니다.
+기존 `house_id` 기반 데모는 `MockPublicDataClient`를 통해 계속 지원합니다. 이후 실제 빈집 원천 API가 정해지면 `PublicDataClient` 구현체를 교체하면 됩니다.
 판단 결과는 DB에 저장됩니다.
 재건축 용도 추천은 LLM as Judge 를 통해 결정 됩니다.
 
 - 입력: `address`, `latitude`, `longitude`, `photo_image_base64`, 선택적으로 `house_id`
-- 출력: `PriorityRecommendation`
+- 출력: `RedevelopmentRecommendation`
 - 현재 판단 요소: 건축물대장 정보, 사진 기반 외관/주변 경관 맥락, 주변 공공데이터, 노후도, 공실 기간, 구조 등급, 민원 건수, 도로 접근성, 공공시설 거리, 토지 면적
 
 `data/` 아래 CSV들은 `LocalCsvGeoDataRepository`가 CSV별 레이어로 읽습니다. 각 행은 `GeoDataObject`로 정규화되고, 원본 row는 `properties`에 보존됩니다.
@@ -31,17 +31,17 @@ CSV 레이어는 세 종류로 나뉩니다.
 - `administrative_area`: 좌표는 없고 `읍면동`, `행정동`, `법정동` 같은 행정구역 단위로 묶인 데이터. 좌표에서 행정동이 판정되면 해당 동 row를 함께 제공합니다.
 - `address_unresolved`: 지번/도로명주소는 있지만 좌표가 없는 데이터. 추후 주소-좌표 변환으로 증강하기 전까지 반경 검색에서는 제외합니다.
 
-빈집 레코드에 좌표가 있거나 요청 payload에 좌표가 있으면 추천 그래프가 주변 CSV 컨텍스트를 같이 전달합니다.
+빈집 레코드에 좌표가 있거나 요청 payload에 좌표가 있으면 주변 공공데이터 서브에이전트가 CSV를 조회해 요약 리포트만 생성합니다. 최종 추천 에이전트와 API 응답에는 CSV 원문 row를 전달하지 않습니다.
 
 ## 실행
 
 ```bash
 uv run yeongcheon-agent serve
 uv run yeongcheon-agent patrol
-uv run yeongcheon-agent priority --house-id YC-001
-uv run yeongcheon-agent priority --address "경상북도 영천시 중앙동" --photo-base64 "<base64-photo>"
-uv run yeongcheon-agent priority --house-id YC-001 --lat 35.9682723 --lon 128.931526 --radius-km 2
-uv run yeongcheon-agent priority --address "경상북도 영천시 중앙동" --photo-base64 "<base64-photo>" --lat 35.9682723 --lon 128.931526 --radius-km 2
+uv run yeongcheon-agent redevelopment --house-id YC-001
+uv run yeongcheon-agent redevelopment --address "경상북도 영천시 중앙동" --photo-base64 "<base64-photo>"
+uv run yeongcheon-agent redevelopment --house-id YC-001 --lat 35.9682723 --lon 128.931526 --radius-km 2
+uv run yeongcheon-agent redevelopment --address "경상북도 영천시 중앙동" --photo-base64 "<base64-photo>" --lat 35.9682723 --lon 128.931526 --radius-km 2
 uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2
 uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2 --admin-area 동부동
 uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2 --max-per-layer 10 --max-total 50
@@ -51,7 +51,7 @@ uv run yeongcheon-agent nearby --lat 35.9682723 --lon 128.931526 --radius-km 2 -
 
 ```bash
 uv run python main.py patrol
-uv run python main.py priority --house-id YC-002
+uv run python main.py redevelopment --house-id YC-002
 uv run python main.py nearby --lat 35.9682723 --lon 128.931526 --radius-km 2
 ```
 
@@ -67,7 +67,7 @@ uv run yeongcheon-agent serve --host 127.0.0.1 --port 8000
 
 - `GET /health`
 - `POST /agents/patrol-image`
-- `POST /agents/priority-recommendation`
+- `POST /agents/redevelopment-recommendation`
 - `POST /nearby`
 
 순찰 이미지 에이전트:
@@ -86,7 +86,7 @@ curl -X POST http://127.0.0.1:8000/agents/patrol-image \
 재건축 용도 추천 에이전트:
 
 ```bash
-curl -X POST http://127.0.0.1:8000/agents/priority-recommendation \
+curl -X POST http://127.0.0.1:8000/agents/redevelopment-recommendation \
   -H 'Content-Type: application/json' \
   -d '{
     "address": "경상북도 영천시 중앙동 1-1",
@@ -95,7 +95,7 @@ curl -X POST http://127.0.0.1:8000/agents/priority-recommendation \
   }'
 ```
 
-`/agents/priority-recommendation`은 프론트엔드에서 받은 지번 주소를 `src/services/geocoding.py`의 VWorld API로 먼저 좌표 변환한 뒤, 변환된 `latitude`/`longitude`를 재건축 용도 추천 에이전트에 전달합니다. 좌표 변환에는 `GEO_CODING_API_KEY`가 필요합니다.
+`/agents/redevelopment-recommendation`은 프론트엔드에서 받은 지번 주소를 `src/services/geocoding.py`의 VWorld API로 먼저 좌표 변환한 뒤, 변환된 `latitude`/`longitude`를 재건축 용도 추천 에이전트에 전달합니다. 좌표 변환에는 `GEO_CODING_API_KEY`가 필요합니다.
 
 ## 구조
 
@@ -104,7 +104,7 @@ src/
   api.py                         # 로컬호스트 FastAPI 엔드포인트
   agents/
     patrol_image.py              # 순찰 이미지 추론 LangGraph
-    priority_recommendation.py   # 재건축 용도 추천 LangGraph
+    redevelopment_recommendation.py   # 재건축 용도 추천 LangGraph
     tools/
       local_csv_geo_data.py      # 주변 공공 CSV 검색 LangChain tool
   services/

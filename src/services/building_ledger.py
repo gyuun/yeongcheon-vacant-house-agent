@@ -1,10 +1,14 @@
 from __future__ import annotations
 
+import csv
 import json
 import os
 import re
 from dataclasses import asdict, dataclass
+from functools import lru_cache
+from pathlib import Path
 from typing import Any
+import unicodedata
 from urllib.error import URLError
 from urllib.parse import urlencode
 from urllib.request import urlopen
@@ -16,23 +20,8 @@ from src.models import BuildingLedgerInfo
 BUILDING_LEDGER_BASE_URL = "https://apis.data.go.kr/1613000/BldRgstHubService"
 YEONGCHEON_SIGUNGU_CD = "47230"
 DEFAULT_TIMEOUT_SECONDS = 10
-
-# Only legal dongs that are already present in local fixtures or common demos.
-# Add ri-level codes through BUILDING_LEGAL_DONG_CODES when production data
-# includes eup/myeon parcel addresses.
-YEONGCHEON_BJDONG_CODES: dict[str, str] = {
-    "야사동": "10300",
-    "문내동": "10400",
-    "문외동": "10500",
-    "창구동": "10600",
-    "교촌동": "10700",
-    "과전동": "10800",
-    "성내동": "10900",
-    "화룡동": "11000",
-    "도동": "11100",
-    "금노동": "11200",
-    "완산동": "11300",
-}
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DATA_DIR = PROJECT_ROOT / "data"
 
 
 @dataclass(frozen=True)
@@ -59,9 +48,11 @@ def fetch_building_ledger_by_jibun_address(
     """Fetch and normalize building ledger basis/title info for a parcel address."""
 
     query = parse_yeongcheon_jibun_address(jibun_address)
-    key = service_key or os.getenv("BUILDING_OPEN_API_KEY")
+    key = service_key or _building_open_api_key()
     if not key:
-        raise BuildingLedgerError("BUILDING_OPEN_API_KEY is not set")
+        raise BuildingLedgerError(
+            "BUILDING_OPEN_API_KEY_ENCODING or BUILDING_OPEN_API_KEY_DECODING is not set"
+        )
 
     basis_payload = _request_endpoint(
         "getBrBasisOulnInfo",
@@ -96,14 +87,11 @@ def parse_yeongcheon_jibun_address(jibun_address: str) -> BuildingLedgerQuery:
     if lot_match is None:
         raise BuildingLedgerError(f"Cannot parse parcel number from address: {jibun_address}")
 
-    legal_area = _legal_area_name(normalized[: lot_match.start()].strip())
-    bjdong_cd = _bjdong_codes().get(legal_area)
-    if bjdong_cd is None:
-        raise BuildingLedgerError(f"Unsupported Yeongcheon legal area: {legal_area}")
+    legal_area, sigungu_cd, bjdong_cd = _resolve_legal_area(normalized[: lot_match.start()].strip())
 
     return BuildingLedgerQuery(
         jibun_address=normalized,
-        sigungu_cd=YEONGCHEON_SIGUNGU_CD,
+        sigungu_cd=sigungu_cd,
         bjdong_cd=bjdong_cd,
         plat_gb_cd="1" if lot_match.group(1) else "0",
         bun=lot_match.group(2).zfill(4),
@@ -222,30 +210,84 @@ def _xml_to_dict(body: str) -> dict[str, Any]:
 
 
 def _normalize_address(address: str) -> str:
+    address = unicodedata.normalize("NFC", address)
     address = re.sub(r"\([^)]*\)", " ", address)
     address = re.sub(r"\s+", " ", address)
     return address.strip()
 
 
-def _legal_area_name(address_prefix: str) -> str:
-    tokens = address_prefix.split()
-    if not tokens:
+def _building_open_api_key() -> str | None:
+    return (
+        os.getenv("BUILDING_OPEN_API_KEY_ENCODING")
+        or os.getenv("BUILDING_OPEN_API_KEY_DECODING")
+        or os.getenv("BUILDING_OPEN_API_KEY")
+    )
+
+
+def _resolve_legal_area(address_prefix: str) -> tuple[str, str, str]:
+    normalized_prefix = _normalize_address(address_prefix)
+    if not normalized_prefix:
         raise BuildingLedgerError("Cannot parse legal area from empty address")
+
+    for candidate_name, legal_dong_code in _legal_dong_candidates():
+        if normalized_prefix == candidate_name or normalized_prefix.endswith(f" {candidate_name}"):
+            return candidate_name, legal_dong_code[:5], legal_dong_code[5:]
+
+    env_codes = _env_bjdong_codes()
+    for candidate_name in sorted(env_codes, key=len, reverse=True):
+        if normalized_prefix == candidate_name or normalized_prefix.endswith(f" {candidate_name}"):
+            return candidate_name, YEONGCHEON_SIGUNGU_CD, env_codes[candidate_name]
+
+    raise BuildingLedgerError(f"Unsupported Yeongcheon legal area in address: {address_prefix}")
+
+
+@lru_cache(maxsize=1)
+def _legal_dong_candidates() -> tuple[tuple[str, str], ...]:
+    csv_path = _legal_dong_code_csv_path()
+    candidates: dict[str, str] = {}
+    try:
+        with csv_path.open("r", encoding="utf-8-sig", newline="") as csv_file:
+            reader = csv.DictReader(csv_file)
+            for row in reader:
+                code = (row.get("법정동코드") or "").strip()
+                legal_name = _normalize_address(row.get("법정동명") or "")
+                if not code.startswith(YEONGCHEON_SIGUNGU_CD) or len(code) != 10 or not legal_name:
+                    continue
+                if code.endswith("00000"):
+                    continue
+                short_name = _short_legal_area_name(legal_name)
+                candidates[legal_name] = code
+                candidates[short_name] = code
+    except OSError as exc:
+        raise BuildingLedgerError(f"Cannot read legal dong code CSV: {csv_path}") from exc
+
+    return tuple(sorted(candidates.items(), key=lambda item: len(item[0]), reverse=True))
+
+
+def _legal_dong_code_csv_path() -> Path:
+    for path in DATA_DIR.iterdir():
+        normalized_name = unicodedata.normalize("NFC", path.name)
+        if path.is_file() and "법정동코드" in normalized_name and "조회자료" in normalized_name:
+            return path
+    raise BuildingLedgerError(f"Legal dong code CSV not found in {DATA_DIR}")
+
+
+def _short_legal_area_name(legal_name: str) -> str:
+    tokens = legal_name.split()
     if len(tokens) >= 2 and tokens[-2].endswith(("읍", "면")) and tokens[-1].endswith("리"):
         return f"{tokens[-2]} {tokens[-1]}"
     return tokens[-1]
 
 
-def _bjdong_codes() -> dict[str, str]:
-    codes = dict(YEONGCHEON_BJDONG_CODES)
+def _env_bjdong_codes() -> dict[str, str]:
     raw_extra_codes = os.getenv("BUILDING_LEGAL_DONG_CODES")
-    if raw_extra_codes:
-        try:
-            extra_codes = json.loads(raw_extra_codes)
-        except json.JSONDecodeError as exc:
-            raise BuildingLedgerError("BUILDING_LEGAL_DONG_CODES must be JSON") from exc
-        codes.update({str(key): str(value) for key, value in extra_codes.items()})
-    return codes
+    if not raw_extra_codes:
+        return {}
+    try:
+        extra_codes = json.loads(raw_extra_codes)
+    except json.JSONDecodeError as exc:
+        raise BuildingLedgerError("BUILDING_LEGAL_DONG_CODES must be JSON") from exc
+    return {str(key): str(value).zfill(5) for key, value in extra_codes.items()}
 
 
 def _first_value(*args: Any) -> str | None:

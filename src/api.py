@@ -9,7 +9,7 @@ from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel, Field
 
 from src.agents.patrol_image import build_patrol_image_graph
-from src.agents.priority_recommendation import build_priority_recommendation_graph
+from src.agents.redevelopment_recommendation import build_redevelopment_recommendation_graph
 from src.models import PatrolImageInput
 from src.services.geocoding import GeocodingError, GeocodeResult, VWorldGeocoder
 from src.services.local_csv_data import LocalCsvGeoDataRepository
@@ -18,12 +18,12 @@ from src.services.local_csv_data import LocalCsvGeoDataRepository
 JIBUN_ADDRESS_TYPE = "PARCEL"
 
 
-class PriorityRecommendationRequest(BaseModel):
+class RedevelopmentRecommendationRequest(BaseModel):
     house_id: str | None = Field(default=None, description="Vacant house identifier.")
     address: str = Field(description="Vacant house jibun address.")
     photo_image_base64: str = Field(description="Base64-encoded vacant-house photo.")
     photo_image_mime_type: str = Field(default="image/jpeg", description="Photo MIME type.")
-    radius_km: float = Field(default=2.0, description="Nearby context radius.")
+    radius_km: float = Field(default=0.5, description="Nearby context radius.")
     administrative_area: str | None = Field(default=None, description="Administrative area name.")
     max_records_per_layer: int | None = Field(default=20, description="Maximum results per CSV layer.")
     max_total_records: int | None = Field(default=100, description="Maximum results across all CSV layers.")
@@ -32,7 +32,7 @@ class PriorityRecommendationRequest(BaseModel):
 class NearbyDataRequest(BaseModel):
     latitude: float = Field(description="WGS84 latitude.")
     longitude: float = Field(description="WGS84 longitude.")
-    radius_km: float = Field(default=2.0, description="Search radius in kilometers.")
+    radius_km: float = Field(default=0.5, description="Search radius in kilometers.")
     administrative_area: str | None = Field(default=None, description="Administrative area name.")
     max_records_per_layer: int | None = Field(default=20, description="Maximum results per CSV layer.")
     max_total_records: int | None = Field(default=100, description="Maximum results across all CSV layers.")
@@ -58,8 +58,8 @@ def _patrol_graph():
 
 
 @lru_cache(maxsize=1)
-def _priority_graph():
-    return build_priority_recommendation_graph()
+def _redevelopment_graph():
+    return build_redevelopment_recommendation_graph()
 
 
 @lru_cache(maxsize=1)
@@ -97,18 +97,18 @@ def health() -> dict[str, str]:
 @app.post("/agents/patrol-image")
 def run_patrol_image_agent(request: PatrolImageInput) -> dict[str, Any]:
     result = _patrol_graph().invoke({"request": request})
-    return _jsonable(result)
+    return _jsonable(result["assessment"])
 
 
-@app.post("/agents/priority-recommendation")
-def run_priority_recommendation_agent(request: PriorityRecommendationRequest) -> dict[str, Any]:
+@app.post("/agents/redevelopment-recommendation")
+def run_redevelopment_recommendation_agent(request: RedevelopmentRecommendationRequest) -> dict[str, Any]:
     payload = request.model_dump(exclude_none=True)
     geocode_result = _geocode_jibun_address(request.address)
     payload["latitude"] = geocode_result.latitude
     payload["longitude"] = geocode_result.longitude
 
-    result = _priority_graph().invoke(payload)
-    return _jsonable(result)
+    result = _redevelopment_graph().invoke(payload)
+    return _jsonable(result["recommendation"])
 
 
 @app.post("/nearby")

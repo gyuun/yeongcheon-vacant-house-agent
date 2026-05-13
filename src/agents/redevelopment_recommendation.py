@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from dataclasses import replace
+from dataclasses import asdict, replace
 from datetime import UTC, datetime
 from hashlib import sha1
 from typing import TypedDict
@@ -13,18 +13,18 @@ from src.agents.prompts import load_prompt
 from src.models import (
     BuildingLedgerInfo,
     NearbyGeoDataBundle,
-    PriorityRecommendation,
-    PriorityReportKind,
-    PrioritySubAgentReport,
+    RedevelopmentRecommendation,
+    RedevelopmentReportKind,
+    RedevelopmentSubAgentReport,
     VacantHouseRecord,
 )
-from src.agents.tools import PRIORITY_RECOMMENDATION_TOOLS, get_building_ledger_info, get_nearby_public_data_bundle
-from src.services.building_ledger import BuildingLedgerError
+from src.agents.tools import REDEVELOPMENT_RECOMMENDATION_TOOLS, get_building_ledger_info, get_nearby_public_data_bundle
+from src.services.building_ledger import BuildingLedgerError, parse_yeongcheon_jibun_address
 from src.services.public_data import MockPublicDataClient, PublicDataClient
 from src.services.gemini import build_gemini_chat_model
 
 
-class PriorityState(TypedDict, total=False):
+class RedevelopmentState(TypedDict, total=False):
     house_id: str
     address: str
     photo_image_base64: str
@@ -37,11 +37,10 @@ class PriorityState(TypedDict, total=False):
     max_total_records: int
     record: VacantHouseRecord
     building_ledger: BuildingLedgerInfo
-    building_ledger_report: PrioritySubAgentReport
-    nearby_context: NearbyGeoDataBundle
-    photo_report: PrioritySubAgentReport
-    nearby_report: PrioritySubAgentReport
-    recommendation: PriorityRecommendation
+    building_ledger_report: RedevelopmentSubAgentReport
+    photo_report: RedevelopmentSubAgentReport
+    nearby_report: RedevelopmentSubAgentReport
+    recommendation: RedevelopmentRecommendation
     error: str
 
 
@@ -65,9 +64,9 @@ class SubAgentDecision(BaseModel):
 
 
 def fetch_public_data(
-    state: PriorityState,
+    state: RedevelopmentState,
     public_data_client: PublicDataClient | None = None,
-) -> PriorityState:
+) -> RedevelopmentState:
     client = public_data_client or MockPublicDataClient()
     if "house_id" in state:
         record = client.get_vacant_house(state["house_id"])
@@ -88,7 +87,7 @@ def fetch_public_data(
     building_ledger = fetch_building_ledger_by_address(address, record)
     building_ledger_report = _summarize_building_ledger(building_ledger, record)
 
-    next_state: PriorityState = {
+    next_state: RedevelopmentState = {
         **state,
         "house_id": record.house_id,
         "address": address,
@@ -146,15 +145,20 @@ def _mock_building_ledger(
     approval_year = None
     if record is not None:
         approval_year = datetime.now(UTC).year - record.building_age_years
+    parsed_query = None
+    try:
+        parsed_query = parse_yeongcheon_jibun_address(address)
+    except BuildingLedgerError:
+        parsed_query = None
 
     return BuildingLedgerInfo(
         address=address,
         jibun_address=address,
         ledger_type="일반",
         ledger_category="일반건축물",
-        plat_gb_cd="0",
-        bun=None,
-        ji=None,
+        plat_gb_cd=parsed_query.plat_gb_cd if parsed_query is not None else "0",
+        bun=parsed_query.bun if parsed_query is not None else None,
+        ji=parsed_query.ji if parsed_query is not None else None,
         main_use="단독주택",
         structure=record.structure_grade if record is not None else None,
         roof_structure=None,
@@ -168,8 +172,9 @@ def _mock_building_ledger(
         approval_year=approval_year,
         source="mock-building-ledger",
         raw={
-            "implementation_status": "planned",
+            "api_status": "fallback",
             "input_address_type": "jibun",
+            "parsed_query": asdict(parsed_query) if parsed_query is not None else None,
             "target_apis": ["getBrBasisOulnInfo", "getBrTitleInfo"],
             "fallback_reason": error,
         },
@@ -179,7 +184,7 @@ def _mock_building_ledger(
 def _summarize_building_ledger(
     building_ledger: BuildingLedgerInfo,
     record: VacantHouseRecord,
-) -> PrioritySubAgentReport:
+) -> RedevelopmentSubAgentReport:
     context_signals = []
     if record.building_age_years:
         context_signals.append(f"건축물 노후도 {record.building_age_years}년")
@@ -195,8 +200,8 @@ def _summarize_building_ledger(
     if building_ledger.district_zone:
         opportunity_signals.append(f"지역/지구/구역 {building_ledger.district_zone}")
 
-    return PrioritySubAgentReport(
-        kind=PriorityReportKind.BUILDING_LEDGER,
+    return RedevelopmentSubAgentReport(
+        kind=RedevelopmentReportKind.BUILDING_LEDGER,
         summary=(
             f"{building_ledger.address} 지번 기준 건축물대장 기본개요/표제부 조회 결과를 "
             "재건축 용도 추천에 반영합니다."
@@ -208,11 +213,11 @@ def _summarize_building_ledger(
     )
 
 
-def interpret_photo(state: PriorityState) -> PriorityState:
+def interpret_photo(state: RedevelopmentState) -> RedevelopmentState:
     if "photo_image_base64" not in state:
         return {
-            "photo_report": PrioritySubAgentReport(
-                kind=PriorityReportKind.PHOTO_INTERPRETATION,
+            "photo_report": RedevelopmentSubAgentReport(
+                kind=RedevelopmentReportKind.PHOTO_INTERPRETATION,
                 summary="사진 입력이 없어 외관 및 주변 경관 해석을 보류했습니다.",
                 recommended_actions=["현장 사진 확보"],
                 confidence=0.1,
@@ -226,7 +231,7 @@ def interpret_photo(state: PriorityState) -> PriorityState:
     mime_type = state.get("photo_image_mime_type", "image/jpeg")
     message = HumanMessage(
         content=[
-            {"type": "text", "text": load_prompt("priority_photo_interpretation_prompt.md")},
+            {"type": "text", "text": load_prompt("redevelopment_photo_interpretation_prompt.md")},
             {
                 "type": "image_url",
                 "image_url": f"data:{mime_type};base64,{state['photo_image_base64']}",
@@ -239,16 +244,16 @@ def interpret_photo(state: PriorityState) -> PriorityState:
         if not isinstance(decision, SubAgentDecision):
             decision = SubAgentDecision.model_validate(decision)
     except (ValidationError, ValueError, TypeError) as exc:
-        return {"photo_report": _fallback_report(PriorityReportKind.PHOTO_INTERPRETATION, exc)}
+        return {"photo_report": _fallback_report(RedevelopmentReportKind.PHOTO_INTERPRETATION, exc)}
 
-    return {"photo_report": _report_from_decision(PriorityReportKind.PHOTO_INTERPRETATION, decision)}
+    return {"photo_report": _report_from_decision(RedevelopmentReportKind.PHOTO_INTERPRETATION, decision)}
 
 
-def analyze_nearby_context(state: PriorityState) -> PriorityState:
+def analyze_nearby_context(state: RedevelopmentState) -> RedevelopmentState:
     if "latitude" not in state or "longitude" not in state:
         return {
-            "nearby_report": PrioritySubAgentReport(
-                kind=PriorityReportKind.NEARBY_CONTEXT,
+            "nearby_report": RedevelopmentSubAgentReport(
+                kind=RedevelopmentReportKind.NEARBY_CONTEXT,
                 summary="좌표 입력이 없어 주변 공공데이터 분석을 보류했습니다.",
                 recommended_actions=["주소 지오코딩 또는 GPS 좌표 확보"],
                 confidence=0.1,
@@ -258,25 +263,22 @@ def analyze_nearby_context(state: PriorityState) -> PriorityState:
     nearby_context = get_nearby_public_data_bundle(
         latitude=state["latitude"],
         longitude=state["longitude"],
-        radius_km=state.get("radius_km", 2.0),
+        radius_km=state.get("radius_km", 0.5),
         administrative_area=state.get("administrative_area"),
         max_records_per_layer=state.get("max_records_per_layer", 20),
         max_total_records=state.get("max_total_records", 100),
     )
-    return {
-        "nearby_context": nearby_context,
-        "nearby_report": _summarize_nearby_context(nearby_context),
-    }
+    return {"nearby_report": _summarize_nearby_context(nearby_context)}
 
 
-def _mock_photo_report(state: PriorityState) -> PrioritySubAgentReport:
+def _mock_photo_report(state: RedevelopmentState) -> RedevelopmentSubAgentReport:
     image_size = len(state["photo_image_base64"])
     context_signals = ["사진 입력 존재, 모델 미설정으로 주변 경관 및 외관 맥락 판독 필요"]
     if image_size < 256:
         context_signals.append("사진 데이터가 짧아 판독 신뢰도 낮음")
 
-    return PrioritySubAgentReport(
-        kind=PriorityReportKind.PHOTO_INTERPRETATION,
+    return RedevelopmentSubAgentReport(
+        kind=RedevelopmentReportKind.PHOTO_INTERPRETATION,
         summary="목업 사진 리포트: 실제 Gemini 키가 없어 사진 내용 판독 대신 입력 상태만 반영했습니다.",
         context_signals=context_signals,
         recommended_actions=["GOOGLE_API_KEY 설정 후 사진 기반 경관/입지 맥락 판독 실행", "현장 담당자 육안 검토"],
@@ -284,7 +286,7 @@ def _mock_photo_report(state: PriorityState) -> PrioritySubAgentReport:
     )
 
 
-def _summarize_nearby_context(nearby_context: NearbyGeoDataBundle) -> PrioritySubAgentReport:
+def _summarize_nearby_context(nearby_context: NearbyGeoDataBundle) -> RedevelopmentSubAgentReport:
     matched_layers = [layer for layer in nearby_context.layers if layer.objects]
     context_signals = []
     opportunity_signals = []
@@ -297,8 +299,8 @@ def _summarize_nearby_context(nearby_context: NearbyGeoDataBundle) -> PrioritySu
         else:
             opportunity_signals.append(layer_summary)
 
-    return PrioritySubAgentReport(
-        kind=PriorityReportKind.NEARBY_CONTEXT,
+    return RedevelopmentSubAgentReport(
+        kind=RedevelopmentReportKind.NEARBY_CONTEXT,
         summary=(
             f"반경 {nearby_context.radius_km}km 내 공공데이터 {len(matched_layers)}개 레이어, "
             f"{nearby_context.returned_records}건을 분석했습니다."
@@ -311,10 +313,10 @@ def _summarize_nearby_context(nearby_context: NearbyGeoDataBundle) -> PrioritySu
 
 
 def _report_from_decision(
-    kind: PriorityReportKind,
+    kind: RedevelopmentReportKind,
     decision: SubAgentDecision,
-) -> PrioritySubAgentReport:
-    return PrioritySubAgentReport(
+) -> RedevelopmentSubAgentReport:
+    return RedevelopmentSubAgentReport(
         kind=kind,
         summary=decision.summary,
         context_signals=decision.context_signals,
@@ -324,8 +326,8 @@ def _report_from_decision(
     )
 
 
-def _fallback_report(kind: PriorityReportKind, error: Exception) -> PrioritySubAgentReport:
-    return PrioritySubAgentReport(
+def _fallback_report(kind: RedevelopmentReportKind, error: Exception) -> RedevelopmentSubAgentReport:
+    return RedevelopmentSubAgentReport(
         kind=kind,
         summary="모델 응답을 구조화된 서브에이전트 리포트로 변환하지 못했습니다.",
         context_signals=["structured_output_failure"],
@@ -335,7 +337,7 @@ def _fallback_report(kind: PriorityReportKind, error: Exception) -> PrioritySubA
     )
 
 
-def _recommend_use(record: VacantHouseRecord, reports: list[PrioritySubAgentReport]) -> str:
+def _recommend_use(record: VacantHouseRecord, reports: list[RedevelopmentSubAgentReport]) -> str:
     signal_text = " ".join(
         signal
         for report in reports
@@ -356,7 +358,7 @@ def _recommend_use(record: VacantHouseRecord, reports: list[PrioritySubAgentRepo
     return "임시 녹지 및 경관 정비"
 
 
-def recommend_redevelopment_use(state: PriorityState) -> PriorityState:
+def recommend_redevelopment_use(state: RedevelopmentState) -> RedevelopmentState:
     record = state["record"]
     reports = [
         report
@@ -374,23 +376,12 @@ def recommend_redevelopment_use(state: PriorityState) -> PriorityState:
         f"최근 1년 민원 {record.complaints_last_year}건",
     ]
 
-    nearby_context = state.get("nearby_context")
-    if nearby_context is not None:
-        matched_layers = [layer for layer in nearby_context.layers if layer.objects]
-        if nearby_context.matched_records:
-            rationale.append(
-                f"반경 {nearby_context.radius_km}km 내 공공데이터 {len(matched_layers)}개 레이어 "
-                f"{nearby_context.matched_records}건 확인, {nearby_context.returned_records}건 반영"
-            )
-        if nearby_context.administrative_area:
-            rationale.append(f"{nearby_context.administrative_area} 행정구역 단위 데이터 포함")
-
     for report in reports:
         rationale.append(f"{report.kind.value}: {report.summary}")
         rationale.extend(report.context_signals[:3])
         rationale.extend(report.opportunity_signals[:3])
 
-    recommendation = PriorityRecommendation(
+    recommendation = RedevelopmentRecommendation(
         house_id=record.house_id,
         recommended_use=_recommend_use(record, reports),
         rationale=rationale,
@@ -404,8 +395,8 @@ def recommend_redevelopment_use(state: PriorityState) -> PriorityState:
     return {**state, "recommendation": recommendation}
 
 
-def build_priority_recommendation_graph(public_data_client: PublicDataClient | None = None):
-    graph = StateGraph(PriorityState)
+def build_redevelopment_recommendation_graph(public_data_client: PublicDataClient | None = None):
+    graph = StateGraph(RedevelopmentState)
     graph.add_node("fetch_public_data", lambda state: fetch_public_data(state, public_data_client))
     graph.add_node("interpret_photo", interpret_photo)
     graph.add_node("analyze_nearby_context", analyze_nearby_context)
@@ -418,4 +409,4 @@ def build_priority_recommendation_graph(public_data_client: PublicDataClient | N
     return graph.compile()
 
 
-priority_recommendation_tools = PRIORITY_RECOMMENDATION_TOOLS
+redevelopment_recommendation_tools = REDEVELOPMENT_RECOMMENDATION_TOOLS
