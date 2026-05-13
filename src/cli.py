@@ -120,6 +120,11 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Yeongcheon vacant house agent demos")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
+    serve_parser = subparsers.add_parser("serve", help="Run localhost API server")
+    serve_parser.add_argument("--host", default="127.0.0.1", help="API bind host")
+    serve_parser.add_argument("--port", type=int, default=8000, help="API bind port")
+    serve_parser.add_argument("--reload", action="store_true", help="Reload API server on code changes")
+
     subparsers.add_parser("patrol", help="Run patrol image assessment demo")
 
     priority_parser = subparsers.add_parser("priority", help="Run priority recommendation demo")
@@ -143,6 +148,11 @@ def main() -> None:
     nearby_parser.add_argument("--max-total", type=int, default=100, help="Maximum results across all layers")
     args = parser.parse_args()
 
+    if args.command == "serve":
+        import uvicorn
+
+        uvicorn.run("src.api:app", host=args.host, port=args.port, reload=args.reload)
+        return
     if args.command == "patrol":
         result = run_patrol_demo()
     elif args.command == "priority":

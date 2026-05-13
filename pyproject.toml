@@ -5,10 +5,12 @@ description = "Yeongcheon vacant house management agents powered by LangChain an
 readme = "README.md"
 requires-python = ">=3.12.2"
 dependencies = [
+    "fastapi>=0.136.1",
     "langchain>=0.3.30",
     "langchain-google-genai>=2.1.12",
     "langgraph>=0.6.11",
     "pydantic>=2.13.4",
+    "uvicorn>=0.38.0",
 ]
 
 [project.scripts]
