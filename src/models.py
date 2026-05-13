@@ -206,13 +206,27 @@ class BuildingLedgerInfo:
     is finalized.
     """
 
-    address: str = field(metadata={"description": "Input or normalized building address."})
+    address: str = field(metadata={"description": "Input or normalized parcel-lot address."})
+    jibun_address: str | None = field(default=None, metadata={"description": "Registered parcel-lot address."})
+    road_name_address: str | None = field(default=None, metadata={"description": "Registered road-name address."})
+    ledger_type: str | None = field(default=None, metadata={"description": "Building ledger type."})
+    ledger_category: str | None = field(default=None, metadata={"description": "Building ledger category."})
+    plat_gb_cd: str | None = field(default=None, metadata={"description": "Land lot type code: 0 lot, 1 mountain, 2 block."})
+    bun: str | None = field(default=None, metadata={"description": "Main parcel number, zero-padded for API requests."})
+    ji: str | None = field(default=None, metadata={"description": "Sub parcel number, zero-padded for API requests."})
     main_use: str | None = field(default=None, metadata={"description": "Registered primary building use."})
     structure: str | None = field(default=None, metadata={"description": "Registered structural material/type."})
+    roof_structure: str | None = field(default=None, metadata={"description": "Registered roof structure."})
+    land_area_m2: float | None = field(default=None, metadata={"description": "Registered land area in square meters."})
+    building_area_m2: float | None = field(default=None, metadata={"description": "Registered building area in square meters."})
     total_floor_area_m2: float | None = field(
         default=None,
         metadata={"description": "Registered total floor area in square meters."},
     )
+    building_coverage_ratio: float | None = field(default=None, metadata={"description": "Registered building coverage ratio."})
+    floor_area_ratio: float | None = field(default=None, metadata={"description": "Registered floor area ratio."})
+    parking_count: int | None = field(default=None, metadata={"description": "Registered parking space count."})
+    district_zone: str | None = field(default=None, metadata={"description": "Registered district, area, or zone."})
     approval_year: int | None = field(default=None, metadata={"description": "Building approval year."})
     source: str = field(default="mock", metadata={"description": "Source adapter name."})
     raw: dict[str, Any] = field(

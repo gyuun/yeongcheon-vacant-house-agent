@@ -17,7 +17,8 @@ from src.models import (
     PrioritySubAgentReport,
     VacantHouseRecord,
 )
-from src.agents.tools import PRIORITY_RECOMMENDATION_TOOLS, get_nearby_public_data_bundle
+from src.agents.tools import PRIORITY_RECOMMENDATION_TOOLS, get_building_ledger_info, get_nearby_public_data_bundle
+from src.services.building_ledger import BuildingLedgerError
 from src.services.public_data import MockPublicDataClient, PublicDataClient
 from src.services.gemini import build_gemini_chat_model
 
@@ -107,12 +108,20 @@ def fetch_building_ledger_by_address(
     address: str,
     record: VacantHouseRecord | None = None,
 ) -> BuildingLedgerInfo:
-    """Resolve building-register information by address.
+    """Resolve building-register information from a Yeongcheon jibun address."""
 
-    TODO: Replace this placeholder with the target building-register API
-    adapter. Keeping it as a function boundary lets the main agent flow run
-    before the external service contract is finalized.
-    """
+    try:
+        return get_building_ledger_info(address)
+    except BuildingLedgerError as exc:
+        return _mock_building_ledger(address, record, error=str(exc))
+
+
+def _mock_building_ledger(
+    address: str,
+    record: VacantHouseRecord | None = None,
+    error: str | None = None,
+) -> BuildingLedgerInfo:
+    """Fallback ledger payload used when the live API cannot be called."""
 
     approval_year = None
     if record is not None:
@@ -120,12 +129,30 @@ def fetch_building_ledger_by_address(
 
     return BuildingLedgerInfo(
         address=address,
+        jibun_address=address,
+        ledger_type="일반",
+        ledger_category="일반건축물",
+        plat_gb_cd="0",
+        bun=None,
+        ji=None,
         main_use="단독주택",
         structure=record.structure_grade if record is not None else None,
+        roof_structure=None,
+        land_area_m2=record.land_area_m2 if record is not None else None,
+        building_area_m2=None,
         total_floor_area_m2=record.land_area_m2 if record is not None else None,
+        building_coverage_ratio=None,
+        floor_area_ratio=None,
+        parking_count=None,
+        district_zone=None,
         approval_year=approval_year,
         source="mock-building-ledger",
-        raw={"implementation_status": "planned"},
+        raw={
+            "implementation_status": "planned",
+            "input_address_type": "jibun",
+            "target_apis": ["getBrBasisOulnInfo", "getBrTitleInfo"],
+            "fallback_reason": error,
+        },
     )
 
 
@@ -140,15 +167,24 @@ def _summarize_building_ledger(
         risk_signals.append(f"구조 등급 {record.structure_grade}")
 
     opportunity_signals = []
+    if building_ledger.main_use:
+        opportunity_signals.append(f"대장상 주용도 {building_ledger.main_use}")
+    if building_ledger.land_area_m2:
+        opportunity_signals.append(f"대장상 대지면적 {building_ledger.land_area_m2}㎡")
     if building_ledger.total_floor_area_m2:
-        opportunity_signals.append(f"대장상 면적 {building_ledger.total_floor_area_m2}㎡")
+        opportunity_signals.append(f"대장상 연면적 {building_ledger.total_floor_area_m2}㎡")
+    if building_ledger.district_zone:
+        opportunity_signals.append(f"지역/지구/구역 {building_ledger.district_zone}")
 
     return PrioritySubAgentReport(
         kind=PriorityReportKind.BUILDING_LEDGER,
-        summary=f"{building_ledger.address} 건축물대장 정보 조회 결과를 우선순위 판단에 반영합니다.",
+        summary=(
+            f"{building_ledger.address} 지번 기준 건축물대장 기본개요/표제부 조회 결과를 "
+            "우선순위 판단에 반영합니다."
+        ),
         risk_signals=risk_signals,
         opportunity_signals=opportunity_signals,
-        recommended_actions=["실제 건축물대장 API 연동 후 소유/위반/멸실 여부 확인"],
+        recommended_actions=["지번을 시군구코드/법정동코드/번/지로 변환해 건축물대장 API 연동"],
         confidence=0.45 if building_ledger.source.startswith("mock") else 0.8,
     )
 

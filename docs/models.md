@@ -68,6 +68,34 @@
 | `land_area_m2` | `float` | 토지 면적 |
 | `metadata` | `dict[str, Any]` | 데이터 출처, API 응답 원문 ID, 행정동 코드 등 부가 정보 |
 
+## BuildingLedgerInfo
+
+지번 주소로 조회한 건축물대장 기본개요/표제부 정보를 에이전트 판단에 필요한 필드만 정규화한 구조다.
+
+| 필드 | 타입 | 설명 |
+| --- | --- | --- |
+| `address` | `str` | 입력 또는 대표 지번 주소 |
+| `jibun_address` | `str \| None` | 대장상 지번 주소 |
+| `road_name_address` | `str \| None` | 대장상 도로명주소 |
+| `ledger_type` | `str \| None` | 대장종류 |
+| `ledger_category` | `str \| None` | 대장구분 |
+| `plat_gb_cd` | `str \| None` | 대지구분코드 |
+| `bun` | `str \| None` | 번 |
+| `ji` | `str \| None` | 지 |
+| `main_use` | `str \| None` | 주용도 |
+| `structure` | `str \| None` | 구조 |
+| `roof_structure` | `str \| None` | 지붕구조 |
+| `land_area_m2` | `float \| None` | 대지면적 |
+| `building_area_m2` | `float \| None` | 건축면적 |
+| `total_floor_area_m2` | `float \| None` | 연면적 |
+| `building_coverage_ratio` | `float \| None` | 건폐율 |
+| `floor_area_ratio` | `float \| None` | 용적률 |
+| `parking_count` | `int \| None` | 주차대수 |
+| `district_zone` | `str \| None` | 지역/지구/구역 |
+| `approval_year` | `int \| None` | 사용승인연도 |
+| `source` | `str` | 데이터 출처 어댑터 |
+| `raw` | `dict[str, Any]` | 원문 API 응답 또는 디버깅 정보 |
+
 ## PriorityRecommendation
 
 빈집 정비 우선순위 및 활용 용도 추천 에이전트의 결과 데이터다.
