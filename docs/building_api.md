@@ -21,7 +21,7 @@
 | `numOfRows` | 선택 | 페이지당 목록 수 | `10` |
 | `pageNo` | 선택 | 페이지번호 | `1` |
 
-`BUILDING_OPEN_API_KEY_ENCODING` 환경변수에 공공데이터포털 Encoding 인증키를 넣는다. 없으면 `BUILDING_OPEN_API_KEY_DECODING`을 사용하고, 기존 호환용으로 `BUILDING_OPEN_API_KEY`도 마지막 fallback으로 확인한다.
+`BUILDING_OPEN_API_KEY_ENCODING` 환경변수에 공공데이터포털 Encoding 인증키를 넣는다. 없으면 `BUILDING_OPEN_API_KEY_DECODING`을 사용하고, 기존 호환용으로 `BUILDING_OPEN_API_KEY`도 마지막에 확인한다.
 
 영천시 `sigunguCd`는 `47230`으로 고정한다. 지번 주소의 법정동/리 이름은 `data/법정동코드 조회자료.csv`의 `법정동명`에서 자동 검색하고, 10자리 `법정동코드` 중 앞 5자리를 `sigunguCd`, 뒤 5자리를 `bjdongCd`로 사용한다.
 CSV에 없는 임시 코드는 운영 환경에서 `BUILDING_LEGAL_DONG_CODES`에 JSON으로 추가할 수 있지만, 기본 흐름은 로컬 CSV 조회를 우선한다.
@@ -65,7 +65,7 @@ https://apis.data.go.kr/1613000/BldRgstHubService/getBrTitleInfo?sigunguCd=47230
 - LangChain tool: `search_building_ledger_by_jibun`
 - 에이전트 연결: `src/agents/redevelopment_recommendation.py`의 건축물대장 조회 단계
 
-API 키가 없거나 주소의 법정동/리 코드 매핑이 없으면 도구는 `ok=false`와 실패 이유를 반환한다. 에이전트 본 흐름은 기존 목업 건축물대장 정보로 fallback하여 데모 실행이 끊기지 않는다.
+API 키가 없거나 주소의 법정동/리 코드 매핑이 없으면 도구는 `ok=false`와 실패 이유를 반환한다. 에이전트 본 흐름은 가짜 건축물대장 정보를 만들지 않고 오류를 반환한다.
 
 ## 제외 API
 

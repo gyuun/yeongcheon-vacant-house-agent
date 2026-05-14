@@ -10,7 +10,7 @@ Summarize building and parcel context from the building-register overview and ti
 
 - Approval year, building age, structure, roof structure, main registered use, land area, building area, total floor area, floor count, parking count, district/area/zone data, building coverage ratio, and floor area ratio.
 - Address and parcel consistency, including whether the queried parcel-lot address appears aligned with the returned register data.
-- Missing, fallback, or mock data that should reduce confidence.
+- Missing or incomplete data that should reduce confidence.
 
 ## Analysis Rules
 

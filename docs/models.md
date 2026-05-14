@@ -24,7 +24,7 @@
 
 ## PatrolImageAssessment
 
-순찰 이미지 이상 추론 에이전트의 판정 결과다. Gemini 응답 또는 로컬 목업 추론 결과가 이 구조로 정규화된다.
+순찰 이미지 이상 추론 에이전트의 판정 결과다. Gemini 응답이 이 구조로 정규화된다.
 
 | 필드 | 타입 | 설명 |
 | --- | --- | --- |
@@ -32,13 +32,13 @@
 | `is_anomaly` | `bool` | 기준 이미지 대비 이상 여부 |
 | `risk_level` | `RiskLevel` | 이상 징후의 위험도 |
 | `summary` | `str` | 판정 요약 |
-| `evidence` | `list[str]` | 이미지상 차이, 모델 관찰 근거, 목업 판정 근거 |
+| `evidence` | `list[str]` | 이미지상 차이, 모델 관찰 근거 |
 | `recommended_actions` | `list[str]` | 담당자 알림, 현장 재확인, 정기 순찰 유지 등 권장 조치 |
-| `raw_model_output` | `str \| None` | Gemini 원문 응답. 목업 또는 정규화된 응답만 사용할 때는 `None` 가능 |
+| `raw_model_output` | `str \| None` | Gemini 원문 응답. 정규화된 응답만 사용할 때는 `None` 가능 |
 
 ## VacantHouseRecord
 
-공공데이터 API 또는 목업 클라이언트에서 가져오는 빈집 원천 데이터다. 재건축 용도 추천의 입력으로 사용한다.
+요청 주소 또는 `data/house/mapping.csv`에서 구성하는 빈집 입력 데이터다. 재건축 용도 추천의 입력으로 사용한다.
 
 | 필드 | 타입 | 설명 |
 | --- | --- | --- |

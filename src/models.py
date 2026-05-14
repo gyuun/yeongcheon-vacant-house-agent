@@ -208,7 +208,7 @@ class BuildingLedgerInfo:
     parking_count: int | None = field(default=None, metadata={"description": "Registered parking space count."})
     district_zone: str | None = field(default=None, metadata={"description": "Registered district, area, or zone."})
     approval_year: int | None = field(default=None, metadata={"description": "Building approval year."})
-    source: str = field(default="mock", metadata={"description": "Source adapter name."})
+    source: str = field(default="building-ledger-api", metadata={"description": "Source adapter name."})
     raw: dict[str, Any] = field(
         default_factory=dict,
         metadata={"description": "Original building-register fields when available."},
@@ -245,7 +245,7 @@ class RedevelopmentSubAgentReport:
 
 @dataclass(frozen=True)
 class VacantHouseRecord:
-    """Source record for one vacant house from public data or a mock adapter.
+    """Source record for one vacant house from request or local mapping data.
 
     This model is the redevelopment-use recommendation agent's main input. It
     captures condition, vacancy duration, complaints, accessibility, and

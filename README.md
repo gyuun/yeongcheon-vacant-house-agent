@@ -61,9 +61,9 @@ curl http://127.0.0.1:8000/health
 주의할 점:
 
 - `/agents/redevelopment-recommendation`은 입력 `address`를 VWorld API로 좌표 변환한 뒤 에이전트를 실행하므로 `GEO_CODING_API_KEY`가 필요합니다.
-- Gemini 키가 없으면 순찰 이미지 판정과 사진 해석은 실제 멀티모달 추론 대신 deterministic mock/fallback 응답을 사용합니다.
-- 건축물대장 API 키가 없거나 조회에 실패해도 재건축 추천 흐름은 중단되지 않고 `mock-building-ledger` 정보로 계속 진행합니다.
-- 실제 빈집 원천 API는 아직 붙어 있지 않습니다. 현재는 `MockPublicDataClient`가 `YC-001`, `YC-002` 등 데모 레코드를 제공합니다.
+- 순찰 이미지 판정과 재건축 추천의 사진 해석에는 `GOOGLE_API_KEY` 또는 `GEMINI_API_KEY`가 필요합니다.
+- 재건축 추천은 건축물대장 API 조회가 실패하면 가짜 대장 데이터를 만들지 않고 오류를 반환합니다.
+- `house_id`는 `data/house/mapping.csv`의 주소/좌표 매핑을 찾는 로컬 fixture 키로만 사용합니다.
 
 ## 환경 변수
 
@@ -71,11 +71,11 @@ curl http://127.0.0.1:8000/health
 
 | 변수 | 필수 여부 | 사용 위치 | 설명 |
 | --- | --- | --- | --- |
-| `GOOGLE_API_KEY` 또는 `GEMINI_API_KEY` | 선택 | `src/services/gemini.py` | Gemini `gemini-3-flash-preview` 호출용. 없으면 mock/fallback 동작 |
+| `GOOGLE_API_KEY` 또는 `GEMINI_API_KEY` | 이미지 판정/사진 해석 사용 시 필수 | `src/services/gemini.py` | Gemini `gemini-3-flash-preview` 호출용 |
 | `GEO_CODING_API_KEY` | 재건축 추천 API 사용 시 필수 | `src/services/geocoding.py` | VWorld 주소 좌표 변환 API 키 |
 | `BUILDING_OPEN_API_KEY_ENCODING` | 선택 | `src/services/building_ledger.py` | 건축물대장 API Encoding 인증키 |
 | `BUILDING_OPEN_API_KEY_DECODING` | 선택 | `src/services/building_ledger.py` | 건축물대장 API Decoding 인증키 |
-| `BUILDING_OPEN_API_KEY` | 선택 | `src/services/building_ledger.py` | 기존 호환용 fallback 키 |
+| `BUILDING_OPEN_API_KEY` | 선택 | `src/services/building_ledger.py` | 기존 환경 변수명 호환용 키 |
 | `BUILDING_LEGAL_DONG_CODES` | 선택 | `src/services/building_ledger.py` | 로컬 법정동 CSV에 없는 법정동 코드를 JSON으로 보강 |
 | `LOG_LEVEL` | 선택 | `src/api.py`, `src/cli.py` | 기본값 `INFO` |
 
@@ -151,7 +151,7 @@ curl -X POST http://127.0.0.1:8000/agents/patrol-image \
 
 ### `POST /agents/redevelopment-recommendation`
 
-지번 주소, 사진, 건축물대장, 주변 공공데이터를 종합해 빈집 재건축/재활용 용도를 추천합니다. API 계층에서 `address`를 VWorld로 먼저 지오코딩하고, 변환된 좌표를 LangGraph에 전달합니다.
+지번 주소, 사진, 건축물대장, 주변 공공데이터를 종합해 빈집 재건축/재활용 용도를 추천합니다. API 계층에서 `address`를 VWorld로 먼저 지오코딩하고, 변환된 좌표를 LangGraph에 전달합니다. `data/house/mapping.csv`에 없는 실제 주소도 지오코딩에 성공하면 주변 CSV 반경 검색까지 수행합니다.
 
 요청 body:
 
@@ -188,11 +188,10 @@ curl -X POST http://127.0.0.1:8000/agents/redevelopment-recommendation \
 {
   "house_id": "ADDR-12345",
   "recommended_use": "마을 쉼터, 소규모 정원, 경관형 커뮤니티 공간",
-  "explanation": "대상지는 건축물 노후도 35년, 공실 4년, 구조 등급 C로 정비 필요성이 있습니다.\n사진 해석과 주변 공공데이터를 함께 보면 여유 부지, 경관, 녹지 활용 가능성이 있어 주민 휴식형 공간으로 전환하는 방향이 적합합니다.\n최종 실행 전에는 소유자 동의, 상세 공부 확인, 예산과 주민 수요를 추가로 확인해야 합니다.",
+  "explanation": "대상지는 요청 주소, 건축물대장, 현장 사진, 주변 공공데이터를 기준으로 활용 가능성을 검토했습니다.\n사진 해석과 주변 공공데이터를 함께 보면 여유 부지, 경관, 녹지 활용 가능성이 있어 주민 휴식형 공간으로 전환하는 방향이 적합합니다.\n최종 실행 전에는 소유자 동의, 상세 공부 확인, 예산과 주민 수요를 추가로 확인해야 합니다.",
   "rationale": [
-    "건축물 노후도 35년",
-    "공실 기간 4년",
-    "구조 등급 C",
+    "주소: 경상북도 영천시 중앙동 1-1",
+    "데이터 출처: request",
     "building_ledger: ...",
     "photo_interpretation: ...",
     "nearby_context: ..."
@@ -313,7 +312,7 @@ curl -X POST http://127.0.0.1:8000/nearby \
 1. `PatrolImageInput.house_id`로 `data/house/mapping.csv`에서 기준 이미지 base64 텍스트 파일을 찾습니다.
 2. 기준 이미지와 현재 이미지를 Gemini 멀티모달 메시지로 전달합니다.
 3. Gemini 응답을 `PatrolImageDecision` Pydantic 스키마로 구조화합니다.
-4. 구조화 실패 시 담당자 검토가 가능하도록 `risk_level=medium`, `is_anomaly=true` fallback을 반환합니다.
+4. 구조화 실패 시 오류를 반환해 모델 응답 문제를 드러냅니다.
 5. 최종 응답은 `PatrolImageAssessment`로 정규화됩니다.
 
 주요 판정 항목:
@@ -336,7 +335,6 @@ curl -X POST http://127.0.0.1:8000/nearby \
 - `src/services/building_ledger.py`
 - `src/services/geocoding.py`
 - `src/services/local_csv_data.py`
-- `src/services/public_data.py`
 
 LangGraph 노드:
 
@@ -416,7 +414,7 @@ uv run yeongcheon-agent redevelopment --house-id YC-001
 uv run yeongcheon-agent redevelopment --house-id YC-002
 ```
 
-주소/사진 기반:
+주소/사진 기반. `--lat`, `--lon`을 생략하면 CLI가 주소를 VWorld로 지오코딩한 뒤 주변 공공데이터를 검색합니다.
 
 ```bash
 uv run yeongcheon-agent redevelopment \
@@ -438,8 +436,6 @@ uv run yeongcheon-agent redevelopment \
   --max-per-layer 5 \
   --max-total 20
 ```
-
-주의: CLI의 `redevelopment` 명령은 API와 달리 주소를 자동 지오코딩하지 않습니다. 주변 공공데이터 분석이 필요하면 `--lat`, `--lon`을 직접 전달해야 합니다.
 
 주변 공공데이터 조회:
 
@@ -463,13 +459,13 @@ uv run python main.py nearby --lat 35.9682723 --lon 128.931526 --radius-km 2
 
 ## 테스트와 검증
 
-로컬 API 서버를 백그라운드로 띄운 뒤 6개 목데이터 샘플을 호출하는 사용자 테스트 스크립트가 있습니다.
+로컬 API 서버를 백그라운드로 띄운 뒤 `data/house/mapping.csv`의 6개 샘플을 호출하는 사용자 테스트 스크립트가 있습니다.
 
 ```bash
 uv run scripts/run_user_tests.py
 ```
 
-이 테스트는 Gemini/VWorld 키가 설정되어 있고 API 응답에 목업/폴백 문자열이 없어야 통과하도록 설계되어 있습니다.
+이 테스트는 Gemini/VWorld 키가 설정되어 있고 API 응답에 가짜 데이터 표시 문자열이 없어야 통과하도록 설계되어 있습니다.
 
 간단한 수동 검증 순서:
 
@@ -497,7 +493,6 @@ src/
     geocoding.py                 # VWorld 주소 좌표 변환
     building_ledger.py           # 건축물대장 API 어댑터
     local_csv_data.py            # data/ CSV 로딩 및 반경 검색
-    public_data.py               # 빈집 공공데이터 클라이언트 경계/목업
 data/
   house/                         # 순찰 이미지 기준/샘플 데이터
   *.csv                          # 영천시 공공데이터 CSV
@@ -520,13 +515,12 @@ pyproject.toml                   # 패키지/의존성/CLI 설정
 - `langchain-google-genai`
 - `pydantic`
 
-## 통합 시 교체 지점
+## 통합 시 확인 지점
 
 실제 서비스와 붙일 때 가장 먼저 볼 파일은 다음입니다.
 
-| 교체/연동 대상 | 파일 | 현재 상태 |
+| 연동 대상 | 파일 | 현재 상태 |
 | --- | --- | --- |
-| 실제 빈집 원천 API | `src/services/public_data.py` | `MockPublicDataClient` 사용 중 |
 | 프론트 요청 API | `src/api.py` | FastAPI 엔드포인트 정의 |
 | 주소 좌표 변환 | `src/services/geocoding.py` | VWorld API 사용 |
 | 건축물대장 | `src/services/building_ledger.py` | 공공데이터포털 건축물대장 기본개요/표제부 조회 |
@@ -534,14 +528,12 @@ pyproject.toml                   # 패키지/의존성/CLI 설정
 | 모델 제공자 | `src/services/gemini.py` | Gemini `gemini-3-flash-preview` |
 | 프롬프트 | `src/agents/prompts/*.md` | 업무 기준 프롬프트 |
 
-실제 빈집 API가 정해지면 `PublicDataClient` 구현체를 교체하고, `src/agents/redevelopment_recommendation.py`의 `fetch_public_data` 단계에서 해당 구현체를 사용하게 연결하면 됩니다.
-
 ## 운영상 주의점
 
-- `GOOGLE_API_KEY`와 `GEMINI_API_KEY`가 모두 없으면 실제 Gemini 이미지 판독은 실행되지 않습니다.
+- `GOOGLE_API_KEY`와 `GEMINI_API_KEY`가 모두 없으면 이미지 판독 요청은 실패합니다.
 - `/agents/redevelopment-recommendation`은 반드시 VWorld 지오코딩을 거치므로 `GEO_CODING_API_KEY`가 없으면 `503`을 반환합니다.
-- CLI `redevelopment`는 주소 자동 지오코딩을 하지 않습니다.
-- 건축물대장 API 키가 없거나 주소 파싱/조회가 실패하면 추천 흐름은 목업 건축물대장으로 이어집니다.
+- CLI `redevelopment`도 주소 입력 시 VWorld 지오코딩을 수행합니다. `--lat`, `--lon`을 직접 주면 해당 좌표를 우선 사용합니다.
+- 건축물대장 API 키가 없거나 주소 파싱/조회가 실패하면 재건축 추천 요청은 실패합니다.
 - 주변 공공데이터 검색은 좌표가 있는 CSV와 행정구역 단위 CSV만 사용합니다.
 - 주소만 있는 CSV는 `address_unresolved`로 분류되고 반경 검색에서 제외됩니다.
 - `data/.geocoding_cache.json`, `__pycache__`, `.DS_Store` 등은 런타임/로컬 산출물입니다.

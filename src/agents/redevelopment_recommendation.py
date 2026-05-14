@@ -1,9 +1,10 @@
 from __future__ import annotations
 
 import logging
-from dataclasses import asdict, replace
-from datetime import UTC, datetime
+import csv
+from dataclasses import replace
 from hashlib import sha1
+from pathlib import Path
 from typing import TypedDict
 
 from langchain_core.messages import HumanMessage
@@ -20,12 +21,13 @@ from src.models import (
     VacantHouseRecord,
 )
 from src.agents.tools import REDEVELOPMENT_RECOMMENDATION_TOOLS, get_building_ledger_info, get_nearby_public_data_bundle
-from src.services.building_ledger import BuildingLedgerError, parse_yeongcheon_jibun_address
-from src.services.public_data import MockPublicDataClient, PublicDataClient
+from src.services.building_ledger import BuildingLedgerError
 from src.services.gemini import build_gemini_chat_model
 
 
 logger = logging.getLogger(__name__)
+REPO_ROOT = Path(__file__).resolve().parents[2]
+HOUSE_MAPPING_PATH = REPO_ROOT / "data" / "house" / "mapping.csv"
 
 
 class RedevelopmentState(TypedDict, total=False):
@@ -70,7 +72,6 @@ class SubAgentDecision(BaseModel):
 
 def fetch_public_data(
     state: RedevelopmentState,
-    public_data_client: PublicDataClient | None = None,
 ) -> RedevelopmentState:
     trace_id = state.get("trace_id", "-")
     logger.info(
@@ -80,16 +81,18 @@ def fetch_public_data(
         state.get("address"),
         "latitude" in state and "longitude" in state,
     )
-    client = public_data_client or MockPublicDataClient()
-    if "house_id" in state:
-        record = client.get_vacant_house(state["house_id"])
-    else:
-        address = state["address"]
+    if "address" in state:
         record = _record_from_address(
-            address,
+            state["address"],
+            house_id=state.get("house_id"),
             latitude=state.get("latitude"),
             longitude=state.get("longitude"),
+            source="request",
         )
+    elif "house_id" in state:
+        record = _record_from_house_mapping(state["house_id"])
+    else:
+        raise ValueError("Either address or house_id is required.")
 
     latitude = state.get("latitude", record.latitude)
     longitude = state.get("longitude", record.longitude)
@@ -126,24 +129,59 @@ def fetch_public_data(
 
 def _record_from_address(
     address: str,
+    house_id: str | None = None,
     latitude: float | None = None,
     longitude: float | None = None,
+    source: str = "request",
 ) -> VacantHouseRecord:
     address_id = int(sha1(address.encode("utf-8")).hexdigest()[:8], 16) % 100000
     return VacantHouseRecord(
-        house_id=f"ADDR-{address_id}",
+        house_id=house_id or f"ADDR-{address_id}",
         address=address,
-        building_age_years=35,
-        vacancy_years=4,
-        structure_grade="C",
-        complaints_last_year=3,
-        distance_to_road_m=30.0,
-        distance_to_public_facility_m=180.0,
-        land_area_m2=100.0,
+        building_age_years=0,
+        vacancy_years=0,
+        structure_grade="미확인",
+        complaints_last_year=0,
+        distance_to_road_m=0.0,
+        distance_to_public_facility_m=0.0,
+        land_area_m2=0.0,
         latitude=latitude,
         longitude=longitude,
-        metadata={"source": "address-placeholder"},
+        metadata={"source": source},
     )
+
+
+def _record_from_house_mapping(house_id: str) -> VacantHouseRecord:
+    if not HOUSE_MAPPING_PATH.exists():
+        raise FileNotFoundError(f"House mapping file not found: {HOUSE_MAPPING_PATH}")
+
+    with HOUSE_MAPPING_PATH.open("r", encoding="utf-8-sig", newline="") as mapping_file:
+        reader = csv.DictReader(mapping_file)
+        for row in reader:
+            normalized = {key.strip(): value.strip() for key, value in row.items() if key is not None and value is not None}
+            row_house_id = normalized.get("house_id") or normalized.get("houde_id")
+            if row_house_id != house_id:
+                continue
+            address = normalized.get("real_address")
+            if not address:
+                raise ValueError(f"Missing real_address for house_id={house_id}")
+            latitude = _parse_float(normalized.get("real_coord_x"))
+            longitude = _parse_float(normalized.get("real_coord_y"))
+            return _record_from_address(
+                address,
+                house_id=house_id,
+                latitude=latitude,
+                longitude=longitude,
+                source="house-mapping",
+            )
+
+    raise ValueError(f"No house mapping found for house_id={house_id}")
+
+
+def _parse_float(value: str | None) -> float | None:
+    if value is None or value == "":
+        return None
+    return float(value)
 
 
 def fetch_building_ledger_by_address(
@@ -164,54 +202,8 @@ def fetch_building_ledger_by_address(
         )
         return ledger
     except BuildingLedgerError as exc:
-        logger.warning("redevelopment.building_ledger.fallback address=%r error=%s", address, exc)
-        return _mock_building_ledger(address, record, error=str(exc))
-
-
-def _mock_building_ledger(
-    address: str,
-    record: VacantHouseRecord | None = None,
-    error: str | None = None,
-) -> BuildingLedgerInfo:
-    """Fallback ledger payload used when the live API cannot be called."""
-
-    approval_year = None
-    if record is not None:
-        approval_year = datetime.now(UTC).year - record.building_age_years
-    parsed_query = None
-    try:
-        parsed_query = parse_yeongcheon_jibun_address(address)
-    except BuildingLedgerError:
-        parsed_query = None
-
-    return BuildingLedgerInfo(
-        address=address,
-        jibun_address=address,
-        ledger_type="일반",
-        ledger_category="일반건축물",
-        plat_gb_cd=parsed_query.plat_gb_cd if parsed_query is not None else "0",
-        bun=parsed_query.bun if parsed_query is not None else None,
-        ji=parsed_query.ji if parsed_query is not None else None,
-        main_use="단독주택",
-        structure=record.structure_grade if record is not None else None,
-        roof_structure=None,
-        land_area_m2=record.land_area_m2 if record is not None else None,
-        building_area_m2=None,
-        total_floor_area_m2=record.land_area_m2 if record is not None else None,
-        building_coverage_ratio=None,
-        floor_area_ratio=None,
-        parking_count=None,
-        district_zone=None,
-        approval_year=approval_year,
-        source="mock-building-ledger",
-        raw={
-            "api_status": "fallback",
-            "input_address_type": "jibun",
-            "parsed_query": asdict(parsed_query) if parsed_query is not None else None,
-            "target_apis": ["getBrBasisOulnInfo", "getBrTitleInfo"],
-            "fallback_reason": error,
-        },
-    )
+        logger.exception("redevelopment.building_ledger.failed address=%r", address)
+        raise RuntimeError(f"Building ledger lookup failed for address={address!r}: {exc}") from exc
 
 
 def _summarize_building_ledger(
@@ -221,7 +213,7 @@ def _summarize_building_ledger(
     context_signals = []
     if record.building_age_years:
         context_signals.append(f"건축물 노후도 {record.building_age_years}년")
-    if record.structure_grade:
+    if record.structure_grade and record.structure_grade != "미확인":
         context_signals.append(f"구조 등급 {record.structure_grade}")
     opportunity_signals = []
     if building_ledger.main_use:
@@ -242,7 +234,7 @@ def _summarize_building_ledger(
         context_signals=context_signals,
         opportunity_signals=opportunity_signals,
         recommended_actions=["지번을 시군구코드/법정동코드/번/지로 변환해 건축물대장 API 연동"],
-        confidence=0.45 if building_ledger.source.startswith("mock") else 0.8,
+        confidence=0.8,
     )
 
 
@@ -268,8 +260,7 @@ def interpret_photo(state: RedevelopmentState) -> RedevelopmentState:
 
     model = build_gemini_chat_model()
     if model is None:
-        logger.warning("redevelopment.interpret_photo.fallback trace_id=%s reason=no_gemini_model", trace_id)
-        return {"photo_report": _mock_photo_report(state)}
+        raise RuntimeError("Gemini model is not configured. Set GOOGLE_API_KEY or GEMINI_API_KEY.")
 
     mime_type = state.get("photo_image_mime_type", "image/jpeg")
     message = HumanMessage(
@@ -293,7 +284,7 @@ def interpret_photo(state: RedevelopmentState) -> RedevelopmentState:
             decision = SubAgentDecision.model_validate(decision)
     except (ValidationError, ValueError, TypeError) as exc:
         logger.exception("redevelopment.interpret_photo.structured_output_failed trace_id=%s", trace_id)
-        return {"photo_report": _fallback_report(RedevelopmentReportKind.PHOTO_INTERPRETATION, exc)}
+        raise RuntimeError("Gemini photo interpretation response could not be parsed.") from exc
 
     report = _report_from_decision(RedevelopmentReportKind.PHOTO_INTERPRETATION, decision)
     logger.info(
@@ -346,21 +337,6 @@ def analyze_nearby_context(state: RedevelopmentState) -> RedevelopmentState:
     return {"nearby_report": report}
 
 
-def _mock_photo_report(state: RedevelopmentState) -> RedevelopmentSubAgentReport:
-    image_size = len(state["photo_image_base64"])
-    context_signals = ["사진 입력 존재, 모델 미설정으로 주변 경관 및 외관 맥락 판독 필요"]
-    if image_size < 256:
-        context_signals.append("사진 데이터가 짧아 판독 신뢰도 낮음")
-
-    return RedevelopmentSubAgentReport(
-        kind=RedevelopmentReportKind.PHOTO_INTERPRETATION,
-        summary="목업 사진 리포트: 실제 Gemini 키가 없어 사진 내용 판독 대신 입력 상태만 반영했습니다.",
-        context_signals=context_signals,
-        recommended_actions=["GOOGLE_API_KEY 또는 GEMINI_API_KEY 설정 후 사진 기반 경관/입지 맥락 판독 실행", "현장 담당자 육안 검토"],
-        confidence=0.2,
-    )
-
-
 def _summarize_nearby_context(nearby_context: NearbyGeoDataBundle) -> RedevelopmentSubAgentReport:
     matched_layers = [layer for layer in nearby_context.layers if layer.objects]
     context_signals = []
@@ -401,17 +377,6 @@ def _report_from_decision(
     )
 
 
-def _fallback_report(kind: RedevelopmentReportKind, error: Exception) -> RedevelopmentSubAgentReport:
-    return RedevelopmentSubAgentReport(
-        kind=kind,
-        summary="모델 응답을 구조화된 서브에이전트 리포트로 변환하지 못했습니다.",
-        context_signals=["structured_output_failure"],
-        recommended_actions=["담당자 육안 검토"],
-        confidence=0.1,
-        raw_model_output=str(error),
-    )
-
-
 def _recommend_use(record: VacantHouseRecord, reports: list[RedevelopmentSubAgentReport]) -> str:
     signal_text = " ".join(
         signal
@@ -426,9 +391,9 @@ def _recommend_use(record: VacantHouseRecord, reports: list[RedevelopmentSubAgen
         return "체류형 로컬 상권 연계 공간 또는 관광 안내 거점"
     if any(keyword in signal_text for keyword in ["공장", "제조", "일자리"]):
         return "소규모 창업, 작업장, 일자리 지원 거점"
-    if record.distance_to_public_facility_m <= 120 and record.land_area_m2 >= 70:
+    if 0 < record.distance_to_public_facility_m <= 120 and record.land_area_m2 >= 70:
         return "마을 공유공간 또는 생활 SOC 연계 거점"
-    if record.distance_to_road_m <= 30:
+    if 0 < record.distance_to_road_m <= 30:
         return "소규모 주차장 또는 골목 환경개선 부지"
     return "임시 녹지 및 경관 정비"
 
@@ -444,9 +409,17 @@ def _build_recommendation_explanation(
         None,
     )
 
+    condition_parts = []
+    if record.building_age_years:
+        condition_parts.append(f"건축물 노후도 {record.building_age_years}년")
+    if record.vacancy_years:
+        condition_parts.append(f"공실 {record.vacancy_years}년")
+    if record.structure_grade and record.structure_grade != "미확인":
+        condition_parts.append(f"구조 등급 {record.structure_grade}")
     condition_sentence = (
-        f"대상지는 건축물 노후도 {record.building_age_years}년, 공실 {record.vacancy_years}년, "
-        f"구조 등급 {record.structure_grade}로 정비 필요성이 있습니다."
+        f"대상지는 {', '.join(condition_parts)} 정보로 정비 필요성을 검토했습니다."
+        if condition_parts
+        else "대상지는 요청 주소, 건축물대장, 현장 사진, 주변 공공데이터를 기준으로 활용 가능성을 검토했습니다."
     )
     use_sentence = f"사진 해석과 주변 공공데이터를 함께 보면 {_explanation_basis(recommended_use, nearby_report, photo_report)}"
     follow_up_sentence = "최종 실행 전에는 소유자 동의, 상세 공부 확인, 예산과 주민 수요를 추가로 확인해야 합니다."
@@ -507,11 +480,17 @@ def recommend_redevelopment_use(state: RedevelopmentState) -> RedevelopmentState
         if report is not None
     ]
     rationale = [
-        f"건축물 노후도 {record.building_age_years}년",
-        f"공실 기간 {record.vacancy_years}년",
-        f"구조 등급 {record.structure_grade}",
-        f"최근 1년 민원 {record.complaints_last_year}건",
+        f"주소: {record.address}",
+        f"데이터 출처: {record.metadata.get('source', 'request')}",
     ]
+    if record.building_age_years:
+        rationale.append(f"건축물 노후도 {record.building_age_years}년")
+    if record.vacancy_years:
+        rationale.append(f"공실 기간 {record.vacancy_years}년")
+    if record.structure_grade and record.structure_grade != "미확인":
+        rationale.append(f"구조 등급 {record.structure_grade}")
+    if record.complaints_last_year:
+        rationale.append(f"최근 1년 민원 {record.complaints_last_year}건")
 
     for report in reports:
         rationale.append(f"{report.kind.value}: {report.summary}")
@@ -541,9 +520,9 @@ def recommend_redevelopment_use(state: RedevelopmentState) -> RedevelopmentState
     return {**state, "recommendation": recommendation}
 
 
-def build_redevelopment_recommendation_graph(public_data_client: PublicDataClient | None = None):
+def build_redevelopment_recommendation_graph():
     graph = StateGraph(RedevelopmentState)
-    graph.add_node("fetch_public_data", lambda state: fetch_public_data(state, public_data_client))
+    graph.add_node("fetch_public_data", fetch_public_data)
     graph.add_node("interpret_photo", interpret_photo)
     graph.add_node("analyze_nearby_context", analyze_nearby_context)
     graph.add_node("recommend_redevelopment_use", recommend_redevelopment_use)

@@ -13,7 +13,12 @@ from src.agents.redevelopment_recommendation import (
     build_redevelopment_recommendation_graph,
 )
 from src.models import PatrolImageInput
+from src.services.geocoding import GeocodingError, GeocodeResult, VWorldGeocoder
 from src.services.local_csv_data import LocalCsvGeoDataRepository
+
+
+JIBUN_ADDRESS_TYPE = "PARCEL"
+ROAD_ADDRESS_TYPE = "ROAD"
 
 
 def _json_default(value: Any) -> Any:
@@ -35,6 +40,17 @@ def run_patrol_demo() -> dict[str, Any]:
         }
     )
     return result["assessment"]
+
+
+def _geocode_address(address: str) -> GeocodeResult:
+    errors: list[str] = []
+    geocoder = VWorldGeocoder()
+    for address_type in (JIBUN_ADDRESS_TYPE, ROAD_ADDRESS_TYPE):
+        try:
+            return geocoder.geocode(address, address_type)
+        except GeocodingError as exc:
+            errors.append(f"{address_type}: {exc}")
+    raise GeocodingError(f"주소를 좌표로 변환하지 못했습니다: {'; '.join(errors)}")
 
 
 def run_redevelopment_demo(
@@ -60,16 +76,20 @@ def run_redevelopment_demo(
     if photo_image_base64 is not None:
         payload["photo_image_base64"] = photo_image_base64
         payload["photo_image_mime_type"] = photo_image_mime_type
+    if address is not None and (latitude is None or longitude is None):
+        geocode_result = _geocode_address(address)
+        latitude = geocode_result.latitude
+        longitude = geocode_result.longitude
     if latitude is not None and longitude is not None:
         payload.update(
             {
                 "latitude": latitude,
                 "longitude": longitude,
-                "radius_km": radius_km,
-                "max_records_per_layer": max_records_per_layer,
-                "max_total_records": max_total_records,
             }
         )
+    payload["radius_km"] = radius_km
+    payload["max_records_per_layer"] = max_records_per_layer
+    payload["max_total_records"] = max_total_records
     if administrative_area is not None:
         payload["administrative_area"] = administrative_area
     return graph.invoke(payload)["recommendation"]

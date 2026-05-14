@@ -112,37 +112,6 @@ def _build_assessment(
     )
 
 
-def _fallback_assessment(request: PatrolImageInput, error: Exception) -> PatrolImageAssessment:
-    return PatrolImageAssessment(
-        house_id=request.house_id,
-        is_anomaly=True,
-        risk_level=RiskLevel.MEDIUM,
-        summary="모델 응답을 구조화된 순찰 이미지 판정으로 변환하지 못했습니다.",
-        evidence=["structured_output_failure"],
-        recommended_actions=["담당자 육안 검토"],
-        raw_model_output=str(error),
-    )
-
-
-def _mock_assessment(request: PatrolImageInput, baseline_image_base64: str) -> PatrolImageAssessment:
-    """Local deterministic behavior for skeleton runs without Gemini credentials."""
-
-    image_delta_hint = abs(len(request.captured_image_base64) - len(baseline_image_base64))
-    is_anomaly = image_delta_hint > 32
-    return PatrolImageAssessment(
-        house_id=request.house_id,
-        is_anomaly=is_anomaly,
-        risk_level=RiskLevel.MEDIUM if is_anomaly else RiskLevel.LOW,
-        summary=(
-            "목업 판정: 입력 이미지 크기 차이가 커 이상 가능성이 있습니다."
-            if is_anomaly
-            else "목업 판정: 기준 이미지와 큰 차이를 발견하지 못했습니다."
-        ),
-        evidence=[f"base64_length_delta={image_delta_hint}"],
-        recommended_actions=["현장 재확인", "담당자 알림"] if is_anomaly else ["정기 순찰 유지"],
-    )
-
-
 def infer_image_anomaly(state: PatrolImageState) -> PatrolImageState:
     request = state["request"]
     baseline_image_base64 = load_baseline_image_base64(request.house_id)
@@ -154,18 +123,7 @@ def infer_image_anomaly(state: PatrolImageState) -> PatrolImageState:
     )
     model = build_gemini_chat_model()
     if model is None:
-        logger.warning(
-            "patrol.infer_image_anomaly.fallback house_id=%s reason=no_gemini_model",
-            request.house_id,
-        )
-        assessment = _mock_assessment(request, baseline_image_base64)
-        logger.info(
-            "patrol.infer_image_anomaly.complete house_id=%s is_anomaly=%s risk_level=%s source=mock",
-            assessment.house_id,
-            assessment.is_anomaly,
-            assessment.risk_level.value,
-        )
-        return {"request": request, "assessment": assessment}
+        raise RuntimeError("Gemini model is not configured. Set GOOGLE_API_KEY or GEMINI_API_KEY.")
 
     message = HumanMessage(content=_build_prompt(request, baseline_image_base64))
     structured_model = model.with_structured_output(PatrolImageDecision)
@@ -176,8 +134,7 @@ def infer_image_anomaly(state: PatrolImageState) -> PatrolImageState:
             decision = PatrolImageDecision.model_validate(decision)
     except (ValidationError, ValueError, TypeError) as exc:
         logger.exception("patrol.infer_image_anomaly.structured_output_failed house_id=%s", request.house_id)
-        assessment = _fallback_assessment(request, exc)
-        return {"request": request, "assessment": assessment}
+        raise RuntimeError("Gemini patrol image response could not be parsed.") from exc
 
     assessment = _build_assessment(request, decision)
     logger.info(
