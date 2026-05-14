@@ -1,4 +1,24 @@
 {
+  "PARCEL|경북 영천시 북안면 용계리 산19번지 외6필": {
+    "latitude": 35.854759889400896,
+    "longitude": 129.01451881168887,
+    "matched_address": null
+  },
+  "PARCEL|경북 영천시 화북면 죽전리 산82 외2": {
+    "latitude": 36.13548934533215,
+    "longitude": 128.90879060269677,
+    "matched_address": null
+  },
+  "PARCEL|경상북도 경상북여 영천시 임고면 포은로 175-32": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
+  "PARCEL|경상북도 영천시 <REPLACE>": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
   "PARCEL|경상북도 영천시 가래실로 167": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -3401,6 +3421,11 @@
   },
   "PARCEL|경상북도 영천시 대경로 2473": {
     "error": "geocoding request failed: The read operation timed out",
+    "latitude": null,
+    "longitude": null
+  },
+  "PARCEL|경상북도 영천시 대구광역시 달서구 감삼길 15, 2층 (감삼동)": {
+    "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
   },
@@ -7574,6 +7599,11 @@
     "latitude": null,
     "longitude": null
   },
+  "PARCEL|경상북도 영천시 신녕면 관기길 222": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
   "PARCEL|경상북도 영천시 신녕면 구디티길 6529": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -9859,6 +9889,11 @@
     "longitude": 128.9879773788249,
     "matched_address": null
   },
+  "PARCEL|경상북도 영천시 임고면 평천리 355-10": {
+    "latitude": 36.04316400729856,
+    "longitude": 128.98822635117688,
+    "matched_address": null
+  },
   "PARCEL|경상북도 영천시 임고면 평천리 416-5번지 외 1필지": {
     "latitude": 36.033692096441044,
     "longitude": 128.97698522487025,
@@ -10659,6 +10694,11 @@
     "latitude": null,
     "longitude": null
   },
+  "PARCEL|경상북도 영천시 중앙동1길 12-9 (문내동)": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
   "PARCEL|경상북도 영천시 중앙동1길 68": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -11310,6 +11350,11 @@
     "longitude": null
   },
   "PARCEL|경상북도 영천시 천문로 955": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
+  "PARCEL|경상북도 영천시 청산길 17, 103동 나-12호 (문외동)": {
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
@@ -12854,6 +12899,11 @@
     "latitude": null,
     "longitude": null
   },
+  "PARCEL|경상북도 영천시 충효로9 (관리사무실 옆)": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
   "PARCEL|경상북도 영천시 치산관광길 119": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -13135,6 +13185,11 @@
     "longitude": null
   },
   "PARCEL|경상북도 영천시 하이브리드로 567 (채신동)": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
+  "PARCEL|경상북도 영천시 하이브리드로 611(채신동)": {
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
@@ -14729,6 +14784,16 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 경상북여 영천시 임고면 포은로 175-32": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
+  "ROAD|경상북도 영천시 <REPLACE>": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
   "ROAD|경상북도 영천시 가래실로 167": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -14824,6 +14889,21 @@
     "longitude": 128.93493077262147,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 강남길 13 (완산동,1074-23)": {
+    "latitude": 35.96408764378155,
+    "longitude": 128.9350835907207,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 강남길 14-1, 2층 (완산동)": {
+    "latitude": 35.963997781938296,
+    "longitude": 128.93531016712473,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 강남길 15 (완산동)": {
+    "latitude": 35.964202357620465,
+    "longitude": 128.9352914242698,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 강남길 16-4 (완산동)": {
     "latitude": 35.96408820106508,
     "longitude": 128.93558028183148,
@@ -14839,14 +14919,29 @@
     "longitude": 128.93582909337175,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 강남길 21, 전면 좌측호 (완산동)": {
+    "latitude": 35.96463686668594,
+    "longitude": 128.93582909337175,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 강남길 22 (완산동)": {
     "latitude": 35.96443076557662,
     "longitude": 128.9359245940566,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 강남길 28-1 (완산동)": {
+    "latitude": 35.96482082290033,
+    "longitude": 128.93651414534895,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 강남길 33": {
     "latitude": 35.96525479761331,
     "longitude": 128.93676279774687,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 강남길 33 (완산동)": {
+    "latitude": 35.96540073568143,
+    "longitude": 128.93690322717464,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 강남길 33, 완산청구하이츠 106동 105호 (완산동)": {
@@ -14869,6 +14964,11 @@
     "longitude": 128.93759980512925,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 강남길 43, 1층 (완산동)": {
+    "latitude": 35.96586698984029,
+    "longitude": 128.93759980512925,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 강남길 43-1 (완산동)": {
     "latitude": 35.96590799430679,
     "longitude": 128.9376987866057,
@@ -14877,6 +14977,11 @@
   "ROAD|경상북도 영천시 강남길 45 (완산동)": {
     "latitude": 35.96601196201991,
     "longitude": 128.93776032027517,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 강남길 45-1 (완산동)": {
+    "latitude": 35.96607075567087,
+    "longitude": 128.93789111195014,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 강남길 46 (완산동)": {
@@ -14892,6 +14997,16 @@
   "ROAD|경상북도 영천시 강남길 48-1 (완산동)": {
     "latitude": 35.96581901744946,
     "longitude": 128.93825035299125,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 강남길 49, 1층 (완산동)": {
+    "latitude": 35.96636833252171,
+    "longitude": 128.9380369167245,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 강남길 51 (완산동)": {
+    "latitude": 35.966304488973506,
+    "longitude": 128.93833742699366,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 강남길 7 (완산동)": {
@@ -14922,6 +15037,11 @@
   "ROAD|경상북도 영천시 강변로 38 (금노동)": {
     "latitude": 35.96072928832277,
     "longitude": 128.92673314305082,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 강변로 4 (성내동)": {
+    "latitude": 35.96251153406512,
+    "longitude": 128.92366788703362,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 강변로 44": {
@@ -14959,6 +15079,11 @@
     "longitude": 128.92846387431632,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 강변로 51 (금노동)": {
+    "latitude": 35.96128924453938,
+    "longitude": 128.92841428569102,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 강변로 57 (금노동)": {
     "latitude": 35.96138717973078,
     "longitude": 128.92875754987796,
@@ -14982,6 +15107,11 @@
   "ROAD|경상북도 영천시 강변로 65-1 (금노동)": {
     "latitude": 35.96171070270498,
     "longitude": 128.9295606046859,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 강변로 69, 지하1층 (금노동)": {
+    "latitude": 35.96195191246837,
+    "longitude": 128.92992538602846,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 강변로 70 (금노동)": {
@@ -16039,6 +16169,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 고경면 창방우길 2": {
+    "latitude": 35.98085810541795,
+    "longitude": 128.97959695799645,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 고경면 창상리 18417": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -16164,6 +16299,11 @@
     "longitude": 129.04534564177044,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 고경면 추곡길 491": {
+    "latitude": 35.97283867713422,
+    "longitude": 129.04612406849924,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 고경면 추곡길 52": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -16259,9 +16399,19 @@
     "longitude": 129.04691364360752,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 고경면 호국로 1076-20": {
+    "latitude": 36.00074405242165,
+    "longitude": 129.04750140714614,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 고경면 호국로 1076-3": {
     "latitude": 36.00094053067464,
     "longitude": 129.04702527069242,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 고경면 호국로 1077 (317-5, -6, -7)": {
+    "latitude": 36.001423990219934,
+    "longitude": 129.04708298714598,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 고경면 호국로 1080": {
@@ -16399,6 +16549,11 @@
     "longitude": 129.08471130991524,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 고경면 호국로 1457": {
+    "latitude": 35.996384900278265,
+    "longitude": 129.08565059968194,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 고경면 호국로 1457-10": {
     "latitude": 35.99639569657721,
     "longitude": 129.08614350577832,
@@ -16519,6 +16674,11 @@
     "longitude": 128.9787829771416,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 고경면 호국로 391": {
+    "latitude": 35.98084316497172,
+    "longitude": 128.97973053392036,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 고경면 호국로 397": {
     "latitude": 35.98155867872037,
     "longitude": 128.980614783776,
@@ -16594,6 +16754,11 @@
     "longitude": 128.99619149514777,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 고경면 호국로 575-8": {
+    "latitude": 35.98992940444908,
+    "longitude": 128.99713850001305,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 고경면 호국로 575262": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -16657,6 +16822,11 @@
   "ROAD|경상북도 영천시 고경면 호국로 674-11": {
     "latitude": 35.99376951950062,
     "longitude": 129.00650996792768,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 고경면 호국로 674-14": {
+    "latitude": 35.99385091970459,
+    "longitude": 129.00625977186158,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 고경면 호국로 675": {
@@ -16794,6 +16964,11 @@
     "longitude": 128.9303330760535,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 교창길 16 (창구동)": {
+    "latitude": 35.967056521880565,
+    "longitude": 128.9303582642969,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 교창길 18 (창구동)": {
     "latitude": 35.96708018430448,
     "longitude": 128.9303030043792,
@@ -16802,6 +16977,11 @@
   "ROAD|경상북도 영천시 교창길 21-4 (과전동)": {
     "latitude": 35.96713414432084,
     "longitude": 128.92985169899754,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 교창길 5 (과전동)": {
+    "latitude": 35.966740541798984,
+    "longitude": 128.9306966036655,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 교창길 6 (창구동)": {
@@ -16814,10 +16994,20 @@
     "longitude": 128.93047556179448,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 교촌길 4-1, 2층 (창구동)": {
+    "latitude": 35.96972896308502,
+    "longitude": 128.93007919047923,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 교촌동 206-2 외1필지": {
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 교촌샛길 11-3 (교촌동)": {
+    "latitude": 35.967522749667324,
+    "longitude": 128.92896870015514,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 구산길 4 (완산동)": {
     "latitude": 35.96138463617237,
@@ -16842,6 +17032,11 @@
   "ROAD|경상북도 영천시 구읍2길 19": {
     "latitude": 35.96164719587112,
     "longitude": 128.93441488553958,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 구읍3길 30 (완산동)": {
+    "latitude": 35.96167249439672,
+    "longitude": 128.93459652519613,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 구읍3길 58 (완산동)": {
@@ -17062,6 +17257,11 @@
   "ROAD|경상북도 영천시 금완로 39 (금노동)": {
     "latitude": 35.96057052695133,
     "longitude": 128.93266152477446,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금완로 46 (완산동)": {
+    "latitude": 35.96016164660695,
+    "longitude": 128.93332019258884,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금완로 46-18 (완산동)": {
@@ -17544,6 +17744,16 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 금호읍 가라골1길 72-4": {
+    "latitude": 35.92229611411578,
+    "longitude": 128.86254416037082,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 가라골1길 90": {
+    "latitude": 35.9209654850563,
+    "longitude": 128.86102404769363,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 가야길 33": {
     "latitude": 35.90577059036329,
     "longitude": 128.9312059106939,
@@ -17572,6 +17782,11 @@
   "ROAD|경상북도 영천시 금호읍 강회3길 13-106": {
     "latitude": 35.89325561152417,
     "longitude": 128.87911082809615,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 거여로 140": {
+    "latitude": 35.93219599038495,
+    "longitude": 128.89249081084716,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 거여로 2": {
@@ -17654,6 +17869,11 @@
     "longitude": 128.9025531798406,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 금호읍 관정2길 10": {
+    "latitude": 35.9297031659584,
+    "longitude": 128.907676663652,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 관황길 49-4": {
     "latitude": 35.927623656568144,
     "longitude": 128.91250764039822,
@@ -17719,6 +17939,11 @@
     "longitude": 128.87114364315772,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 금호읍 교대길 30, 2층": {
+    "latitude": 35.93359563994892,
+    "longitude": 128.87114364315772,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 교대길 33-3": {
     "latitude": 35.933773660475374,
     "longitude": 128.87030127791468,
@@ -17742,6 +17967,16 @@
   "ROAD|경상북도 영천시 금호읍 교대용대길 1": {
     "latitude": 35.9339555302231,
     "longitude": 128.87092757833693,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 교대용대길 7-2": {
+    "latitude": 35.93375581100883,
+    "longitude": 128.87162711223607,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 교대용대길6 2층": {
+    "latitude": 35.933584441894446,
+    "longitude": 128.87130197918543,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 구암길 53": {
@@ -17802,6 +18037,11 @@
   "ROAD|경상북도 영천시 금호읍 금창로 208-214": {
     "latitude": 35.91346798309797,
     "longitude": 128.88202348875146,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금창로 208-31": {
+    "latitude": 35.91430072870813,
+    "longitude": 128.88280332005633,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 금창로 208-60": {
@@ -17884,6 +18124,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 금호읍 금창로 74": {
+    "latitude": 35.924910058857066,
+    "longitude": 128.87646876310174,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 금창로 77": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -17900,6 +18145,11 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 금호로 101, 영천금호전통시장": {
+    "latitude": 35.93178888073439,
+    "longitude": 128.87331114413178,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호로 101, 영천금호전통시장 3지구 5": {
     "latitude": 35.93178888073439,
     "longitude": 128.87331114413178,
     "matched_address": null
@@ -17929,6 +18179,11 @@
     "longitude": 128.87309163093573,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 금호읍 금호로 104": {
+    "latitude": 35.931204947934035,
+    "longitude": 128.8729286898473,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 금호로 104, 6호 (금호전통시장상설점표 제2지구 )": {
     "latitude": 35.931204947934035,
     "longitude": 128.8729286898473,
@@ -17952,6 +18207,11 @@
   "ROAD|경상북도 영천시 금호읍 금호로 109-1": {
     "latitude": 35.93163161816153,
     "longitude": 128.87368351503792,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호로 110": {
+    "latitude": 35.931326694377134,
+    "longitude": 128.87376373256535,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 금호로 110-1": {
@@ -17979,6 +18239,11 @@
     "longitude": 128.87519640343783,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 금호읍 금호로 125-1": {
+    "latitude": 35.932010844218745,
+    "longitude": 128.875374483013,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 금호로 127-2": {
     "latitude": 35.93210894071305,
     "longitude": 128.8755306691033,
@@ -17997,6 +18262,16 @@
   "ROAD|경상북도 영천시 금호읍 금호로 133": {
     "latitude": 35.932273561002575,
     "longitude": 128.87611207208118,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호로 134": {
+    "latitude": 35.931950099934866,
+    "longitude": 128.87627249291057,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호로 137": {
+    "latitude": 35.93223191088832,
+    "longitude": 128.8764445742267,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 금호로 137-1": {
@@ -18019,6 +18294,11 @@
     "longitude": 128.8770634696843,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 금호읍 금호로 144": {
+    "latitude": 35.93216144163484,
+    "longitude": 128.87735362015238,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 금호로 146-7": {
     "latitude": 35.932092270096305,
     "longitude": 128.8777563038854,
@@ -18027,6 +18307,16 @@
   "ROAD|경상북도 영천시 금호읍 금호로 147": {
     "latitude": 35.93256047603268,
     "longitude": 128.87755936300772,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호로 147 (외 1필지)": {
+    "latitude": 35.93256047603268,
+    "longitude": 128.87755936300772,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호로 149": {
+    "latitude": 35.93260256497793,
+    "longitude": 128.8777281387541,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 금호로 152": {
@@ -18170,6 +18460,11 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 금호로 35-1": {
+    "latitude": 35.929907780999535,
+    "longitude": 128.86574599887052,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호로 35-1, 2층 201호": {
     "latitude": 35.929907780999535,
     "longitude": 128.86574599887052,
     "matched_address": null
@@ -18359,7 +18654,22 @@
     "longitude": 128.87025564411707,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 금호읍 금호로 79, B동": {
+    "latitude": 35.93088435910491,
+    "longitude": 128.87025564411707,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호로 80-1, 경동약국": {
+    "latitude": 35.9306813812005,
+    "longitude": 128.87057588532562,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 금호로 88 ((태성상가 5호))": {
+    "latitude": 35.930808864530945,
+    "longitude": 128.87140689742537,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호로 88, 4-1호 (태성맨션)": {
     "latitude": 35.930808864530945,
     "longitude": 128.87140689742537,
     "matched_address": null
@@ -18379,6 +18689,16 @@
     "longitude": 128.87183597876037,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 금호읍 금호로 94": {
+    "latitude": 35.931019819458015,
+    "longitude": 128.87199058506422,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호시장길 10-2": {
+    "latitude": 35.93272762290221,
+    "longitude": 128.8768081852195,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 금호시장길 14-3": {
     "latitude": 35.93283059673966,
     "longitude": 128.8760647610526,
@@ -18387,6 +18707,16 @@
   "ROAD|경상북도 영천시 금호읍 금호시장길 19": {
     "latitude": 35.9323613148439,
     "longitude": 128.87589184770843,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호시장길 23": {
+    "latitude": 35.93226245861787,
+    "longitude": 128.87548613930022,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호시장길 29": {
+    "latitude": 35.93209253566336,
+    "longitude": 128.87510619190692,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 금호시장길 3": {
@@ -18412,6 +18742,21 @@
   "ROAD|경상북도 영천시 금호읍 금호시장길 44-2": {
     "latitude": 35.93195083726568,
     "longitude": 128.87323480756157,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호시장길 5": {
+    "latitude": 35.932652030493585,
+    "longitude": 128.87738345738381,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호시장길 53-1": {
+    "latitude": 35.93146690360606,
+    "longitude": 128.87234500275508,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 금호시장길 54": {
+    "latitude": 35.931712752772896,
+    "longitude": 128.87229841988741,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 금호제방길 18864": {
@@ -18449,9 +18794,19 @@
     "longitude": 128.87112874836,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 금호읍 대경로 1260, 1층": {
+    "latitude": 35.934749729621274,
+    "longitude": 128.87112874836,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 대경로 1280 (외 1(교대리 74-3))": {
     "latitude": 35.93530238101876,
     "longitude": 128.8731938191868,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 대구대길 106": {
+    "latitude": 35.92141978880083,
+    "longitude": 128.86996261799555,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 대구대길 114": {
@@ -18473,6 +18828,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 금호읍 대구대길 333, 대구대학교 창업보육센터2호관 2층 1207호": {
+    "latitude": 35.89973834059819,
+    "longitude": 128.85687600085657,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 대구대길 4": {
     "error": "NOT_FOUND",
@@ -18518,6 +18878,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 금호읍 대배길 50": {
+    "latitude": 35.89575917520443,
+    "longitude": 128.92371917707487,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 대승지길 129": {
     "error": "NOT_FOUND",
@@ -18573,6 +18938,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 금호읍 돌섬1길 13": {
+    "latitude": 35.946687320850785,
+    "longitude": 128.88731582053538,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 돌섬2길 82": {
     "latitude": 35.95161078394337,
@@ -18677,6 +19047,11 @@
   "ROAD|경상북도 영천시 금호읍 신월숲길 44": {
     "latitude": 35.93975383697982,
     "longitude": 128.90390150500684,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 야수골길 9-2": {
+    "latitude": 35.94314178659328,
+    "longitude": 128.90117458027737,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 금호읍 야수골길 9-2 (,-11)": {
@@ -18904,6 +19279,11 @@
     "longitude": 128.89911859355618,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 금호읍 원제1길 3, 2층": {
+    "latitude": 35.94077317346666,
+    "longitude": 128.89801610664824,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 원제1길 4": {
     "latitude": 35.94117323940171,
     "longitude": 128.89829097582765,
@@ -18939,6 +19319,11 @@
     "longitude": 128.89899231823838,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 금호읍 원제2길 16-5, 105동 112호": {
+    "latitude": 35.94309502313309,
+    "longitude": 128.8991507826081,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 원제2길 16-7": {
     "latitude": 35.94285735156941,
     "longitude": 128.89910071216434,
@@ -18959,7 +19344,17 @@
     "longitude": 128.89956375178915,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 금호읍 원제2길 16-8 (윤성모닝타운)": {
+    "latitude": 35.942453654214745,
+    "longitude": 128.90005767042794,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 원제2길 16-8 (윤성상가 203호)": {
+    "latitude": 35.942453654214745,
+    "longitude": 128.90005767042794,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 원제2길 16-8 (윤성상가 208호)": {
     "latitude": 35.942453654214745,
     "longitude": 128.90005767042794,
     "matched_address": null
@@ -18994,7 +19389,22 @@
     "longitude": 128.90005767042794,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 금호읍 원제2길 16-8, 105동 118호 (윤성모닝타운)": {
+    "latitude": 35.942453654214745,
+    "longitude": 128.90005767042794,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 원제2길 16-8, 110호 (윤성상가)": {
+    "latitude": 35.942453654214745,
+    "longitude": 128.90005767042794,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 금호읍 원제2길 16-8, 116호 (윤성상가)": {
+    "latitude": 35.942453654214745,
+    "longitude": 128.90005767042794,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 금호읍 원제2길 16-8, 상가(105)동 109호 (윤성모닝타운)": {
     "latitude": 35.942453654214745,
     "longitude": 128.90005767042794,
     "matched_address": null
@@ -19219,6 +19629,21 @@
     "longitude": 128.93052061351415,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 담안4길 50-3 (금노동)": {
+    "latitude": 35.961475011230064,
+    "longitude": 128.93036374993125,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 담안5길 55 (금노동)": {
+    "latitude": 35.96147336946195,
+    "longitude": 128.93112896062675,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 담안5길 69, 1층 (금노동)": {
+    "latitude": 35.96208424581938,
+    "longitude": 128.9311301837174,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 대경로 2166-26": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -19255,6 +19680,11 @@
     "longitude": null
   },
   "ROAD|경상북도 영천시 대경로 2473": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
+  "ROAD|경상북도 영천시 대구광역시 달서구 감삼길 15, 2층 (감삼동)": {
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
@@ -19439,6 +19869,11 @@
     "longitude": 128.88617179967645,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 대창면 강회2길 24": {
+    "latitude": 35.892102694342704,
+    "longitude": 128.8868111782753,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 대창면 강회3길 50-10": {
     "latitude": 35.89863707383138,
     "longitude": 128.8841584888121,
@@ -19492,6 +19927,16 @@
   "ROAD|경상북도 영천시 대창면 금박로 1051": {
     "latitude": 35.87523048080342,
     "longitude": 128.89504208831303,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 대창면 금박로 1053-1": {
+    "latitude": 35.8754913029448,
+    "longitude": 128.89523064212398,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 대창면 금박로 1055, 1층 전면우측호": {
+    "latitude": 35.87546817718748,
+    "longitude": 128.89539303104777,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 대창면 금박로 1057 (,1038-7)": {
@@ -19734,6 +20179,11 @@
     "longitude": 128.89543976440862,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 대창면 금창로 672-4": {
+    "latitude": 35.87628642596832,
+    "longitude": 128.89559657555543,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 대창면 금창로 672-7": {
     "latitude": 35.87603665476448,
     "longitude": 128.89554400417893,
@@ -19813,6 +20263,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 대창면 대창시장길 12": {
+    "latitude": 35.874797777403785,
+    "longitude": 128.89620186526815,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 대창면 대창시장길 19-3": {
     "latitude": 35.87434222189009,
@@ -20022,6 +20477,11 @@
   "ROAD|경상북도 영천시 대창면 신당길 61-5": {
     "latitude": 35.88121583905857,
     "longitude": 128.88658426870091,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 대창면 영지길 100": {
+    "latitude": 35.85821233461624,
+    "longitude": 128.91979634302072,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 대창면 영지길 109-1": {
@@ -20539,11 +20999,6 @@
     "longitude": 128.93997469295965,
     "matched_address": null
   },
-  "ROAD|경상북도 영천시 도남동 191번지 외 2필지": {
-    "error": "geocoding request failed: <urlopen error [Errno 8] nodename nor servname provided, or not known>",
-    "latitude": null,
-    "longitude": null
-  },
   "ROAD|경상북도 영천시 도남동 340-1번지 외 1필지": {
     "error": "geocoding request failed: The read operation timed out",
     "latitude": null,
@@ -20659,6 +21114,11 @@
     "longitude": 128.9295945820142,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 동문1길 26 (문내동)": {
+    "latitude": 35.969012728570576,
+    "longitude": 128.93397612862924,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 동문1길 33-2 (문내동)": {
     "latitude": 35.96949936031859,
     "longitude": 128.9337374150178,
@@ -20709,9 +21169,19 @@
     "longitude": 128.93181035480143,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 동문길 31 (문내동)": {
+    "latitude": 35.96989893422105,
+    "longitude": 128.93211643444835,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 동문길 4 (창구동)": {
     "latitude": 35.969595265508104,
     "longitude": 128.93057777456812,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 동문길 41 (문내동)": {
+    "latitude": 35.96995577969924,
+    "longitude": 128.93254767771572,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 동문길 76 (문외동)": {
@@ -20719,9 +21189,19 @@
     "longitude": 128.93453502717094,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 동문길 8 (창구동)": {
+    "latitude": 35.96960901100495,
+    "longitude": 128.9307421113238,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 동문길 84 (문외동)": {
     "latitude": 35.97001089425019,
     "longitude": 128.93488437536712,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 동문길 94 (문외동)": {
+    "latitude": 35.96995919465297,
+    "longitude": 128.935497477426,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 동문길 96 (문외동)": {
@@ -20744,9 +21224,19 @@
     "longitude": 128.94918940532258,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 동부로 14, 상가1동 105호 (망정동, 주공아파트)": {
+    "latitude": 35.97227984507065,
+    "longitude": 128.94918940532258,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 동부로 15": {
     "latitude": 35.97128820564352,
     "longitude": 128.94879627609035,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 동부로 16, 영천망정주공3.,4단지아파트 상가 (망정동)": {
+    "latitude": 35.97184261211023,
+    "longitude": 128.94933074188538,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 동부로 18": {
@@ -20784,12 +21274,42 @@
     "longitude": 128.9476269817825,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 동부로 31-6": {
+    "latitude": 35.97313756024178,
+    "longitude": 128.9483397548001,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 동부로 33, 2층 (야사동)": {
+    "latitude": 35.9732593271603,
+    "longitude": 128.94831215016296,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 동부로 35": {
     "latitude": 35.97339242757438,
     "longitude": 128.9483089272468,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 동부로 35 (야사동)": {
+    "latitude": 35.97339242757438,
+    "longitude": 128.9483089272468,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 동부로 39 (야사동)": {
+    "latitude": 35.97359502274891,
+    "longitude": 128.948223460086,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 동부로 39, A동 101호 (야사동)": {
+    "latitude": 35.97359502274891,
+    "longitude": 128.948223460086,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 동부로 39, A동 106호 (야사동)": {
+    "latitude": 35.97359502274891,
+    "longitude": 128.948223460086,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 동부로 39, D동 (야사동)": {
     "latitude": 35.97359502274891,
     "longitude": 128.948223460086,
     "matched_address": null
@@ -20819,7 +21339,17 @@
     "longitude": 128.94863789888166,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 동부로 43 (야사동)": {
+    "latitude": 35.97407640700115,
+    "longitude": 128.94807043290217,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 동부로 43 (야사동,(102호))": {
+    "latitude": 35.97407640700115,
+    "longitude": 128.94807043290217,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 동부로 43, 2층 (야사동)": {
     "latitude": 35.97407640700115,
     "longitude": 128.94807043290217,
     "matched_address": null
@@ -20839,6 +21369,16 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 동부로 61, 2층 (야사동)": {
+    "latitude": 35.97558770056716,
+    "longitude": 128.9477269515325,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 동부로 9 (야사동)": {
+    "latitude": 35.97123918309998,
+    "longitude": 128.94948193247671,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 망정1길 114 (망정동)": {
     "latitude": 35.979383034604155,
     "longitude": 128.95016971964128,
@@ -20849,12 +21389,52 @@
     "longitude": 128.9513663297229,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 망정1길 138, 보성스타팰리스 (망정동)": {
+    "latitude": 35.97936476198237,
+    "longitude": 128.95224430493704,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 망정1길 146 (망정동)": {
+    "latitude": 35.98025096733424,
+    "longitude": 128.95153385486674,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 망정1길 146-0 , 유호빌리지 101동 102호": {
+    "latitude": 35.98025096733424,
+    "longitude": 128.95153385486674,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 망정1길 171, 103동 801호 (야사동, 한신THE휴영천퍼스트)": {
+    "latitude": 35.981221092702995,
+    "longitude": 128.95106272503057,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 망정1길 171, 201동 2층 (야사동, 한신THE휴영천퍼스트)": {
     "latitude": 35.98262205823668,
     "longitude": 128.9510809287208,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 망정1길 171, 204동 203호 (야사동, 한신THE휴영천퍼스트)": {
+    "latitude": 35.98262205823668,
+    "longitude": 128.9510809287208,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 망정1길 171, 205호 (야사동, 한신 더휴 퍼스트상가 )": {
+    "latitude": 35.98262205823668,
+    "longitude": 128.9510809287208,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 망정1길 171, 상가동 102호 (야사동, 한신THE휴영천퍼스트)": {
+    "latitude": 35.98262205823668,
+    "longitude": 128.9510809287208,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 망정1길 174, 101동 102호 (망정동)": {
+    "latitude": 35.98132575332317,
+    "longitude": 128.95170102612974,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 망정1길 174, 103호 (망정동)": {
     "latitude": 35.98132575332317,
     "longitude": 128.95170102612974,
     "matched_address": null
@@ -20875,6 +21455,11 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 망정1길 174, 3층 301,302호 (망정동, 정암빌딩)": {
+    "latitude": 35.98132575332317,
+    "longitude": 128.95170102612974,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 망정1길 174, 정암빌딩 106호 (망정동)": {
     "latitude": 35.98132575332317,
     "longitude": 128.95170102612974,
     "matched_address": null
@@ -20944,6 +21529,11 @@
     "longitude": 128.94854175292542,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 망정1길 32": {
+    "latitude": 35.97652084845296,
+    "longitude": 128.94884838763556,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 망정1길 32 (망정동)": {
     "latitude": 35.97652084845296,
     "longitude": 128.94884838763556,
@@ -20979,14 +21569,34 @@
     "longitude": 128.9524379316988,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 망정2길 213-7, 1층(망정동)": {
+    "latitude": 35.982835360954724,
+    "longitude": 128.95165767007552,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 망정2길 6 (망정동)": {
     "latitude": 35.975918671729495,
     "longitude": 128.9502044399808,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 망정2길 7-4 화성빌딩2층(망정동)": {
+    "latitude": 35.976086335286794,
+    "longitude": 128.95002292415097,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 망정2길 7-5, 106호 (망정동)": {
     "latitude": 35.97611138739356,
     "longitude": 128.949723302845,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 망정2길 7-9, 108동 101호 (망정동, 청호아파트)": {
+    "latitude": 35.9759961593289,
+    "longitude": 128.94923977246833,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 망정2길 7-9, 제108동 제105호 (망정동, 청호아파트)": {
+    "latitude": 35.9759961593289,
+    "longitude": 128.94923977246833,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 망정3길 11 (망정동)": {
@@ -21024,10 +21634,20 @@
     "longitude": 128.95292147953208,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 망정로 20, 2층 (망정동)": {
+    "latitude": 35.978256452079094,
+    "longitude": 128.95371920296537,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 망정로 26": {
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 망정로 30, 1층 (망정동)": {
+    "latitude": 35.979126410930135,
+    "longitude": 128.95333437630413,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 망정로 43": {
     "latitude": 35.98004525784172,
@@ -21055,6 +21675,11 @@
     "longitude": null
   },
   "ROAD|경상북도 영천시 망정로 80 (망정동, 망정휴먼시아 상가동 101호)": {
+    "latitude": 35.98316613598044,
+    "longitude": 128.95252736839012,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 망정로 80, 102호 (망정동, 영천망정휴먼시아5단지상가)": {
     "latitude": 35.98316613598044,
     "longitude": 128.95252736839012,
     "matched_address": null
@@ -21119,6 +21744,11 @@
     "longitude": 128.9400882287184,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 모란1길 16, 상가동 2호 (야사동, 청구아파트)": {
+    "latitude": 35.97609403078803,
+    "longitude": 128.9400882287184,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 모란1길 4 (야사동)": {
     "latitude": 35.975009178568925,
     "longitude": 128.94065790068498,
@@ -21159,6 +21789,11 @@
     "longitude": 128.94030768086512,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 모란3길 3, 전면 좌측호 (야사동)": {
+    "latitude": 35.97556903061722,
+    "longitude": 128.94030768086512,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 모란4길 12 (야사동)": {
     "latitude": 35.97592700219793,
     "longitude": 128.9405653980532,
@@ -21172,6 +21807,11 @@
   "ROAD|경상북도 영천시 모란4길 6 (야사동)": {
     "latitude": 35.97573432842536,
     "longitude": 128.9402697845338,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 모란4길 8 (야사동)": {
+    "latitude": 35.975845760981386,
+    "longitude": 128.9403473918317,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 모시밭길 58": {
@@ -21219,6 +21859,11 @@
     "longitude": 128.9367328880001,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 무궁화길 4, 다빈치 1층 (문외동)": {
+    "latitude": 35.97255173858974,
+    "longitude": 128.93516532859147,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 무궁화길 44 (문외동)": {
     "latitude": 35.97343476597999,
     "longitude": 128.93701352242434,
@@ -21252,6 +21897,16 @@
   "ROAD|경상북도 영천시 무궁화길 73 (문외동)": {
     "latitude": 35.97432801076917,
     "longitude": 128.9384233549184,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 무궁화길 74-1 (문외동)": {
+    "latitude": 35.97419358473977,
+    "longitude": 128.93857572585136,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 문내1길 30, 2층 (문외동)": {
+    "latitude": 35.97139199437825,
+    "longitude": 128.93380308069794,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 문내1길 37-20 (문외동)": {
@@ -21289,6 +21944,11 @@
     "longitude": 128.93467042628419,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 문외1길 47, 2층 (문외동)": {
+    "latitude": 35.97129642416275,
+    "longitude": 128.93424466248433,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 문외2길 18-11 (문외동)": {
     "latitude": 35.97114474894644,
     "longitude": 128.93638422352237,
@@ -21297,6 +21957,11 @@
   "ROAD|경상북도 영천시 문외2길 3 (문외동)": {
     "latitude": 35.97014300755021,
     "longitude": 128.9367411902147,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 문외2길 33 (문외동)": {
+    "latitude": 35.971307562192955,
+    "longitude": 128.9359170133418,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 문외3길 46 (문외동)": {
@@ -21354,6 +22019,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 문화새길 25 (야사동)": {
+    "latitude": 35.97296149861853,
+    "longitude": 128.94709174022984,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 문화새길 25 (야사동,(문화상가 B/2))": {
     "latitude": 35.97296149861853,
     "longitude": 128.94709174022984,
@@ -21375,6 +22045,11 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 문화새길 25, 14동 8호 (야사동, 문화아파트상가)": {
+    "latitude": 35.97313064564926,
+    "longitude": 128.94706066544552,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 문화새길 25, A동 1층 11호 (야사동, 문화아파트상가)": {
     "latitude": 35.97313064564926,
     "longitude": 128.94706066544552,
     "matched_address": null
@@ -21414,6 +22089,11 @@
     "longitude": 128.94709174022984,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 문화새길 25, C동 7호 (야사동, 문화아파트상가)": {
+    "latitude": 35.97334463597315,
+    "longitude": 128.94694388736082,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 문화새길 25, C동 9호 (야사동, 문화아파트상가)": {
     "latitude": 35.97334463597315,
     "longitude": 128.94694388736082,
@@ -21429,6 +22109,11 @@
     "longitude": 128.94681721614467,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 문화새길 25, E동 1층 6호 (야사동, 문화아파트상가)": {
+    "latitude": 35.9735573540647,
+    "longitude": 128.94681721614467,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 문화새길 25, E동 1호 (야사동, 문화아파트상가)": {
     "latitude": 35.9735573540647,
     "longitude": 128.94681721614467,
@@ -21437,6 +22122,11 @@
   "ROAD|경상북도 영천시 문화새길 25, E동 2호 (야사동, 문화상가)": {
     "latitude": 35.97296149861853,
     "longitude": 128.94709174022984,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 문화새길 39, 14동 3호 (야사동)": {
+    "latitude": 35.97247932861769,
+    "longitude": 128.94728710426364,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 문화새길 53 (야사동)": {
@@ -21449,9 +22139,24 @@
     "longitude": 128.94749422728808,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 문화새길 62-33 (야사동)": {
+    "latitude": 35.97141089324913,
+    "longitude": 128.94685571107914,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 문화새길 62-5, 전면 우측호 1층 (야사동)": {
+    "latitude": 35.97159502552166,
+    "longitude": 128.9473566484206,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 문화새길 7": {
     "latitude": 35.97384746354777,
     "longitude": 128.94678749519866,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 문화새길 77, 우방타운 상가 103호 (야사동)": {
+    "latitude": 35.97138326415017,
+    "longitude": 128.94805332848733,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 문화원길 14 (문내동)": {
@@ -21494,7 +22199,17 @@
     "longitude": 128.94895705533168,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 미륵4길 7(망정동)": {
+    "latitude": 35.972572567313605,
+    "longitude": 128.94895705533168,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 미륵4길 7, 107,108호 (망정동, 황금상가 )": {
+    "latitude": 35.972572567313605,
+    "longitude": 128.94895705533168,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 미륵4길 7, 109호 (망정동, 황금상가)": {
     "latitude": 35.972572567313605,
     "longitude": 128.94895705533168,
     "matched_address": null
@@ -21559,7 +22274,17 @@
     "longitude": 128.9290710436931,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 백신애길 27, 1층 (창구동)": {
+    "latitude": 35.96734193572286,
+    "longitude": 128.93023094188828,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 백신애길 32 (창구동)": {
+    "latitude": 35.967125293322184,
+    "longitude": 128.93043394477957,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 백신애길 32, 2층 (창구동)": {
     "latitude": 35.967125293322184,
     "longitude": 128.93043394477957,
     "matched_address": null
@@ -21734,6 +22459,11 @@
     "longitude": 128.94353110911032,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 보목2길 10(야사동)": {
+    "latitude": 35.97112855964835,
+    "longitude": 128.9412427276136,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 보목2길 11 근로자복지회관 1층": {
     "latitude": 35.971275440799744,
     "longitude": 128.9419974965116,
@@ -21742,6 +22472,11 @@
   "ROAD|경상북도 영천시 보목2길 18 (야사동)": {
     "latitude": 35.97070498079651,
     "longitude": 128.9415590596728,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 보목2길 7, 2층 (야사동)": {
+    "latitude": 35.971484974819404,
+    "longitude": 128.94159925179483,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 본촌공단1길 13-22 (본촌동)": {
@@ -21804,6 +22539,11 @@
     "longitude": 128.944088866713,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 봉동1길 29-47(봉동)": {
+    "latitude": 35.93122712653468,
+    "longitude": 128.944088866713,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 봉동1길 29-48 (봉동)": {
     "latitude": 35.931461504007714,
     "longitude": 128.9438390972093,
@@ -21829,6 +22569,11 @@
     "longitude": 128.94374051086015,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 봉동2길 35 (전면 좌측호) 101호 (봉동)": {
+    "latitude": 35.933716617208134,
+    "longitude": 128.94266486088713,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 봉일길 50-4": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -21847,6 +22592,11 @@
   "ROAD|경상북도 영천시 북안면 고지길 36": {
     "latitude": 35.905779574780226,
     "longitude": 129.012888841066,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 북안면 고지길 42-5(고지리)": {
+    "latitude": 35.90663517751252,
+    "longitude": 129.01194071470962,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 북안면 광릉1길 23": {
@@ -22009,6 +22759,11 @@
     "longitude": 129.01255140678887,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 북안면 도유길 116": {
+    "latitude": 35.87512265987415,
+    "longitude": 128.9836332507149,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 북안면 도유길 82": {
     "latitude": 35.873000659122894,
     "longitude": 128.9858289591741,
@@ -22132,6 +22887,11 @@
   "ROAD|경상북도 영천시 북안면 돌할매로 479": {
     "latitude": 35.9397896949304,
     "longitude": 129.0453291697134,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 북안면 돌할매로 505(관리)": {
+    "latitude": 35.94123363671348,
+    "longitude": 129.04815618785213,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 북안면 돌할매로 92-6": {
@@ -22279,6 +23039,16 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 북안면 신평탑골길 16-8(도천리)": {
+    "latitude": 35.892604971990984,
+    "longitude": 129.01526193501235,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 북안면 신평탑골길 4": {
+    "latitude": 35.89256795243732,
+    "longitude": 129.01511321123223,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 북안면 신평탑골길 7522": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -22379,6 +23149,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 북안면 운북로 1428-1": {
+    "latitude": 35.87162128995833,
+    "longitude": 128.99419675513948,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 북안면 운북로 1429": {
     "latitude": 35.87182672540084,
     "longitude": 128.99384252060563,
@@ -22392,6 +23167,11 @@
   "ROAD|경상북도 영천시 북안면 운북로 1434": {
     "latitude": 35.87205123747472,
     "longitude": 128.99451914026082,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 북안면 운북로 1443": {
+    "latitude": 35.872901654980005,
+    "longitude": 128.99471713032594,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 북안면 운북로 1467": {
@@ -22589,6 +23369,11 @@
     "longitude": 129.00919692600064,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 북안면 운북로 2028 (323-4,324-1,573-8)": {
+    "latitude": 35.91832022873558,
+    "longitude": 129.00919692600064,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 북안면 운북로 2028-3": {
     "latitude": 35.91873167594784,
     "longitude": 129.00949431565957,
@@ -22597,6 +23382,11 @@
   "ROAD|경상북도 영천시 북안면 운북로 2029": {
     "latitude": 35.91822084816192,
     "longitude": 129.00856389766454,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 북안면 운북로 2030": {
+    "latitude": 35.91841458439012,
+    "longitude": 129.0090067025076,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 북안면 운북로 2031-1": {
@@ -22939,6 +23729,11 @@
     "longitude": 128.86498268442784,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 삼귀길 220": {
+    "latitude": 36.0007399369152,
+    "longitude": 128.94173227364217,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 삼귀길 63 (오미동)": {
     "latitude": 35.99548743206298,
     "longitude": 128.92857707262493,
@@ -22963,6 +23758,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 삼밭골길 107 (야사동)": {
+    "latitude": 35.98939823591703,
+    "longitude": 128.9398293332591,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 삼밭골길 107, 말문화복합센터 1층 (야사동)": {
     "latitude": 35.98939823591703,
@@ -23019,9 +23819,19 @@
     "longitude": 128.9371029898955,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 삼산길 26 (문외동)": {
+    "latitude": 35.97277864770743,
+    "longitude": 128.93671683414,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 삼산길 30 (문외동)": {
     "latitude": 35.97301571995598,
     "longitude": 128.93653691954717,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 삼산길 34 (문외동)": {
+    "latitude": 35.97347221425941,
+    "longitude": 128.9362084497236,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 삼산길 38 (문외동)": {
@@ -23047,6 +23857,11 @@
   "ROAD|경상북도 영천시 삼산길 8 (문외동)": {
     "latitude": 35.97134746294638,
     "longitude": 128.93786857612736,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 삼산마을길 60": {
+    "latitude": 35.97862250195056,
+    "longitude": 128.8988152792415,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 상계로 100": {
@@ -23139,6 +23954,11 @@
     "longitude": 128.94259659045338,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 상록2길 13, 108호, 112호 (야사동)": {
+    "latitude": 35.97347338029725,
+    "longitude": 128.94259659045338,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 상록2길 13, 109-110호 (야사동)": {
     "latitude": 35.97347338029725,
     "longitude": 128.94259659045338,
@@ -23150,6 +23970,11 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 상록2길 23 (야사동)": {
+    "latitude": 35.97398256218359,
+    "longitude": 128.94251795138325,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 상록2길 23, 102호 (야사동)": {
     "latitude": 35.97398256218359,
     "longitude": 128.94251795138325,
     "matched_address": null
@@ -23229,6 +24054,11 @@
     "longitude": 128.94359346893992,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 상록4길 1, 바동 1호 (문외동)": {
+    "latitude": 35.97300716026322,
+    "longitude": 128.93974404582968,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 상록4길 31": {
     "latitude": 35.97366863794735,
     "longitude": 128.9410282249541,
@@ -23264,12 +24094,22 @@
     "longitude": 128.94179086975907,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 상록5길 20 (야사동)": {
+    "latitude": 35.97483029188207,
+    "longitude": 128.94196768878328,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 상록5길 25 (야사동)": {
     "latitude": 35.975090120153446,
     "longitude": 128.94200149451032,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 상록5길 3 (야사동)": {
+    "latitude": 35.974650066068705,
+    "longitude": 128.94089401096656,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 상록5길 3, 1층 전면좌측호 (야사동)": {
     "latitude": 35.974650066068705,
     "longitude": 128.94089401096656,
     "matched_address": null
@@ -23289,9 +24129,24 @@
     "longitude": 128.9430747334367,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 상록6길 26, 2층 (야사동)": {
+    "latitude": 35.97363079063253,
+    "longitude": 128.9430747334367,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 상록6길 6 (야사동)": {
     "latitude": 35.97313966001542,
     "longitude": 128.94201142510462,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 상록6길 6 (야사동, (298-2, 299-20))": {
+    "latitude": 35.97313966001542,
+    "longitude": 128.94201142510462,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 상록7길 12 (야사동)": {
+    "latitude": 35.973897939272305,
+    "longitude": 128.94196108393817,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 상록7길 18 (야사동)": {
@@ -23314,6 +24169,11 @@
     "longitude": 128.94256828399142,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 상록8길 4, 1층 (야사동)": {
+    "latitude": 35.973674054685375,
+    "longitude": 128.94256828399142,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 상리공단길 19": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -23332,6 +24192,11 @@
   "ROAD|경상북도 영천시 상송안길 37": {
     "latitude": 36.15217073593442,
     "longitude": 128.9178371633134,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 상신기길 150": {
+    "latitude": 36.002885111577186,
+    "longitude": 128.95645544414648,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 상신기길 150 (언하동)": {
@@ -23399,9 +24264,19 @@
     "longitude": 128.92040963272814,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 상아탑길 9 (화룡동)": {
+    "latitude": 35.96520365878784,
+    "longitude": 128.9209574143883,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 새말1길 10 (야사동)": {
     "latitude": 35.97395427692737,
     "longitude": 128.9445993344263,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 새말1길 11 (야사동)": {
+    "latitude": 35.97405646021764,
+    "longitude": 128.94419554441447,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 새말1길 12 (야사동)": {
@@ -23423,6 +24298,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 새말1길 42, 2층 (야사동, 야사동웰빙타운)": {
+    "latitude": 35.97515171519467,
+    "longitude": 128.94431135682464,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 새미길 121": {
     "latitude": 35.98685919210564,
@@ -23469,14 +24349,39 @@
     "longitude": 128.9245343070864,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 서문길 115 (교촌동)": {
+    "latitude": 35.96697269399314,
+    "longitude": 128.92872309575853,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 서문길 28 (성내동)": {
+    "latitude": 35.96425525296746,
+    "longitude": 128.925185527488,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 서문길 51 (교촌동)": {
     "latitude": 35.96525241915251,
     "longitude": 128.92581101405767,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 서문길 87 (교촌동)": {
+    "latitude": 35.96615226626986,
+    "longitude": 128.92734771921624,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 서문길 90 (성내동)": {
     "latitude": 35.96603269940876,
     "longitude": 128.92768140290875,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 서문길 97-1 (교촌동)": {
+    "latitude": 35.966432135187546,
+    "longitude": 128.9278601213254,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 서문길 97-3 (교촌동)": {
+    "latitude": 35.96647471989323,
+    "longitude": 128.92774475126276,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 서운길 1": {
@@ -23664,6 +24569,11 @@
     "longitude": 128.93594325049656,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 시장1길 10-32 (완산동)": {
+    "latitude": 35.964150271741126,
+    "longitude": 128.93598671428356,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 시장1길 10-8 (완산동)": {
     "latitude": 35.964026134277844,
     "longitude": 128.93589373128074,
@@ -23674,6 +24584,16 @@
     "longitude": 128.93585694702347,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 시장1길 5 (완산동)": {
+    "latitude": 35.963799834212125,
+    "longitude": 128.93563123653996,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장1길 5(완산동)": {
+    "latitude": 35.963799834212125,
+    "longitude": 128.93563123653996,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 시장1길 6 (완산동)": {
     "latitude": 35.96383578935428,
     "longitude": 128.93591746955605,
@@ -23682,6 +24602,16 @@
   "ROAD|경상북도 영천시 시장1길 7 (완산동)": {
     "latitude": 35.96400160894447,
     "longitude": 128.9356021163519,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장1길 7-2 (완산동)": {
+    "latitude": 35.96406573380112,
+    "longitude": 128.93570021919248,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장2길 10, 영천공설시장 제4지구 5,9,10호 (완산동)": {
+    "latitude": 35.963828623940486,
+    "longitude": 128.9375269501962,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 시장2길 13 (완산동)": {
@@ -23719,6 +24649,16 @@
     "longitude": 128.9375262354924,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 시장2길 38, 102동 108호 (완산동, 한가람타운)": {
+    "latitude": 35.96515558912436,
+    "longitude": 128.9374297563263,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장2길 38, 103호 (완산동, 한가람타운102동 상가동)": {
+    "latitude": 35.96515558912436,
+    "longitude": 128.9374297563263,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 시장2길 7 (완산동)": {
     "latitude": 35.96377247240758,
     "longitude": 128.9371361696435,
@@ -23727,6 +24667,11 @@
   "ROAD|경상북도 영천시 시장2길 9 (완산동)": {
     "latitude": 35.96386740799647,
     "longitude": 128.93708819943515,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장3길 10-1, 1층 전면우측호 (완산동)": {
+    "latitude": 35.965035653342305,
+    "longitude": 128.9381434624671,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 시장3길 10-5": {
@@ -23754,9 +24699,24 @@
     "longitude": 128.93770413627578,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 시장3길 5 (완산동)": {
+    "latitude": 35.96479509847475,
+    "longitude": 128.93791428629385,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 시장3길 9 (완산동)": {
     "latitude": 35.96495233674247,
     "longitude": 128.93781722104598,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장4길 10 (완산동)": {
+    "latitude": 35.96441619414334,
+    "longitude": 128.93636455663426,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장4길 12 (완산동)": {
+    "latitude": 35.9644116657949,
+    "longitude": 128.9366293633611,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 시장4길 14 (완산동)": {
@@ -23772,6 +24732,11 @@
   "ROAD|경상북도 영천시 시장4길 30, 영천공설시장 115-1호 (완산동)": {
     "latitude": 35.96422237496542,
     "longitude": 128.9375154730905,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장4길 4 (완산동,외1필지(1065-4))": {
+    "latitude": 35.96443769468782,
+    "longitude": 128.9360752884458,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 시장4길 41-1 (완산동)": {
@@ -23889,7 +24854,17 @@
     "longitude": 128.93802216422398,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 시장5길 22 (완산동)": {
+    "latitude": 35.96521064794393,
+    "longitude": 128.93816839410312,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 시장5길 22, 6호 (완산동, 소매점 7호 )": {
+    "latitude": 35.96521064794393,
+    "longitude": 128.93816839410312,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장5길 22, 성원빌딩 (완산동)": {
     "latitude": 35.96521064794393,
     "longitude": 128.93816839410312,
     "matched_address": null
@@ -23907,6 +24882,26 @@
   "ROAD|경상북도 영천시 시장로 10": {
     "latitude": 35.962310989269405,
     "longitude": 128.9316840420025,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 120, 115호 (완산동)": {
+    "latitude": 35.96346028362257,
+    "longitude": 128.94375038581322,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 120, 완산골드타워 112호 (완산동)": {
+    "latitude": 35.96346028362257,
+    "longitude": 128.94375038581322,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 128, 드림스퀘어 101,102호 (완산동)": {
+    "latitude": 35.96351503055431,
+    "longitude": 128.94444351211217,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 128, 드림스퀘어 103호 (완산동)": {
+    "latitude": 35.96351503055431,
+    "longitude": 128.94444351211217,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 시장로 13": {
@@ -23949,12 +24944,22 @@
     "longitude": 128.9355252513472,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 시장로 48 (완산동)": {
+    "latitude": 35.96319573878649,
+    "longitude": 128.93539669513962,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 시장로 48-1 (완산동)": {
     "latitude": 35.963211432816294,
     "longitude": 128.9355199387639,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 시장로 51 (완산동)": {
+    "latitude": 35.96363550133747,
+    "longitude": 128.93588138786998,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 51 (완산동,(2층))": {
     "latitude": 35.96363550133747,
     "longitude": 128.93588138786998,
     "matched_address": null
@@ -23969,9 +24974,39 @@
     "longitude": 128.93626057744453,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 시장로 57-1 (완산동)": {
+    "latitude": 35.9636771134422,
+    "longitude": 128.93658045486907,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 59(완산동)": {
+    "latitude": 35.96358334497861,
+    "longitude": 128.93670764503162,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 60-1 (완산동)": {
+    "latitude": 35.96323228955286,
+    "longitude": 128.93683665470155,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 시장로 60-2 (완산동)": {
     "latitude": 35.963144459701596,
     "longitude": 128.9369119893234,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 61-2 (완산동)": {
+    "latitude": 35.96359504536824,
+    "longitude": 128.93711916864834,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 62-2(완산동)": {
+    "latitude": 35.96327044984223,
+    "longitude": 128.93706091743252,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 62-2, 2층 (완산동)": {
+    "latitude": 35.96327044984223,
+    "longitude": 128.93706091743252,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 시장로 65, A-8호 (완산동)": {
@@ -23984,7 +25019,37 @@
     "longitude": 128.93740467610144,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 시장로 66-1(완산동)": {
+    "latitude": 35.96328433940704,
+    "longitude": 128.93752631410314,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 68-2, 2층 (완산동)": {
+    "latitude": 35.96328463521279,
+    "longitude": 128.9378098507156,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 69 (B-2-3, B-2-4) (완산동)": {
+    "latitude": 35.96365913793043,
+    "longitude": 128.9380620553252,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 69 (완산동)": {
+    "latitude": 35.96365913793043,
+    "longitude": 128.9380620553252,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 72 (완산동)": {
+    "latitude": 35.96331638641249,
+    "longitude": 128.9382208476693,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 시장로 74": {
+    "latitude": 35.96331782563801,
+    "longitude": 128.93829416760906,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 74(완산동)": {
     "latitude": 35.96331782563801,
     "longitude": 128.93829416760906,
     "matched_address": null
@@ -23999,7 +25064,32 @@
     "longitude": 128.93859897045263,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 시장로 76-1 (완산동)": {
+    "latitude": 35.96327872989119,
+    "longitude": 128.93863610514717,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 89(완산동)": {
+    "latitude": 35.963858428541116,
+    "longitude": 128.94030605377117,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 시장로 96": {
+    "latitude": 35.96300171456333,
+    "longitude": 128.94077274075266,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 96, 고은스퀘어 (완산동)": {
+    "latitude": 35.96300171456333,
+    "longitude": 128.94077274075266,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 96, 고은스퀘어 1층 (완산동)": {
+    "latitude": 35.96300171456333,
+    "longitude": 128.94077274075266,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시장로 96, 고은스퀘어 1층 1090호 (완산동)": {
     "latitude": 35.96300171456333,
     "longitude": 128.94077274075266,
     "matched_address": null
@@ -24049,6 +25139,11 @@
     "longitude": 128.93925951541962,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 시청남1길 12-8, 전면 좌측호 (문외동)": {
+    "latitude": 35.97165630565037,
+    "longitude": 128.9395385491587,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 시청남1길 12-9 (문외동)": {
     "latitude": 35.9720774133732,
     "longitude": 128.93939541530008,
@@ -24074,6 +25169,16 @@
     "longitude": 128.93950552706715,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 시청남길 26 (문외동)": {
+    "latitude": 35.972349883035506,
+    "longitude": 128.93964898009352,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시청남길 26, 1층 전면죄측 일부호 (문외동)": {
+    "latitude": 35.972349883035506,
+    "longitude": 128.93964898009352,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 시청남길 32 (문외동)": {
     "latitude": 35.97242705616846,
     "longitude": 128.9398331454147,
@@ -24082,6 +25187,11 @@
   "ROAD|경상북도 영천시 시청동길 31 (문외동)": {
     "latitude": 35.97410661003583,
     "longitude": 128.93861634284423,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시청동길 8 (문외동, 영진궁전빌라)": {
+    "latitude": 35.97243659434491,
+    "longitude": 128.94067926476265,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 시청로 12 (문외동)": {
@@ -24095,6 +25205,11 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 시청로 15, 2층 (문외동)": {
+    "latitude": 35.971942602007026,
+    "longitude": 128.93796831145255,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 시청로 15, 일생빌딩 (문외동)": {
     "latitude": 35.971942602007026,
     "longitude": 128.93796831145255,
     "matched_address": null
@@ -24150,6 +25265,11 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 신녕면 갑티로 266": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
+  "ROAD|경상북도 영천시 신녕면 관기길 222": {
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
@@ -24212,6 +25332,16 @@
   "ROAD|경상북도 영천시 신녕면 본관시장길 21-1": {
     "latitude": 36.0419786893621,
     "longitude": 128.78714410459241,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 신녕면 본관시장길 23": {
+    "latitude": 36.0421226178303,
+    "longitude": 128.7871511890125,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 신녕면 본관시장길 26-5": {
+    "latitude": 36.04240546094404,
+    "longitude": 128.78747097228117,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 신녕면 본관시장길 29": {
@@ -24279,6 +25409,11 @@
     "longitude": 128.78877349944094,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 신녕면 신정길 177": {
+    "latitude": 36.04478131409722,
+    "longitude": 128.80716718804032,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 신녕면 신정길 27-4": {
     "latitude": 36.032079583416206,
     "longitude": 128.80729283272856,
@@ -24292,6 +25427,11 @@
   "ROAD|경상북도 영천시 신녕면 신화로 114-8, 주2동": {
     "latitude": 36.04494525932286,
     "longitude": 128.79964573685902,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 신녕면 신화로 120": {
+    "latitude": 36.04576690249212,
+    "longitude": 128.8005231525325,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 신녕면 신화로 15-13": {
@@ -24342,6 +25482,11 @@
   "ROAD|경상북도 영천시 신녕면 원낙길 34": {
     "latitude": 36.07170808045384,
     "longitude": 128.75859154292075,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 신녕면 원낙길 98-4": {
+    "latitude": 36.07162816624698,
+    "longitude": 128.75330258919973,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 신녕면 장수로 1317": {
@@ -24439,6 +25584,16 @@
     "longitude": 128.7885961739903,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 신녕면 장수로 1645": {
+    "latitude": 36.03853246997414,
+    "longitude": 128.78854648962135,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 신녕면 장수로 1653-1": {
+    "latitude": 36.03938580146674,
+    "longitude": 128.78822028008585,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 신녕면 장수로 1656-1": {
     "latitude": 36.039559521702614,
     "longitude": 128.7885873828863,
@@ -24449,9 +25604,19 @@
     "longitude": 128.78829509961798,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 신녕면 장수로 1662": {
+    "latitude": 36.04013133757747,
+    "longitude": 128.7884931638456,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 신녕면 장수로 1663-1": {
     "latitude": 36.04026469070795,
     "longitude": 128.78817505712905,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 신녕면 장수로 1665": {
+    "latitude": 36.04040270793854,
+    "longitude": 128.7881855255986,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 신녕면 장수로 1666": {
@@ -24489,6 +25654,11 @@
     "longitude": 128.7882999048732,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 신녕면 장수로 1681": {
+    "latitude": 36.04169825591663,
+    "longitude": 128.78797247016553,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 신녕면 장수로 1683": {
     "latitude": 36.042003245675666,
     "longitude": 128.7878808854074,
@@ -24499,9 +25669,19 @@
     "longitude": 128.78830348392432,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 신녕면 장수로 1688": {
+    "latitude": 36.04232302330796,
+    "longitude": 128.78816251580432,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 신녕면 장수로 1688-1": {
     "latitude": 36.04247895053376,
     "longitude": 128.7882219770646,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 신녕면 장수로 1692": {
+    "latitude": 36.042799669697004,
+    "longitude": 128.78794224444482,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 신녕면 장수로 1694": {
@@ -24709,6 +25889,11 @@
     "longitude": 128.72832010190538,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 신녕면 치산관광길 5": {
+    "latitude": 36.06370634800257,
+    "longitude": 128.7302558983859,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 신녕면 치산리 1400-1": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -24862,6 +26047,11 @@
   "ROAD|경상북도 영천시 신녕면 화정길 19-7": {
     "latitude": 36.09123667768908,
     "longitude": 128.72960532048546,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 신녕면 화정길 25-2": {
+    "latitude": 36.09082380735072,
+    "longitude": 128.7299979470222,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 신녕면 화해길 16": {
@@ -25024,6 +26214,11 @@
     "longitude": 128.90805782424644,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 쌍계길 77-2": {
+    "latitude": 35.96344485727224,
+    "longitude": 128.9078982043642,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 쌍계동 쌍계길 75": {
     "latitude": 35.963128286796945,
     "longitude": 128.90805782424644,
@@ -25099,6 +26294,16 @@
     "longitude": 128.94596158508443,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 야사2길 14(야사동)": {
+    "latitude": 35.97496239245676,
+    "longitude": 128.94735112766796,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 야사2길 14, 2층 (야사동)": {
+    "latitude": 35.97496239245676,
+    "longitude": 128.94735112766796,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 야사2길 18-3 (야사동)": {
     "latitude": 35.975390768995396,
     "longitude": 128.94736764527966,
@@ -25124,6 +26329,11 @@
     "longitude": 128.94558865984362,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 야사4길 11, A동 106호 (야사동,영동상가)": {
+    "latitude": 35.9766527742436,
+    "longitude": 128.945718659526,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 야사4길 11, A동 202호 (야사동)": {
     "latitude": 35.9766527742436,
     "longitude": 128.945718659526,
@@ -25139,6 +26349,11 @@
     "longitude": 128.945718659526,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 야사4길 14, 1층 (야사동)": {
+    "latitude": 35.9762223743453,
+    "longitude": 128.94545184298664,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 야사4길 28 (야사동)": {
     "latitude": 35.976027323491536,
     "longitude": 128.94595842770653,
@@ -25147,6 +26362,16 @@
   "ROAD|경상북도 영천시 야사4길 37 (야사동,(동부상가 다동3호))": {
     "latitude": 35.97553996247062,
     "longitude": 128.94659159871782,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 야사4길 37 (야사동,나동2호)": {
+    "latitude": 35.975727602680834,
+    "longitude": 128.94650381816587,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 야사4길 37, 가동 2호 (야사동,동부상가)": {
+    "latitude": 35.97568519014719,
+    "longitude": 128.94635741836106,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 야사4길 37, 나동 10호 (야사동)": {
@@ -25179,6 +26404,11 @@
     "longitude": 128.94693604103105,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 야사시장길 13-11 (야사동)": {
+    "latitude": 35.974298558242104,
+    "longitude": 128.94699808567538,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 야사시장길 13-16 (야사동)": {
     "latitude": 35.97419517117225,
     "longitude": 128.94755589376652,
@@ -25200,6 +26430,11 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 야사시장길 35 (야사동, (191-6))": {
+    "latitude": 35.97335881371798,
+    "longitude": 128.94750254775687,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 야사시장길 35, 2층 (야사동)": {
     "latitude": 35.97335881371798,
     "longitude": 128.94750254775687,
     "matched_address": null
@@ -25229,12 +26464,32 @@
     "longitude": 128.9478958917218,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 야사시장길 42, 103호 (야사동)": {
+    "latitude": 35.973220981916796,
+    "longitude": 128.9478958917218,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 야사시장길 42, 105(동)호 (야사동)": {
+    "latitude": 35.973220981916796,
+    "longitude": 128.9478958917218,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 야사시장길 42, 112,113,109호 (야사동)": {
     "latitude": 35.973220981916796,
     "longitude": 128.9478958917218,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 야사시장길 42, 1층 115호 (야사동)": {
+    "latitude": 35.973220981916796,
+    "longitude": 128.9478958917218,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 야사시장길 43 (야사동)": {
+    "latitude": 35.97353147222614,
+    "longitude": 128.94781820184244,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 야사시장길 43, 1동 107호 (야사동)": {
     "latitude": 35.97353147222614,
     "longitude": 128.94781820184244,
     "matched_address": null
@@ -25262,6 +26517,16 @@
   "ROAD|경상북도 영천시 야사시장길 43, C동 104호 (야사동)": {
     "latitude": 35.97372839880143,
     "longitude": 128.9479556221297,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 야사시장길 43, C동 105호 (야사동)": {
+    "latitude": 35.97372839880143,
+    "longitude": 128.9479556221297,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 야사시장길 6 (야사동)": {
+    "latitude": 35.974253279082646,
+    "longitude": 128.9466001558843,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 야사시장길 6 (야사동,외1필지(야사 135-13))": {
@@ -25297,6 +26562,16 @@
   "ROAD|경상북도 영천시 약전길 16 (완산동)": {
     "latitude": 35.96101322552441,
     "longitude": 128.93987636385566,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 약전길 18 (완산동)": {
+    "latitude": 35.96126585735473,
+    "longitude": 128.93995482943149,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 약전길 42 (완산동)": {
+    "latitude": 35.961306131893295,
+    "longitude": 128.94134680469716,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 어은길 131-1": {
@@ -25449,6 +26724,11 @@
     "longitude": 128.95704364641924,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 언하공단로 60, 108호 (망정동)": {
+    "latitude": 35.9865144507637,
+    "longitude": 128.95704364641924,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 언하공단로 60, 센트럴팰리스 1층 104호 (망정동)": {
     "latitude": 35.9865144507637,
     "longitude": 128.95704364641924,
@@ -25460,6 +26740,11 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 언하공단로 64, 102호 (망정동, 위너타운2차)": {
+    "latitude": 35.98648029271106,
+    "longitude": 128.95660062424102,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 언하공단로 64, 103호 (망정동, 위너타운2차)": {
     "latitude": 35.98648029271106,
     "longitude": 128.95660062424102,
     "matched_address": null
@@ -25539,6 +26824,11 @@
     "longitude": 128.9545325165359,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 언하공단로 83, 106호 (망정동)": {
+    "latitude": 35.98591192700248,
+    "longitude": 128.9545325165359,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 언하공단로 83, 202호 (망정동, 정한상가)": {
     "latitude": 35.98591192700248,
     "longitude": 128.9545325165359,
@@ -25579,6 +26869,11 @@
     "longitude": 128.95414153494383,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 언하공단로 94, 3층 (망정동)": {
+    "latitude": 35.98612937707848,
+    "longitude": 128.95322252707135,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 언하공단로 95 (망정동)": {
     "latitude": 35.98569226237298,
     "longitude": 128.95331181332324,
@@ -25587,6 +26882,21 @@
   "ROAD|경상북도 영천시 언하공단로 98 (망정동)": {
     "latitude": 35.98612404073327,
     "longitude": 128.95290507343077,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 여랑길 21 (매산동)": {
+    "latitude": 36.017820666245456,
+    "longitude": 128.91733338783143,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 여랑길 25 (매산동)": {
+    "latitude": 36.01806774649924,
+    "longitude": 128.91701462597092,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 여랑길 25, 1층 (매산동)": {
+    "latitude": 36.01806774649924,
+    "longitude": 128.91701462597092,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 역전2길 2": {
@@ -25694,6 +27004,11 @@
     "longitude": 128.93467990384602,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 역전로 5 (완산동)": {
+    "latitude": 35.96305112218556,
+    "longitude": 128.93467990384602,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 역전로 51 (완산동)": {
     "latitude": 35.96064995629022,
     "longitude": 128.93861840671514,
@@ -25712,6 +27027,11 @@
   "ROAD|경상북도 영천시 역전로 53-1 (완산동)": {
     "latitude": 35.96051545801673,
     "longitude": 128.93889029475338,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 역전로 7 (완산동)": {
+    "latitude": 35.96305585934847,
+    "longitude": 128.93480321022895,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 역전로 9, 2층 (완산동)": {
@@ -25749,6 +27069,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 영천고1길 44(야사동)": {
+    "latitude": 35.97135936109419,
+    "longitude": 128.94444485698094,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 영천고1길 6 (야사동)": {
     "latitude": 35.972941615589775,
     "longitude": 128.94333402559658,
@@ -25769,9 +27094,24 @@
     "longitude": 128.94508868281207,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 영천고1길 91 (야사동)": {
+    "latitude": 35.97159916077416,
+    "longitude": 128.94654402866578,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 영천고2길 42, 14동 1호 (야사동, 문화아파트)": {
     "latitude": 35.97218398973297,
     "longitude": 128.94618491511181,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 영천고2길 42, 14동 5호 (야사동,문화아파트)": {
+    "latitude": 35.97218398973297,
+    "longitude": 128.94618491511181,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 영천고2길 9 (야사동,문화상가 B동 205호)": {
+    "latitude": 35.97377818006062,
+    "longitude": 128.94594648875727,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 영천산단로 108-29": {
@@ -25789,12 +27129,22 @@
     "longitude": 128.95001363535408,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 영천산단로 347-17, 1층 (채신동)": {
+    "latitude": 35.915409392022276,
+    "longitude": 128.95001363535408,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 영천산단로 347-7": {
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
   },
   "ROAD|경상북도 영천시 영천산단로 349 (채신동)": {
+    "latitude": 35.91500698918708,
+    "longitude": 128.94830840207558,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 영천산단로 349(채신동)": {
     "latitude": 35.91500698918708,
     "longitude": 128.94830840207558,
     "matched_address": null
@@ -25874,9 +27224,19 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 영천아이시로 61 (봉동)": {
+    "latitude": 35.93350199269736,
+    "longitude": 128.945546203006,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 영천아이시로 65": {
     "latitude": 35.93333566936373,
     "longitude": 128.94559867198942,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 영천아이시로 66(봉동)": {
+    "latitude": 35.93303345022187,
+    "longitude": 128.94470288017504,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 영천아이시로 70": {
@@ -25919,7 +27279,17 @@
     "longitude": 128.94899821505518,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 영화로 326, 광천온천랜드 3층 (조교동)": {
+    "latitude": 35.97090912871779,
+    "longitude": 128.95153955471602,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 영화로 328 (조교동)": {
+    "latitude": 35.9712688822536,
+    "longitude": 128.95110236806764,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 영화로 328(조교동)": {
     "latitude": 35.9712688822536,
     "longitude": 128.95110236806764,
     "matched_address": null
@@ -26004,6 +27374,16 @@
     "longitude": 128.92350603838184,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 영화새싹길 1-3, 102호 (교촌동)": {
+    "latitude": 35.9641141730018,
+    "longitude": 128.92350603838184,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 영화새싹길 21-8 (화룡동)": {
+    "latitude": 35.964345541790735,
+    "longitude": 128.92112380632585,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 예실큰길 4-15": {
     "latitude": 35.925249520739,
     "longitude": 128.95224964466328,
@@ -26040,6 +27420,11 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 옛군청1길 19 (창구동)": {
+    "latitude": 35.96794421724009,
+    "longitude": 128.93187925379027,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 옛군청1길 19(창구동)": {
     "latitude": 35.96794421724009,
     "longitude": 128.93187925379027,
     "matched_address": null
@@ -26119,6 +27504,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 오미길 107 (오미동)": {
+    "latitude": 35.98308569816474,
+    "longitude": 128.9331222671369,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 오미길 121 (오미동)": {
     "latitude": 35.983140457521856,
     "longitude": 128.934781046142,
@@ -26129,14 +27519,29 @@
     "longitude": 128.92946672469122,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 오미길 61 (오미동)": {
+    "latitude": 35.984623900695,
+    "longitude": 128.9294364789378,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 오미동 1121-1번지 외 1필지 외 1필지": {
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 오수1길 10": {
+    "latitude": 35.95729740192631,
+    "longitude": 128.91321026093593,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 오수1길 10 (오수동)": {
     "latitude": 35.95729740192631,
     "longitude": 128.91321026093593,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 오수1길 18": {
+    "latitude": 35.95719084802337,
+    "longitude": 128.9146673252036,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 오수1길 18, 국화원전문장례식장 (오수동)": {
@@ -26152,6 +27557,26 @@
   "ROAD|경상북도 영천시 오수1길 5 (오수동)": {
     "latitude": 35.958321975326236,
     "longitude": 128.91297173013885,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 오수1길 5(오수동)": {
+    "latitude": 35.958321975326236,
+    "longitude": 128.91297173013885,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 오수1길 5, A동 1층 (오수동)": {
+    "latitude": 35.958321975326236,
+    "longitude": 128.91297173013885,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 오수1길 7, 삼화약국 (오수동)": {
+    "latitude": 35.9580360457584,
+    "longitude": 128.91309542474568,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 오수1길 8 (오수동)": {
+    "latitude": 35.957919094910544,
+    "longitude": 128.91280517445466,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 오수2길 43": {
@@ -26224,9 +27649,44 @@
     "longitude": 128.94146975982207,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 완산2길 6 (완산동)": {
+    "latitude": 35.9646609049503,
+    "longitude": 128.9392850047132,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산3길 12 (완산동)": {
+    "latitude": 35.96524823059539,
+    "longitude": 128.9395537854354,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 완산5길 107": {
     "latitude": 35.96677730562363,
     "longitude": 128.94720980122946,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산5길 111, 101호 (완산동, 영천완산미소지움2차)": {
+    "latitude": 35.96728244115397,
+    "longitude": 128.94606008548288,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산5길 111, 104호 (완산동, 영천완산미소지움2차)": {
+    "latitude": 35.96728244115397,
+    "longitude": 128.94606008548288,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산5길 111, 상가 401동 102호 (완산동, 영천완산미소지움2차)": {
+    "latitude": 35.96728244115397,
+    "longitude": 128.94606008548288,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산5길 25(완산동, 완산미소지움)": {
+    "latitude": 35.96689190541915,
+    "longitude": 128.94321330541,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산5길 25, 1층 108호 (완산동, 완산미소지움)": {
+    "latitude": 35.96689190541915,
+    "longitude": 128.94321330541,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 완산6길 13 (완산동)": {
@@ -26239,14 +27699,69 @@
     "longitude": 128.9399027437173,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 완산6길 19-6(완산동)": {
+    "latitude": 35.966966160838666,
+    "longitude": 128.9399027437173,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 완산6길 29": {
     "latitude": 35.96655635318602,
     "longitude": 128.9398954498443,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 완산6길 29, 103호 (완산동, 궁전맨션상가)": {
+    "latitude": 35.96731114292224,
+    "longitude": 128.94045646831705,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산6길 29, 상가동 104호 (완산동, 궁전맨션)": {
+    "latitude": 35.96731114292224,
+    "longitude": 128.94045646831705,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산6길 51 (완산동)": {
+    "latitude": 35.96712629065769,
+    "longitude": 128.94109620937547,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 완산6길 9 (완산동)": {
     "latitude": 35.966808460080756,
     "longitude": 128.93943193750712,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산7길 21 (완산동)": {
+    "latitude": 35.96333835251556,
+    "longitude": 128.93984289575417,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산8길 3, 102-103호 (완산동)": {
+    "latitude": 35.96167260455384,
+    "longitude": 128.9413745631757,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산8길 3, 201호 (완산동)": {
+    "latitude": 35.96167260455384,
+    "longitude": 128.9413745631757,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산8길 3, 이편한스퀘어 1층 105호 (완산동)": {
+    "latitude": 35.96167260455384,
+    "longitude": 128.9413745631757,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산9길 15, 102호 (완산동, e편한세상 센텀스타시티 영천 1블럭)": {
+    "latitude": 35.96189174343418,
+    "longitude": 128.94372905969,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산9길 16, 상가동 109호 (완산동, e편한세상 센텀스타시티 영천 2블럭)": {
+    "latitude": 35.961960010622,
+    "longitude": 128.94455250350515,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산로 116 (문외동)": {
+    "latitude": 35.97058327730117,
+    "longitude": 128.93900340683294,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 완산로 15-2 (완산동)": {
@@ -26267,6 +27782,21 @@
   "ROAD|경상북도 영천시 완산로 20, 101동 101호 (완산동, 윤창타운 )": {
     "latitude": 35.96196838465579,
     "longitude": 128.93955900540323,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산로 20, 101동 104호 (완산동, 윤창타운)": {
+    "latitude": 35.96196838465579,
+    "longitude": 128.93955900540323,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산로 20, 101동 107층 (완산동, 윤창BH홈타운)": {
+    "latitude": 35.96196838465579,
+    "longitude": 128.93955900540323,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산로 25, 2층 (완산동)": {
+    "latitude": 35.96237010002033,
+    "longitude": 128.93876132698767,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 완산로 30 (완산동)": {
@@ -26294,6 +27824,21 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 완산로 40 (완산동)": {
+    "latitude": 35.96371249597314,
+    "longitude": 128.93926217415031,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산로 5 (완산동)": {
+    "latitude": 35.9605499821766,
+    "longitude": 128.93895334723172,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산로 52 (완산동)": {
+    "latitude": 35.964818566333285,
+    "longitude": 128.93923637871097,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 완산로 55": {
     "latitude": 35.96498673748303,
     "longitude": 128.93869590163337,
@@ -26309,9 +27854,19 @@
     "longitude": 128.93920147190613,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 완산로 56 (완산동)": {
+    "latitude": 35.96510247235811,
+    "longitude": 128.93920147190613,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 완산로 6 (완산동)": {
     "latitude": 35.9606166107873,
     "longitude": 128.9394980617924,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산로 60-19 (완산동)": {
+    "latitude": 35.96572357013661,
+    "longitude": 128.93992541137766,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 완산로 61 (완산동)": {
@@ -26319,7 +27874,22 @@
     "longitude": 128.93865241186006,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 완산로 62 (완산동)": {
+    "latitude": 35.96563093710661,
+    "longitude": 128.93927811428026,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산로 63-1 (완산동) 윌로펌프 2층": {
+    "latitude": 35.96592948001773,
+    "longitude": 128.9386306691253,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 완산로 68 (완산동)": {
+    "latitude": 35.96618233544594,
+    "longitude": 128.93932557997783,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산로 68, 건물 내 우측 1층 (완산동)": {
     "latitude": 35.96618233544594,
     "longitude": 128.93932557997783,
     "matched_address": null
@@ -26327,6 +27897,16 @@
   "ROAD|경상북도 영천시 완산로 70": {
     "latitude": 35.96640909661714,
     "longitude": 128.93915395248064,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산로 74 (완산동)": {
+    "latitude": 35.96674221242425,
+    "longitude": 128.93910593563285,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산로 75 (완산동)": {
+    "latitude": 35.96699176331979,
+    "longitude": 128.9385906154385,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 완산로 8-7 (완산동)": {
@@ -26394,6 +27974,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 완산중앙2길 21 (완산동)": {
+    "latitude": 35.962907459221775,
+    "longitude": 128.93619232219618,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 완산중앙2길 4 (완산동)": {
     "latitude": 35.962108482764876,
     "longitude": 128.93645044231766,
@@ -26419,6 +28004,16 @@
     "longitude": 128.937462161791,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 완산중앙3길 16 (완산동)": {
+    "latitude": 35.9619665454125,
+    "longitude": 128.93749102433085,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산중앙3길 20 (완산동)": {
+    "latitude": 35.96203597456207,
+    "longitude": 128.93749106148584,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 완산중앙3길 20-1 (완산동)": {
     "latitude": 35.9621045550511,
     "longitude": 128.93749693221395,
@@ -26442,6 +28037,11 @@
   "ROAD|경상북도 영천시 완산중앙3길 24-1 (완산동,,-30)": {
     "latitude": 35.96229069444488,
     "longitude": 128.9374716308134,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산중앙3길 24-16 (완산동)": {
+    "latitude": 35.96247021784369,
+    "longitude": 128.9376856550761,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 완산중앙3길 24-4 (완산동)": {
@@ -26474,6 +28074,11 @@
     "longitude": 128.93707587397148,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 완산중앙3길 35-4, 1층 전면 좌측호 (완산동)": {
+    "latitude": 35.96289012593242,
+    "longitude": 128.937170099347,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 완산중앙3길 36 (완산동)": {
     "latitude": 35.96280180720605,
     "longitude": 128.9374513369405,
@@ -26487,6 +28092,11 @@
   "ROAD|경상북도 영천시 완산중앙3길 39 (완산동)": {
     "latitude": 35.96294590102549,
     "longitude": 128.9371665209618,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산중앙3길 39-1 (완산동)": {
+    "latitude": 35.963016305808694,
+    "longitude": 128.93715965518808,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 완산중앙3길 4-1 (완산동)": {
@@ -26569,9 +28179,19 @@
     "longitude": 128.93831395931724,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 완산중앙7길 23-3 (완산동)": {
+    "latitude": 35.96142929658437,
+    "longitude": 128.93858788588938,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 완산중앙7길 25 (완산동)": {
     "latitude": 35.961415883158594,
     "longitude": 128.9387476006047,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산중앙7길 5 (완산동)": {
+    "latitude": 35.96137278671,
+    "longitude": 128.93761328836052,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 완산중앙7길 5-1 (완산동)": {
@@ -26597,6 +28217,11 @@
   "ROAD|경상북도 영천시 완산중앙9길 19 (완산동,,-31)": {
     "latitude": 35.96282329923133,
     "longitude": 128.93830164937933,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 완산중앙9길 20-7 (완산동)": {
+    "latitude": 35.96248687615767,
+    "longitude": 128.9384296499155,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 완산중앙9길 22 (완산동)": {
@@ -26832,6 +28457,11 @@
   "ROAD|경상북도 영천시 운동장로 36 (교촌동)": {
     "latitude": 35.96613375562001,
     "longitude": 128.92450281012856,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 운동장로 40 (교촌동)": {
+    "latitude": 35.966354017283265,
+    "longitude": 128.92455647781924,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 운동장로 41(교촌동) 3층": {
@@ -27329,6 +28959,11 @@
     "longitude": 128.98865261782638,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 임고면 덕연길 36": {
+    "latitude": 36.04992063871428,
+    "longitude": 128.98885476654937,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 임고면 덕연길 63-1": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -27414,6 +29049,11 @@
     "longitude": 129.06807121937348,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 임고면 사덕로 223": {
+    "latitude": 36.034295652693515,
+    "longitude": 129.0700057382665,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 임고면 사덕로 24-3": {
     "latitude": 36.04416723804631,
     "longitude": 129.05359653182728,
@@ -27489,6 +29129,11 @@
     "longitude": 128.99560600973706,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 임고면 승마휴양림길 22-2": {
+    "latitude": 36.026734531587195,
+    "longitude": 128.99679430159262,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 임고면 신방로 4083": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -27549,6 +29194,11 @@
     "longitude": 128.97598269670277,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 임고면 운주로 1": {
+    "latitude": 36.016621332428244,
+    "longitude": 128.97465093288264,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 임고면 운주로 1047": {
     "latitude": 36.04718174556044,
     "longitude": 129.06780678436982,
@@ -27593,6 +29243,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 임고면 운주로 14": {
+    "latitude": 36.016566220415,
+    "longitude": 128.97587252101235,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 임고면 운주로 141": {
     "latitude": 36.02271965649594,
@@ -27819,6 +29474,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 임고면 운주로 777": {
+    "latitude": 36.0510868383696,
+    "longitude": 129.0433604933713,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 임고면 운주로 777 (외70필지)": {
     "latitude": 36.0510868383696,
     "longitude": 129.0433604933713,
@@ -27827,6 +29487,11 @@
   "ROAD|경상북도 영천시 임고면 운주로 791 (외38필지)": {
     "latitude": 36.05346326915853,
     "longitude": 129.04379177515517,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 임고면 운주로 791, 영천(익산방향)주유소": {
+    "latitude": 36.05336592515173,
+    "longitude": 129.04274638520906,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 임고면 운주로 815": {
@@ -28094,6 +29759,11 @@
     "longitude": 128.98218648382755,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 임고면 포은로 763": {
+    "latitude": 36.042042402741785,
+    "longitude": 128.98325047330536,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 임고면 포은로 765": {
     "latitude": 36.04217789042124,
     "longitude": 128.98341464919127,
@@ -28174,6 +29844,11 @@
     "longitude": 129.00103902093116,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 임고면 황강공단길 15": {
+    "latitude": 36.02832551386779,
+    "longitude": 128.99786772855384,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 임고면 황강공단길 15-10": {
     "latitude": 36.02939754151204,
     "longitude": 128.99727630206883,
@@ -28194,10 +29869,20 @@
     "longitude": 128.99329857161788,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 임고면 황강전원길 39": {
+    "latitude": 36.0291854459751,
+    "longitude": 128.9941977973368,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 임고면 효자로 294": {
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 임고면 효자로 314": {
+    "latitude": 36.00787717823299,
+    "longitude": 128.98940430830106,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 임고면 효자로 348": {
     "latitude": 36.011002895438665,
@@ -28234,6 +29919,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 자양면 도일길 31": {
+    "latitude": 36.11033811278746,
+    "longitude": 129.08281630380586,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 자양면 도일길 71": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -28258,6 +29948,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 자양면 별빛로 1124": {
+    "latitude": 36.1345868399961,
+    "longitude": 129.0407472029958,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 자양면 별빛로 1125": {
     "latitude": 36.134801353108614,
@@ -28314,6 +30009,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 자양면 별빛로 829": {
+    "latitude": 36.14052907409218,
+    "longitude": 129.01052733235957,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 자양면 별빛로 885": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -28323,6 +30023,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 자양면 사곡길 75": {
+    "latitude": 36.14470605233679,
+    "longitude": 129.03101494330883,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 자양면 상기길 37-8": {
     "latitude": 36.135208507278165,
@@ -28344,6 +30049,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 자양면 신방로 298": {
+    "latitude": 36.06545270756466,
+    "longitude": 129.03809911333838,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 자양면 신방로 437": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -28357,6 +30067,11 @@
   "ROAD|경상북도 영천시 자양면 신방로 566": {
     "latitude": 36.065419286782216,
     "longitude": 129.06621015757221,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 자양면 신방로 626": {
+    "latitude": 36.06664119033356,
+    "longitude": 129.07385070499882,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 자양면 신방로 649": {
@@ -28394,6 +30109,11 @@
     "longitude": 129.035860500912,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 자양면 원각길 55": {
+    "latitude": 36.09024620500641,
+    "longitude": 129.03585530925403,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 자양면 포은로 1385": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -28407,6 +30127,11 @@
   "ROAD|경상북도 영천시 자양면 포은로 1624": {
     "latitude": 36.078306321194354,
     "longitude": 129.01731937498673,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 자양면 포은로 1625-11": {
+    "latitude": 36.080709662812914,
+    "longitude": 129.01899595287898,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 자양면 포은로 1626": {
@@ -28574,6 +30299,11 @@
     "longitude": 128.8290001833451,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 장수로 12 (화룡동)": {
+    "latitude": 35.96361835408418,
+    "longitude": 128.92239330238266,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 장수로 1261": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -28608,6 +30338,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 장수로 14 (화룡동)": {
+    "latitude": 35.96355692698217,
+    "longitude": 128.92221432823783,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 장수로 1409-6": {
     "error": "NOT_FOUND",
@@ -28714,6 +30449,11 @@
     "longitude": 128.9210818788652,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 장수로 24 (화룡동)": {
+    "latitude": 35.964167384556674,
+    "longitude": 128.9213041619802,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 장수로 259 (서산동)": {
     "latitude": 35.98074021169875,
     "longitude": 128.90592687609367,
@@ -28727,6 +30467,11 @@
   "ROAD|경상북도 영천시 장수로 28 (화룡동)": {
     "latitude": 35.964346014304105,
     "longitude": 128.9210135141513,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 장수로 28-1 (화룡동)": {
+    "latitude": 35.964434104014785,
+    "longitude": 128.92099741290446,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 장수로 297": {
@@ -28762,6 +30507,11 @@
   "ROAD|경상북도 영천시 장수로 358-5 (서산동)": {
     "latitude": 35.987435079573146,
     "longitude": 128.89918324747146,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 장수로 36(화룡동)": {
+    "latitude": 35.964859811625246,
+    "longitude": 128.92023403871542,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 장수로 360": {
@@ -28959,6 +30709,11 @@
     "longitude": 128.95523895717497,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 장천길 13 (조교동)": {
+    "latitude": 35.970381316906526,
+    "longitude": 128.95183019441657,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 장천길 21 (조교동)": {
     "latitude": 35.96990794857168,
     "longitude": 128.95242323679457,
@@ -28972,6 +30727,11 @@
   "ROAD|경상북도 영천시 장천길 27, 2층 (조교동)": {
     "latitude": 35.96962149248852,
     "longitude": 128.9528386171552,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 장천길 283, 1층 (조교동)": {
+    "latitude": 35.97739494247939,
+    "longitude": 128.9632679317858,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 장천길 33": {
@@ -29069,6 +30829,11 @@
     "longitude": 128.93220640085548,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 조양공원길 30-1 (창구동)": {
+    "latitude": 35.9666257139786,
+    "longitude": 128.93179528610165,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 조양공원길 32 (창구동)": {
     "latitude": 35.96661622104152,
     "longitude": 128.93169097133432,
@@ -29077,6 +30842,11 @@
   "ROAD|경상북도 영천시 조양길 120 (문내동)": {
     "latitude": 35.97312401124497,
     "longitude": 128.93215348196205,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 조양길 47 (문내동)": {
+    "latitude": 35.969981161309136,
+    "longitude": 128.9326142679809,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 조양길 66 (문내동)": {
@@ -29097,6 +30867,11 @@
   "ROAD|경상북도 영천시 조흔달길 22-53 (조교동)": {
     "latitude": 35.975215993696494,
     "longitude": 128.9599943381644,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 조흔달길 22-7 (조교동)": {
+    "latitude": 35.9763937444274,
+    "longitude": 128.9614617614857,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 주남3길 100-42 (금노동)": {
@@ -29129,7 +30904,27 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 중앙동 2길 86(문내동)": {
+    "latitude": 35.974215802886654,
+    "longitude": 128.9321974026505,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동1길 102-9, 대동다숲아파트 상가 112동 104호 (문내동)": {
+    "latitude": 35.97549908182795,
+    "longitude": 128.93149357239736,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동1길 105 (문내동)": {
+    "latitude": 35.97484256280315,
+    "longitude": 128.93135709774845,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 중앙동1길 12 (문외동)": {
+    "latitude": 35.97261600272114,
+    "longitude": 128.93462026129436,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동1길 12, 2층 (문외동)": {
     "latitude": 35.97261600272114,
     "longitude": 128.93462026129436,
     "matched_address": null
@@ -29144,7 +30939,22 @@
     "longitude": 128.93468317684125,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 중앙동1길 12-9 (문내동)": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
+  "ROAD|경상북도 영천시 중앙동1길 157, 101호 (문내동)": {
+    "latitude": 35.97379799233172,
+    "longitude": 128.9290632684766,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 중앙동1길 2 (문외동)": {
+    "latitude": 35.972227027408685,
+    "longitude": 128.93487382933068,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동1길 2, 1층 C호 (문외동)": {
     "latitude": 35.972227027408685,
     "longitude": 128.93487382933068,
     "matched_address": null
@@ -29174,9 +30984,24 @@
     "longitude": 128.93383692988613,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 중앙동1길 44 (문외동)": {
+    "latitude": 35.97381070381705,
+    "longitude": 128.9337173411951,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 중앙동1길 51 (문외동)": {
     "latitude": 35.97387929474066,
     "longitude": 128.93318534811948,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동1길 51, 1층 전면 좌측호 (문외동)": {
+    "latitude": 35.97387929474066,
+    "longitude": 128.93318534811948,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동1길 52, 2층 (문외동)": {
+    "latitude": 35.974124154604674,
+    "longitude": 128.9335434775902,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 중앙동1길 68": {
@@ -29192,6 +31017,21 @@
   "ROAD|경상북도 영천시 중앙동1길 77 (문외동)": {
     "latitude": 35.9748811471449,
     "longitude": 128.9324281953589,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동1길 77, 2층 (문외동)": {
+    "latitude": 35.9748811471449,
+    "longitude": 128.9324281953589,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동1길 8 (문외동)": {
+    "latitude": 35.97237278431437,
+    "longitude": 128.93483225708113,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동1길 8, 2층 (문외동)": {
+    "latitude": 35.97237278431437,
+    "longitude": 128.93483225708113,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 중앙동1길117": {
@@ -29217,6 +31057,11 @@
   "ROAD|경상북도 영천시 중앙동2길 28 (문외동, 1층2층)": {
     "latitude": 35.97334170290219,
     "longitude": 128.93455518738693,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동2길 40, 봄의왈츠 1층 (문외동)": {
+    "latitude": 35.973761448904625,
+    "longitude": 128.93429220082675,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 중앙동2길 76 (문외동)": {
@@ -29247,6 +31092,11 @@
   "ROAD|경상북도 영천시 중앙동2길 96 (문내동)": {
     "latitude": 35.97383325060123,
     "longitude": 128.93173161736925,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동3길 10, 1층 (문외동)": {
+    "latitude": 35.973376382936706,
+    "longitude": 128.93318147011556,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 중앙동3길 20 (문외동)": {
@@ -29284,6 +31134,11 @@
     "longitude": 128.93229357071215,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 중앙동3길 50, 2층 (문내동)": {
+    "latitude": 35.97477119542897,
+    "longitude": 128.9317919900669,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 중앙동3길 76 (문내동)": {
     "latitude": 35.97416319876602,
     "longitude": 128.93055546031252,
@@ -29299,7 +31154,22 @@
     "longitude": 128.93361297004355,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 중앙동4길 20 (문외동)": {
+    "latitude": 35.97319092911019,
+    "longitude": 128.93347990963778,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동4길 22, 1층 (문외동)": {
+    "latitude": 35.97304331650371,
+    "longitude": 128.93319572190057,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 중앙동4길 40, 1층 (문내동)": {
+    "latitude": 35.97268093932209,
+    "longitude": 128.93235310794276,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 중앙동4길 40, 2층 (문내동)": {
     "latitude": 35.97268093932209,
     "longitude": 128.93235310794276,
     "matched_address": null
@@ -29419,6 +31289,11 @@
     "longitude": 128.88429639339944,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 창신1길 11, A동 106호 (망정동, 창신타운상가)": {
+    "latitude": 35.98697423443164,
+    "longitude": 128.9543654626873,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 창신1길 12, 107호 (망정동, 창신영천타운상가 )": {
     "latitude": 35.98735652073202,
     "longitude": 128.95537031492574,
@@ -29439,6 +31314,16 @@
     "longitude": 128.95522035978922,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 창신1길 35 (망정동, 아이존빌스타110동106호)": {
+    "latitude": 35.98891800839939,
+    "longitude": 128.95425800146157,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신1길 35, 108호 (망정동, 아이존빌스타)": {
+    "latitude": 35.98993647587255,
+    "longitude": 128.9526208876482,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 창신1길 35, 110동 112호 (망정동, 영천아이존빌스타)": {
     "latitude": 35.98891800839939,
     "longitude": 128.95425800146157,
@@ -29449,9 +31334,19 @@
     "longitude": 128.95425800146157,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 창신1길 35, 110동 1층 111호 (망정동, 아이존빌스타)": {
+    "latitude": 35.98891800839939,
+    "longitude": 128.95425800146157,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 창신1길 4 (망정동)": {
     "latitude": 35.98636939347019,
     "longitude": 128.95516148959246,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신1길 42 (망정동, 인터불고코아루아파트)": {
+    "latitude": 35.98952661849658,
+    "longitude": 128.95510227954446,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 창신1길 42, 103호 (망정동, 인터불고코아루아파트상가 )": {
@@ -29465,6 +31360,16 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 창신1길 42, 301동 108호 (망정동, 인터불고코아루아파트)": {
+    "latitude": 35.98952661849658,
+    "longitude": 128.95510227954446,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신1길 42, 301동 1호 (망정동, 인터불고코아루아파트)": {
+    "latitude": 35.98952661849658,
+    "longitude": 128.95510227954446,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신1길 42, 301동 6호 (망정동, 인터불고코아루아파트)": {
     "latitude": 35.98952661849658,
     "longitude": 128.95510227954446,
     "matched_address": null
@@ -29484,7 +31389,17 @@
     "longitude": 128.95461996119906,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 창신1길 5, 창신타운 (망정동)": {
+    "latitude": 35.98667100243392,
+    "longitude": 128.95461996119906,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 창신1길 5-5 (망정동)": {
+    "latitude": 35.98631536632337,
+    "longitude": 128.95421322186198,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신1길 5-5 (망정동, 창신상가 202-2)": {
     "latitude": 35.98631536632337,
     "longitude": 128.95421322186198,
     "matched_address": null
@@ -29524,9 +31439,29 @@
     "longitude": 128.95653029749354,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 창신길 118(망정동)": {
+    "latitude": 35.98861569909298,
+    "longitude": 128.95627637301735,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신길 121 (망정동)": {
+    "latitude": 35.98838102939742,
+    "longitude": 128.95666081171083,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 창신길 130, 우측동 1층 (망정동)": {
     "latitude": 35.98734724275557,
     "longitude": 128.95642559489642,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신길 132, 202호 (망정동)": {
+    "latitude": 35.987197822220736,
+    "longitude": 128.95645539036963,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신길 132, 2층 (망정동)": {
+    "latitude": 35.987197822220736,
+    "longitude": 128.95645539036963,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 창신길 140 (망정동)": {
@@ -29539,9 +31474,44 @@
     "longitude": 128.9555954137241,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 창신길 140-11, 107호 (망정동)": {
+    "latitude": 35.9864600498208,
+    "longitude": 128.9555954137241,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신길 140-11, 108호 (망정동)": {
+    "latitude": 35.9864600498208,
+    "longitude": 128.9555954137241,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 창신길 140-14 (망정동)": {
     "latitude": 35.98670510242172,
     "longitude": 128.95521889104947,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신길 140-14, 창신타운 103호 (망정동)": {
+    "latitude": 35.98670510242172,
+    "longitude": 128.95521889104947,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신길 140-14, 창신타운 106호 (망정동)": {
+    "latitude": 35.98670510242172,
+    "longitude": 128.95521889104947,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신길 140-14, 창신타운 108호 (망정동)": {
+    "latitude": 35.98670510242172,
+    "longitude": 128.95521889104947,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신길 140-14, 창신타운 상가동 104호 (망정동)": {
+    "latitude": 35.98670510242172,
+    "longitude": 128.95521889104947,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 창신길 37 (망정동)": {
+    "latitude": 35.98922480834845,
+    "longitude": 128.952071578514,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 창신길 7 (망정동)": {
@@ -29744,6 +31714,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 천문로 113, 1층 (도동)": {
+    "latitude": 35.94896381022235,
+    "longitude": 128.92924870597597,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 천문로 117 (도동)": {
     "latitude": 35.949276139353046,
     "longitude": 128.9286329103267,
@@ -29774,6 +31749,16 @@
     "longitude": 128.9077362285151,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 천문로 134 (금노동)": {
+    "latitude": 35.95034109127114,
+    "longitude": 128.9305597561326,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 천문로 134, 1층 (금노동)": {
+    "latitude": 35.95034109127114,
+    "longitude": 128.9305597561326,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 천문로 1369": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -29788,6 +31773,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 천문로 148(금노동)": {
+    "latitude": 35.951805463937895,
+    "longitude": 128.93073121333134,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 천문로 149, 2층 (금노동)": {
     "latitude": 35.9521455647819,
@@ -29909,6 +31899,11 @@
     "longitude": 128.9326327195086,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 천문로 210-7(금노동)": {
+    "latitude": 35.957144159529186,
+    "longitude": 128.93275879808814,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 천문로 2147": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -30014,6 +32009,16 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 천문로 271 (완산동)": {
+    "latitude": 35.96264539127597,
+    "longitude": 128.93357132969024,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 천문로 277 (금노동)": {
+    "latitude": 35.96302734075,
+    "longitude": 128.93371326001392,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 천문로 2802": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -30084,6 +32089,11 @@
     "longitude": 128.93201049998987,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 천문로 321 (과전동)": {
+    "latitude": 35.966437478117214,
+    "longitude": 128.9313961409582,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 천문로 333 (창구동)": {
     "latitude": 35.9674779852879,
     "longitude": 128.93093809843344,
@@ -30119,9 +32129,19 @@
     "longitude": 128.92995678189826,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 천문로 354-1 (창구동)": {
+    "latitude": 35.96922841056852,
+    "longitude": 128.93053425955645,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 천문로 358": {
     "latitude": 35.96953973656093,
     "longitude": 128.93073936890812,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 천문로 359, 2층 (창구동)": {
+    "latitude": 35.96956510920812,
+    "longitude": 128.93019956088656,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 천문로 362-1 (창구동)": {
@@ -30194,6 +32214,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 천문로 596-8": {
+    "latitude": 35.987587865154154,
+    "longitude": 128.92487960017223,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 천문로 596-8 (오미동)": {
     "latitude": 35.987587865154154,
     "longitude": 128.92487960017223,
@@ -30244,6 +32269,11 @@
     "longitude": 128.9244244909322,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 천문로 696(오미동)": {
+    "latitude": 35.99645530198398,
+    "longitude": 128.9244244909322,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 천문로 697": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -30289,6 +32319,11 @@
     "longitude": 128.92871935544161,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 천문로 921(도림동)": {
+    "latitude": 36.016716366592604,
+    "longitude": 128.92871935544161,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 천문로 937": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -30312,6 +32347,11 @@
   "ROAD|경상북도 영천시 청산1길 12 (문외동)": {
     "latitude": 35.97391957461604,
     "longitude": 128.93755023728232,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 청산1길 13 (문외동)": {
+    "latitude": 35.973949053605224,
+    "longitude": 128.93725281420194,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 청산1길 18 (문외동)": {
@@ -30349,6 +32389,21 @@
     "longitude": 128.93579850989778,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 청산길 24, 좌측 3번째 (문외동)": {
+    "latitude": 35.973504744435324,
+    "longitude": 128.93579850989778,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 청산길 25, 2층 (문외동)": {
+    "latitude": 35.97377292676083,
+    "longitude": 128.9357212959002,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 청산길 36 (문외동)": {
+    "latitude": 35.97385259720421,
+    "longitude": 128.93627482354165,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 청산길 55 (문외동)": {
     "latitude": 35.974795311424245,
     "longitude": 128.93681854713753,
@@ -30357,6 +32412,16 @@
   "ROAD|경상북도 영천시 청산길 63 (문외동)": {
     "latitude": 35.974794144046726,
     "longitude": 128.93740140932962,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 청솔길 23-6 (망정동, 청솔아파트)": {
+    "latitude": 35.988930638851116,
+    "longitude": 128.95525123614823,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 청솔길 23-6, 107호 (망정동, 청솔상가)": {
+    "latitude": 35.988930638851116,
+    "longitude": 128.95525123614823,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 청솔길 34 (망정동)": {
@@ -30584,6 +32649,11 @@
     "longitude": 128.81444306393968,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 청통면 계포1길 55": {
+    "latitude": 35.997901131531385,
+    "longitude": 128.81468692431838,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 청통면 계포1길 9": {
     "latitude": 35.99527281906853,
     "longitude": 128.81131134505335,
@@ -30633,6 +32703,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 청통면 구정길 53-77": {
+    "latitude": 35.97917748602462,
+    "longitude": 128.8265451901711,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 청통면 금송로 1009": {
     "latitude": 35.99401822422466,
@@ -30799,6 +32874,16 @@
     "longitude": 128.82330842162145,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 청통면 금송로 968-2": {
+    "latitude": 35.99097683786324,
+    "longitude": 128.82340542102585,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 청통면 금송로 968-2, 2층": {
+    "latitude": 35.99097683786324,
+    "longitude": 128.82340542102585,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 청통면 금송로 968-4": {
     "latitude": 35.99107410257585,
     "longitude": 128.82352750386696,
@@ -30817,6 +32902,11 @@
   "ROAD|경상북도 영천시 청통면 금송로 977": {
     "latitude": 35.9917042552116,
     "longitude": 128.82229970116146,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 청통면 금송로 982": {
+    "latitude": 35.99209786461999,
+    "longitude": 128.82250624544707,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 청통면 금송로 984": {
@@ -30842,6 +32932,11 @@
   "ROAD|경상북도 영천시 청통면 대동로 362": {
     "latitude": 35.98623934363994,
     "longitude": 128.80317709794082,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 청통면 대동로 423": {
+    "latitude": 35.99075185690438,
+    "longitude": 128.80027829529774,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 청통면 망지1길 24": {
@@ -31074,6 +33169,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 청통면 신학길 23": {
+    "latitude": 35.99634362519977,
+    "longitude": 128.8277303933869,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 청통면 아랫죽정길 3-1": {
     "latitude": 35.96933564521402,
     "longitude": 128.83062892463624,
@@ -31132,6 +33232,11 @@
   "ROAD|경상북도 영천시 청통면 애련길 224": {
     "latitude": 36.00357870518505,
     "longitude": 128.7995631676095,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 청통면 애련길 233": {
+    "latitude": 36.003302493338964,
+    "longitude": 128.79848596794102,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 청통면 애련길 243": {
@@ -31294,6 +33399,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 청통면 은해사로 92": {
+    "latitude": 35.99456070501475,
+    "longitude": 128.80998000769338,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 청통면 은해사로 94": {
     "latitude": 35.99422233071037,
     "longitude": 128.8098071443996,
@@ -31378,6 +33488,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 청통면 청통로 127번지": {
+    "latitude": 35.99292777062253,
+    "longitude": 128.87599890793564,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 청통면 청통로 173": {
     "error": "NOT_FOUND",
@@ -31704,6 +33819,11 @@
     "longitude": 128.8225744456362,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 청통면 청통초등길 8번지": {
+    "latitude": 35.99184909719402,
+    "longitude": 128.82434902827555,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 청통면 치일길 4": {
     "latitude": 35.990945920647576,
     "longitude": 128.7985061403478,
@@ -31794,6 +33914,11 @@
     "longitude": 128.91590948991987,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 최무선로 183-6 (화룡동)": {
+    "latitude": 35.963181438490594,
+    "longitude": 128.92118097520435,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 최무선로 184": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -31819,6 +33944,16 @@
     "longitude": 128.9243886557843,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 최무선로 213-5 (성내동)": {
+    "latitude": 35.96336458195857,
+    "longitude": 128.9240898138105,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 최무선로 214": {
+    "latitude": 35.96306701456713,
+    "longitude": 128.92449839876465,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 최무선로 217-1 (성내동)": {
     "latitude": 35.963574927887095,
     "longitude": 128.92461150289347,
@@ -31834,6 +33969,11 @@
     "longitude": 128.92562597728949,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 최무선로 231-1, 101호 (성내동, 윤창미가)": {
+    "latitude": 35.964552244794845,
+    "longitude": 128.92574510155168,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 최무선로 233": {
     "latitude": 35.964413502374484,
     "longitude": 128.9261888258373,
@@ -31844,6 +33984,11 @@
     "longitude": 128.92668172601188,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 최무선로 240, 2층 전면 우측호 (성내동)": {
+    "latitude": 35.96442935099449,
+    "longitude": 128.92684868481166,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 최무선로 243 (성내동) 평생학습관 3층": {
     "latitude": 35.96528777683825,
     "longitude": 128.92654732105927,
@@ -31852,6 +33997,11 @@
   "ROAD|경상북도 영천시 최무선로 247": {
     "latitude": 35.96508087167639,
     "longitude": 128.92743826805778,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 최무선로 252-1, 1층 (성내동)": {
+    "latitude": 35.96501528102677,
+    "longitude": 128.92795172345092,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 최무선로 255 (성내동)": {
@@ -31867,6 +34017,11 @@
   "ROAD|경상북도 영천시 최무선로 259 (성내동)": {
     "latitude": 35.96571769901976,
     "longitude": 128.92839144928837,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 최무선로 260-1 (성내동)": {
+    "latitude": 35.96539823086498,
+    "longitude": 128.92875432019366,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 최무선로 265": {
@@ -31887,6 +34042,11 @@
   "ROAD|경상북도 영천시 최무선로 278": {
     "latitude": 35.96613274837928,
     "longitude": 128.93032282821184,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 최무선로 281-1, 1층 (과전동)": {
+    "latitude": 35.966606436911064,
+    "longitude": 128.93062022532382,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 최무선로 293": {
@@ -31914,6 +34074,11 @@
     "longitude": 128.9328192711262,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 최무선로 309, 2층 (문내동)": {
+    "latitude": 35.96797024470496,
+    "longitude": 128.93291466787036,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 최무선로 318 (문외동)": {
     "latitude": 35.96820931495619,
     "longitude": 128.9341114696815,
@@ -31933,6 +34098,11 @@
     "error": "geocoding request failed: The read operation timed out",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 최무선로 347 (문외동)": {
+    "latitude": 35.97000570404718,
+    "longitude": 128.93652778208258,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 최무선로 354": {
     "error": "NOT_FOUND",
@@ -32009,14 +34179,34 @@
     "longitude": 128.94076352176262,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 충효로 111 (야사동)": {
+    "latitude": 35.975184886357106,
+    "longitude": 128.9408641848524,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 충효로 112 (야사동)": {
     "latitude": 35.97471572807643,
     "longitude": 128.940969341156,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 충효로 112-1 (야사동)": {
+    "latitude": 35.974847736328385,
+    "longitude": 128.9410867908229,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 충효로 113 (야사동)": {
     "latitude": 35.9751518739463,
     "longitude": 128.94097455765507,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 충효로 113-2, 1층 (야사동)": {
+    "latitude": 35.975255882143756,
+    "longitude": 128.94119458639346,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 충효로 114-1 (야사동)": {
+    "latitude": 35.97488532029349,
+    "longitude": 128.94134253252793,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 충효로 115 (야사동)": {
@@ -32032,6 +34222,11 @@
   "ROAD|경상북도 영천시 충효로 116 (야사동)": {
     "latitude": 35.97501422404946,
     "longitude": 128.9414509933373,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 충효로 12 (문내동)": {
+    "latitude": 35.970395032954045,
+    "longitude": 128.9316009985844,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 충효로 122": {
@@ -32054,6 +34249,11 @@
     "longitude": 128.94188995973246,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 충효로 123, 1층 (야사동)": {
+    "latitude": 35.97566544337232,
+    "longitude": 128.94188995973246,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 충효로 123-1 (야사동)": {
     "latitude": 35.97571028151845,
     "longitude": 128.94201216533503,
@@ -32062,6 +34262,11 @@
   "ROAD|경상북도 영천시 충효로 123-2 (야사동)": {
     "latitude": 35.97576174153273,
     "longitude": 128.94213039569738,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 충효로 124 (야사동)": {
+    "latitude": 35.975324165282245,
+    "longitude": 128.94229932765424,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 충효로 125 (야사동)": {
@@ -32109,6 +34314,11 @@
     "longitude": 128.94296621579133,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 충효로 135 (야사동)": {
+    "latitude": 35.97619799403351,
+    "longitude": 128.94328521530096,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 충효로 137 (야사동)": {
     "latitude": 35.976197509409594,
     "longitude": 128.94344470548324,
@@ -32124,6 +34334,11 @@
     "longitude": 128.93170976967914,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 충효로 142(야사동)": {
+    "latitude": 35.97576019432874,
+    "longitude": 128.94442653172547,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 충효로 143 (야사동)": {
     "latitude": 35.976465998845796,
     "longitude": 128.94398215877135,
@@ -32135,6 +34350,16 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 충효로 145 (야사동, 주공아파트상가동)": {
+    "latitude": 35.97657387334312,
+    "longitude": 128.9442372999524,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 충효로 145 (야사동,주공상가2층)": {
+    "latitude": 35.97657387334312,
+    "longitude": 128.9442372999524,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 충효로 145 (야사동,주공아파트상가동 105)": {
     "latitude": 35.97657387334312,
     "longitude": 128.9442372999524,
     "matched_address": null
@@ -32162,6 +34387,16 @@
   "ROAD|경상북도 영천시 충효로 147 (야사동 주공아파트)": {
     "latitude": 35.977076821306895,
     "longitude": 128.9453416496178,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 충효로 147 (야사동)": {
+    "latitude": 35.977076821306895,
+    "longitude": 128.9453416496178,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 충효로 15(문내동)": {
+    "latitude": 35.970659690757984,
+    "longitude": 128.93154362919495,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 충효로 150": {
@@ -32234,7 +34469,17 @@
     "longitude": 128.9346747198035,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 충효로 49(문외동)": {
+    "latitude": 35.972304266810795,
+    "longitude": 128.93504809591394,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 충효로 51 (문외동)": {
+    "latitude": 35.97241843290928,
+    "longitude": 128.9352331015882,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 충효로 51, 2층 (문외동)": {
     "latitude": 35.97241843290928,
     "longitude": 128.9352331015882,
     "matched_address": null
@@ -32252,6 +34497,11 @@
   "ROAD|경상북도 영천시 충효로 55 (문외동)": {
     "latitude": 35.97261774074834,
     "longitude": 128.93546340747213,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 충효로 56 (문외동)": {
+    "latitude": 35.972204349549926,
+    "longitude": 128.9359415075727,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 충효로 57 (문외동)": {
@@ -32307,6 +34557,11 @@
   "ROAD|경상북도 영천시 충효로 69 (문외동)": {
     "latitude": 35.973179957346844,
     "longitude": 128.93688206411935,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 충효로 7, 영천문내주공아파트 (문내동)": {
+    "latitude": 35.97043504599035,
+    "longitude": 128.93058802834284,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 충효로 70 (문외동)": {
@@ -32399,6 +34654,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 충효로 93 (문외동)": {
+    "latitude": 35.97427955593605,
+    "longitude": 128.93919501100902,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 충효로 93, 상가동 1호 (문외동)": {
     "latitude": 35.97427955593605,
     "longitude": 128.93919501100902,
@@ -32418,6 +34678,11 @@
     "latitude": 35.97503425835066,
     "longitude": 128.9386526585759,
     "matched_address": null
+  },
+  "ROAD|경상북도 영천시 충효로9 (관리사무실 옆)": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
   },
   "ROAD|경상북도 영천시 치산관광길 119": {
     "error": "NOT_FOUND",
@@ -32619,6 +34884,11 @@
     "longitude": 128.93614609862965,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 칠백로 841-1(도남동)": {
+    "latitude": 35.934915034479936,
+    "longitude": 128.93613125509285,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 칠백로 843": {
     "latitude": 35.935303644741865,
     "longitude": 128.93612365051388,
@@ -32674,6 +34944,11 @@
     "longitude": 128.93667051875457,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 통운길 2(완산동, 동부품안애)": {
+    "latitude": 35.96158390383562,
+    "longitude": 128.9361335352282,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 통운길 4 (완산동)": {
     "latitude": 35.96126093354712,
     "longitude": 128.93600389774605,
@@ -32700,6 +34975,11 @@
     "longitude": null
   },
   "ROAD|경상북도 영천시 포교당뒷길 1 (교촌동)": {
+    "latitude": 35.9654576056697,
+    "longitude": 128.9261926646923,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 포교당뒷길 1, 전면 우측호 (교촌동)": {
     "latitude": 35.9654576056697,
     "longitude": 128.9261926646923,
     "matched_address": null
@@ -32914,6 +35194,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 하이브리드로 611(채신동)": {
+    "error": "NOT_FOUND",
+    "latitude": null,
+    "longitude": null
+  },
   "ROAD|경상북도 영천시 하이브리드로 650-8 (본촌동)": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -33084,6 +35369,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 한방로 35": {
+    "latitude": 35.945686216256334,
+    "longitude": 128.93463188673954,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 한방로 35 (도동)": {
     "latitude": 35.945686216256334,
     "longitude": 128.93463188673954,
@@ -33170,6 +35460,11 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 호국로 10, 2층 (문외동)": {
+    "latitude": 35.97114346528056,
+    "longitude": 128.9396221818696,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 10, 2층 전면우측호 (문외동)": {
     "latitude": 35.97114346528056,
     "longitude": 128.9396221818696,
     "matched_address": null
@@ -33264,7 +35559,17 @@
     "longitude": 128.95051872758785,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 호국로 120, 대영빌딩 102호 (망정동)": {
+    "latitude": 35.97550113920525,
+    "longitude": 128.95051872758785,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 호국로 120, 대영빌딩 1층 (망정동)": {
+    "latitude": 35.97550113920525,
+    "longitude": 128.95051872758785,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 120, 대영빌딩 1층 101(전면좌측)호 (망정동)": {
     "latitude": 35.97550113920525,
     "longitude": 128.95051872758785,
     "matched_address": null
@@ -33404,6 +35709,11 @@
     "longitude": 128.95582581584523,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 호국로 174 (조교동)": {
+    "latitude": 35.97645663563258,
+    "longitude": 128.95618510811875,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 호국로 175": {
     "latitude": 35.97730292687231,
     "longitude": 128.9561086366698,
@@ -33434,6 +35744,11 @@
     "longitude": 128.9607984050229,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 호국로 22-1, 1층 (야사동)": {
+    "latitude": 35.971641953969936,
+    "longitude": 128.9407388951845,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 호국로 227": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -33445,6 +35760,21 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 호국로 23": {
+    "latitude": 35.97201641729469,
+    "longitude": 128.94072606269458,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 23, 영진궁전빌라 (문외동)": {
+    "latitude": 35.97201641729469,
+    "longitude": 128.94072606269458,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 23, 영진궁전빌라 105동 (문외동)": {
+    "latitude": 35.97201641729469,
+    "longitude": 128.94072606269458,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 23, 영진궁전빌라 105동 106호 (문외동)": {
     "latitude": 35.97201641729469,
     "longitude": 128.94072606269458,
     "matched_address": null
@@ -33475,6 +35805,11 @@
     "matched_address": null
   },
   "ROAD|경상북도 영천시 호국로 28-1 (야사동)": {
+    "latitude": 35.97201700669339,
+    "longitude": 128.9413268145421,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 28-1(야사동)": {
     "latitude": 35.97201700669339,
     "longitude": 128.9413268145421,
     "matched_address": null
@@ -33514,9 +35849,19 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 호국로 33 (야사동)": {
+    "latitude": 35.972504701648596,
+    "longitude": 128.9417030987184,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 호국로 338": {
     "latitude": 35.97916020122126,
     "longitude": 128.97431370732133,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 34-11 (야사동)": {
+    "latitude": 35.972255369234745,
+    "longitude": 128.94217696087202,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 호국로 35": {
@@ -33554,6 +35899,16 @@
     "longitude": 128.9424986287456,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 호국로 42 (야사동)": {
+    "latitude": 35.97260977089766,
+    "longitude": 128.9426143247681,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 43 (야사동)": {
+    "latitude": 35.972976183259064,
+    "longitude": 128.94260980664683,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 호국로 437": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -33584,10 +35939,20 @@
     "longitude": 128.94286495750595,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 호국로 48-1 (야사동)": {
+    "latitude": 35.97291451289187,
+    "longitude": 128.94320289828607,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 호국로 485": {
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 호국로 49 (야사동)": {
+    "latitude": 35.973249037256345,
+    "longitude": 128.9431066564553,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 호국로 494": {
     "latitude": 35.98536780696746,
@@ -33664,6 +36029,11 @@
     "longitude": 129.0025922526906,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 호국로 63-1 (야사동)": {
+    "latitude": 35.973810534695076,
+    "longitude": 128.94467784074527,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 호국로 65": {
     "latitude": 35.97394311991323,
     "longitude": 128.9448184801899,
@@ -33679,12 +36049,22 @@
     "longitude": 129.0054574647281,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 호국로 67-1 (야사동)": {
+    "latitude": 35.97395715264706,
+    "longitude": 128.94503093212475,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 호국로 69-3 (야사동)": {
     "latitude": 35.97415888892692,
     "longitude": 128.9450498685439,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 호국로 70 (야사동)": {
+    "latitude": 35.97371377078507,
+    "longitude": 128.94552306710767,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 70, D호 (야사동)": {
     "latitude": 35.97371377078507,
     "longitude": 128.94552306710767,
     "matched_address": null
@@ -33704,15 +36084,35 @@
     "longitude": 128.94573580501492,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 호국로 74-1 (야사동)": {
+    "latitude": 35.973921079293675,
+    "longitude": 128.94590226301113,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 호국로 76": {
     "latitude": 35.97399276189503,
     "longitude": 128.94595560647474,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 76-1 (야사동)": {
+    "latitude": 35.97399747739057,
+    "longitude": 128.94604088458408,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 호국로 778": {
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 호국로 79, 1층 전면좌측호 (야사동)": {
+    "latitude": 35.97437025435306,
+    "longitude": 128.94609825023002,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 79, 전면 중간호 (야사동)": {
+    "latitude": 35.97437025435306,
+    "longitude": 128.94609825023002,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 호국로 795": {
     "latitude": 36.00116901094992,
@@ -33722,6 +36122,21 @@
   "ROAD|경상북도 영천시 호국로 80 (야사동)": {
     "latitude": 35.974051885802055,
     "longitude": 128.9463218563625,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 81-1 (야사동)": {
+    "latitude": 35.97455489649087,
+    "longitude": 128.9464892101152,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 82 (야사동)": {
+    "latitude": 35.97419705222812,
+    "longitude": 128.94642385648007,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 83 (야사동)": {
+    "latitude": 35.97466562252925,
+    "longitude": 128.9465804261971,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 호국로 831": {
@@ -33744,6 +36159,11 @@
     "longitude": 128.94663151823312,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 호국로 86 (야사동)": {
+    "latitude": 35.974313430963676,
+    "longitude": 128.94688316784013,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 호국로 88 (야사동)": {
     "latitude": 35.974413321895305,
     "longitude": 128.9469946428731,
@@ -33757,6 +36177,11 @@
   "ROAD|경상북도 영천시 호국로 89, 2층 (야사동)": {
     "latitude": 35.974852495615735,
     "longitude": 128.94716844735993,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호국로 93 (야사동)": {
+    "latitude": 35.975024257372695,
+    "longitude": 128.94749869924385,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 호국로 93-1 (야사동)": {
@@ -33774,6 +36199,11 @@
     "longitude": 129.03096796984744,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 호국로 95 (야사동)": {
+    "latitude": 35.9752377222038,
+    "longitude": 128.9477299906331,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 호국로117": {
     "latitude": 35.99163710544427,
     "longitude": 129.0860880743233,
@@ -33787,6 +36217,11 @@
   "ROAD|경상북도 영천시 호국로180": {
     "latitude": 35.981677613079384,
     "longitude": 129.10135833962238,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 호연정길 33 (성내동)": {
+    "latitude": 35.96415908492801,
+    "longitude": 128.927447606084,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 화남면 구전로 121": {
@@ -33929,6 +36364,16 @@
     "longitude": 128.90838995329554,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 화남면 선관길 11-14": {
+    "latitude": 36.050903418100134,
+    "longitude": 128.89502917246057,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 화남면 신선로 10-17": {
+    "latitude": 36.02903478908951,
+    "longitude": 128.93274819525357,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 화남면 신선로 113": {
     "latitude": 36.03567197851876,
     "longitude": 128.93648959883632,
@@ -33987,6 +36432,11 @@
   "ROAD|경상북도 영천시 화남면 신화로 1198": {
     "latitude": 36.05902490330249,
     "longitude": 128.89001490234045,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 화남면 신화로 1217": {
+    "latitude": 36.05991474904719,
+    "longitude": 128.89105474408703,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 화남면 신흥길 2": {
@@ -34164,6 +36614,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 화남면 천문로 1587": {
+    "latitude": 36.05906474473936,
+    "longitude": 128.8913815348016,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 화남면 천문로 1589": {
     "latitude": 36.05957363273707,
     "longitude": 128.89135163670994,
@@ -34219,6 +36674,11 @@
     "longitude": 128.89228434142439,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 화남면 천문로 1612-2, 1층 전면우측호": {
+    "latitude": 36.061364832859894,
+    "longitude": 128.8924634585402,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 화남면 천문로 1613": {
     "latitude": 36.06145224009751,
     "longitude": 128.89221133506527,
@@ -34252,6 +36712,11 @@
   "ROAD|경상북도 영천시 화남면 천문로 1631 (183-1, 184-1)": {
     "latitude": 36.062991887691865,
     "longitude": 128.89304818991104,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 화남면 천문로 1669": {
+    "latitude": 36.065445993110586,
+    "longitude": 128.89611519900353,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 화남면 천문로 1697": {
@@ -34484,6 +36949,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 화북면 별빛로 534": {
+    "latitude": 36.12720536353774,
+    "longitude": 128.9856648094463,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 화북면 별빛로 549": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -34502,6 +36972,16 @@
   "ROAD|경상북도 영천시 화북면 별빛로 678": {
     "latitude": 36.1370568925571,
     "longitude": 128.99462855904926,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 화북면 별빛로 681-32": {
+    "latitude": 36.14025491814092,
+    "longitude": 128.99647394411048,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 화북면 별빛로 710-20": {
+    "latitude": 36.135827110053626,
+    "longitude": 128.99736167450862,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 화북면 상송안길 34-20": {
@@ -34569,6 +37049,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 화북면 자천5길 9-1": {
+    "latitude": 36.10902718615603,
+    "longitude": 128.91885322034767,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 화북면 자천9길 6": {
     "latitude": 36.11010684505324,
     "longitude": 128.92169798422077,
@@ -34592,6 +37077,11 @@
   "ROAD|경상북도 영천시 화북면 정각길 128": {
     "latitude": 36.14833590133975,
     "longitude": 128.9956632159284,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 화북면 정각길 150": {
+    "latitude": 36.1509452122325,
+    "longitude": 128.9966950545795,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 화북면 정각길 22": {
@@ -34644,6 +37134,11 @@
     "latitude": null,
     "longitude": null
   },
+  "ROAD|경상북도 영천시 화북면 천문로 2118": {
+    "latitude": 36.100629268788055,
+    "longitude": 128.91157851971354,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 화북면 천문로 2147": {
     "error": "NOT_FOUND",
     "latitude": null,
@@ -34653,6 +37148,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 화북면 천문로 2149-127": {
+    "latitude": 36.11139096168645,
+    "longitude": 128.90550785174764,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 화북면 천문로 2179": {
     "latitude": 36.10535200275119,
@@ -34809,6 +37309,11 @@
     "longitude": 128.91588397174564,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 화북면 태양길 44": {
+    "latitude": 36.12953817943187,
+    "longitude": 128.98367032268658,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 화북면 화북길 36": {
     "latitude": 36.11257443937747,
     "longitude": 128.92287390024148,
@@ -34832,6 +37337,16 @@
   "ROAD|경상북도 영천시 화북면 화북길 68, 자천버스정류소": {
     "latitude": 36.11022849061787,
     "longitude": 128.92069730638397,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 화북면 화북길 82": {
+    "latitude": 36.109250269955815,
+    "longitude": 128.91979261239783,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 화북면 화북길 84": {
+    "latitude": 36.10914592362692,
+    "longitude": 128.91968697152257,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 화북면 화북길 96": {
@@ -34922,6 +37437,11 @@
   "ROAD|경상북도 영천시 화산면 가일길 20-18": {
     "latitude": 36.0209024816993,
     "longitude": 128.84219733210028,
+    "matched_address": null
+  },
+  "ROAD|경상북도 영천시 화산면 곽산길 63": {
+    "latitude": 36.044754739910616,
+    "longitude": 128.852174979689,
     "matched_address": null
   },
   "ROAD|경상북도 영천시 화산면 구성길 23-38": {
@@ -35043,6 +37563,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 화산면 부계길 115-4": {
+    "latitude": 36.008493444903394,
+    "longitude": 128.86149164346426,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 화산면 부계길 115-6": {
     "latitude": 36.00827527193884,
@@ -35199,6 +37724,11 @@
     "longitude": 128.85663757573434,
     "matched_address": null
   },
+  "ROAD|경상북도 영천시 화산면 유성길 9": {
+    "latitude": 36.01928347046963,
+    "longitude": 128.85671636333257,
+    "matched_address": null
+  },
   "ROAD|경상북도 영천시 화산면 유정안길 14-4": {
     "latitude": 36.02209290172266,
     "longitude": 128.85895424177482,
@@ -35268,6 +37798,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 화산면 장수로 573": {
+    "latitude": 36.00178195903337,
+    "longitude": 128.8847684414284,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 화산면 장수로 575": {
     "error": "NOT_FOUND",
@@ -35418,6 +37953,11 @@
     "error": "NOT_FOUND",
     "latitude": null,
     "longitude": null
+  },
+  "ROAD|경상북도 영천시 화산면 장수로 982-1": {
+    "latitude": 36.018601042599556,
+    "longitude": 128.84951573004278,
+    "matched_address": null
   },
   "ROAD|경상북도 영천시 화산면 장수로 990": {
     "error": "NOT_FOUND",

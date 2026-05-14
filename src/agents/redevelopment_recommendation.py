@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import logging
 from dataclasses import asdict, replace
 from datetime import UTC, datetime
 from hashlib import sha1
@@ -24,7 +25,11 @@ from src.services.public_data import MockPublicDataClient, PublicDataClient
 from src.services.gemini import build_gemini_chat_model
 
 
+logger = logging.getLogger(__name__)
+
+
 class RedevelopmentState(TypedDict, total=False):
+    trace_id: str
     house_id: str
     address: str
     photo_image_base64: str
@@ -67,6 +72,14 @@ def fetch_public_data(
     state: RedevelopmentState,
     public_data_client: PublicDataClient | None = None,
 ) -> RedevelopmentState:
+    trace_id = state.get("trace_id", "-")
+    logger.info(
+        "redevelopment.fetch_public_data.start trace_id=%s house_id=%s address=%r has_coordinates=%s",
+        trace_id,
+        state.get("house_id"),
+        state.get("address"),
+        "latitude" in state and "longitude" in state,
+    )
     client = public_data_client or MockPublicDataClient()
     if "house_id" in state:
         record = client.get_vacant_house(state["house_id"])
@@ -86,6 +99,16 @@ def fetch_public_data(
     address = state.get("address") or record.address
     building_ledger = fetch_building_ledger_by_address(address, record)
     building_ledger_report = _summarize_building_ledger(building_ledger, record)
+    logger.info(
+        "redevelopment.fetch_public_data.complete trace_id=%s house_id=%s address=%r latitude=%s longitude=%s ledger_source=%s ledger_confidence=%s",
+        trace_id,
+        record.house_id,
+        address,
+        latitude,
+        longitude,
+        building_ledger.source,
+        building_ledger_report.confidence,
+    )
 
     next_state: RedevelopmentState = {
         **state,
@@ -130,8 +153,18 @@ def fetch_building_ledger_by_address(
     """Resolve building-register information from a Yeongcheon jibun address."""
 
     try:
-        return get_building_ledger_info(address)
+        logger.info("redevelopment.building_ledger.start address=%r", address)
+        ledger = get_building_ledger_info(address)
+        logger.info(
+            "redevelopment.building_ledger.success address=%r source=%s main_use=%r approval_year=%s",
+            address,
+            ledger.source,
+            ledger.main_use,
+            ledger.approval_year,
+        )
+        return ledger
     except BuildingLedgerError as exc:
+        logger.warning("redevelopment.building_ledger.fallback address=%r error=%s", address, exc)
         return _mock_building_ledger(address, record, error=str(exc))
 
 
@@ -214,7 +247,16 @@ def _summarize_building_ledger(
 
 
 def interpret_photo(state: RedevelopmentState) -> RedevelopmentState:
+    trace_id = state.get("trace_id", "-")
+    logger.info(
+        "redevelopment.interpret_photo.start trace_id=%s house_id=%s has_photo=%s mime_type=%s",
+        trace_id,
+        state.get("house_id"),
+        "photo_image_base64" in state,
+        state.get("photo_image_mime_type", "image/jpeg"),
+    )
     if "photo_image_base64" not in state:
+        logger.info("redevelopment.interpret_photo.skipped trace_id=%s reason=no_photo", trace_id)
         return {
             "photo_report": RedevelopmentSubAgentReport(
                 kind=RedevelopmentReportKind.PHOTO_INTERPRETATION,
@@ -226,6 +268,7 @@ def interpret_photo(state: RedevelopmentState) -> RedevelopmentState:
 
     model = build_gemini_chat_model()
     if model is None:
+        logger.warning("redevelopment.interpret_photo.fallback trace_id=%s reason=no_gemini_model", trace_id)
         return {"photo_report": _mock_photo_report(state)}
 
     mime_type = state.get("photo_image_mime_type", "image/jpeg")
@@ -240,17 +283,41 @@ def interpret_photo(state: RedevelopmentState) -> RedevelopmentState:
     )
     structured_model = model.with_structured_output(SubAgentDecision)
     try:
+        logger.info(
+            "redevelopment.interpret_photo.invoke_model trace_id=%s image_base64_length=%s",
+            trace_id,
+            len(state["photo_image_base64"]),
+        )
         decision = structured_model.invoke([message])
         if not isinstance(decision, SubAgentDecision):
             decision = SubAgentDecision.model_validate(decision)
     except (ValidationError, ValueError, TypeError) as exc:
+        logger.exception("redevelopment.interpret_photo.structured_output_failed trace_id=%s", trace_id)
         return {"photo_report": _fallback_report(RedevelopmentReportKind.PHOTO_INTERPRETATION, exc)}
 
-    return {"photo_report": _report_from_decision(RedevelopmentReportKind.PHOTO_INTERPRETATION, decision)}
+    report = _report_from_decision(RedevelopmentReportKind.PHOTO_INTERPRETATION, decision)
+    logger.info(
+        "redevelopment.interpret_photo.complete trace_id=%s confidence=%s context_signals=%s opportunity_signals=%s",
+        trace_id,
+        report.confidence,
+        len(report.context_signals),
+        len(report.opportunity_signals),
+    )
+    return {"photo_report": report}
 
 
 def analyze_nearby_context(state: RedevelopmentState) -> RedevelopmentState:
+    trace_id = state.get("trace_id", "-")
+    logger.info(
+        "redevelopment.nearby_context.start trace_id=%s house_id=%s latitude=%s longitude=%s radius_km=%s",
+        trace_id,
+        state.get("house_id"),
+        state.get("latitude"),
+        state.get("longitude"),
+        state.get("radius_km", 0.5),
+    )
     if "latitude" not in state or "longitude" not in state:
+        logger.info("redevelopment.nearby_context.skipped trace_id=%s reason=no_coordinates", trace_id)
         return {
             "nearby_report": RedevelopmentSubAgentReport(
                 kind=RedevelopmentReportKind.NEARBY_CONTEXT,
@@ -268,7 +335,15 @@ def analyze_nearby_context(state: RedevelopmentState) -> RedevelopmentState:
         max_records_per_layer=state.get("max_records_per_layer", 5),
         max_total_records=state.get("max_total_records", 20),
     )
-    return {"nearby_report": _summarize_nearby_context(nearby_context)}
+    report = _summarize_nearby_context(nearby_context)
+    logger.info(
+        "redevelopment.nearby_context.complete trace_id=%s layers=%s returned_records=%s confidence=%s",
+        trace_id,
+        len(nearby_context.layers),
+        nearby_context.returned_records,
+        report.confidence,
+    )
+    return {"nearby_report": report}
 
 
 def _mock_photo_report(state: RedevelopmentState) -> RedevelopmentSubAgentReport:
@@ -281,7 +356,7 @@ def _mock_photo_report(state: RedevelopmentState) -> RedevelopmentSubAgentReport
         kind=RedevelopmentReportKind.PHOTO_INTERPRETATION,
         summary="목업 사진 리포트: 실제 Gemini 키가 없어 사진 내용 판독 대신 입력 상태만 반영했습니다.",
         context_signals=context_signals,
-        recommended_actions=["GOOGLE_API_KEY 설정 후 사진 기반 경관/입지 맥락 판독 실행", "현장 담당자 육안 검토"],
+        recommended_actions=["GOOGLE_API_KEY 또는 GEMINI_API_KEY 설정 후 사진 기반 경관/입지 맥락 판독 실행", "현장 담당자 육안 검토"],
         confidence=0.2,
     )
 
@@ -359,6 +434,21 @@ def _recommend_use(record: VacantHouseRecord, reports: list[RedevelopmentSubAgen
 
 
 def recommend_redevelopment_use(state: RedevelopmentState) -> RedevelopmentState:
+    trace_id = state.get("trace_id", "-")
+    logger.info(
+        "redevelopment.recommend.start trace_id=%s house_id=%s report_kinds=%s",
+        trace_id,
+        state.get("house_id"),
+        [
+            report.kind.value
+            for report in (
+                state.get("building_ledger_report"),
+                state.get("photo_report"),
+                state.get("nearby_report"),
+            )
+            if report is not None
+        ],
+    )
     record = state["record"]
     reports = [
         report
@@ -391,6 +481,13 @@ def recommend_redevelopment_use(state: RedevelopmentState) -> RedevelopmentState
             "정비 예산",
             "인근 주민 수요",
         ],
+    )
+    logger.info(
+        "redevelopment.recommend.complete trace_id=%s house_id=%s recommended_use=%r rationale_count=%s",
+        trace_id,
+        recommendation.house_id,
+        recommendation.recommended_use,
+        len(recommendation.rationale),
     )
     return {**state, "recommendation": recommendation}
 

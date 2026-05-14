@@ -32,7 +32,7 @@ main.py                          # CLI 진입점 호환 래퍼
 
 | 변수 | 사용 위치 | 설명 |
 | --- | --- | --- |
-| `GOOGLE_API_KEY` | `src/services/gemini.py` | 설정되면 Gemini `gemini-3-flash-preview`를 호출합니다. 없으면 로컬 목업/fallback 추론으로 동작합니다. |
+| `GOOGLE_API_KEY` 또는 `GEMINI_API_KEY` | `src/services/gemini.py` | 설정되면 Gemini `gemini-3-flash-preview`를 호출합니다. 없으면 로컬 목업/fallback 추론으로 동작합니다. |
 | `GEO_CODING_API_KEY` | `src/services/geocoding.py` | `/agents/redevelopment-recommendation` API에서 지번 주소를 WGS84 좌표로 변환할 때 필요합니다. `.env`도 자동 로드합니다. |
 | `BUILDING_OPEN_API_KEY_ENCODING` | `src/services/building_ledger.py` | 건축물대장 API Encoding 인증키입니다. |
 | `BUILDING_OPEN_API_KEY_DECODING` | `src/services/building_ledger.py` | Encoding 키가 없을 때 사용하는 Decoding 인증키입니다. |
@@ -69,7 +69,7 @@ main.py                          # CLI 진입점 호환 래퍼
 | --- | --- |
 | Gemini `gemini-3-flash-preview` | 이미지 2장을 함께 받아 시각적 변화, 침입 흔적, 화재/연기, 쓰레기 투기, 붕괴, 누수, 훼손, 안전 위험을 판단합니다. |
 | `patrol_prompt.md` | 순찰 이미지 비교 기준과 구조화 응답 요구사항을 모델에 전달합니다. |
-| 로컬 목업 판정 | `GOOGLE_API_KEY`가 없으면 base64 문자열 길이 차이를 이용해 deterministic demo 판정을 만듭니다. |
+| 로컬 목업 판정 | `GOOGLE_API_KEY`와 `GEMINI_API_KEY`가 없으면 base64 문자열 길이 차이를 이용해 deterministic demo 판정을 만듭니다. |
 
 추론 흐름:
 
@@ -455,7 +455,7 @@ uv run yeongcheon-agent serve --host 127.0.0.1 --port 8000 --reload
 uv run yeongcheon-agent patrol
 ```
 
-이 명령은 코드에 내장된 placeholder base64 문자열로 `PatrolImageInput`을 만들고 순찰 이미지 에이전트를 실행합니다. `GOOGLE_API_KEY`가 없으면 목업 판정이 출력됩니다.
+이 명령은 코드에 내장된 placeholder base64 문자열로 `PatrolImageInput`을 만들고 순찰 이미지 에이전트를 실행합니다. `GOOGLE_API_KEY`와 `GEMINI_API_KEY`가 없으면 목업 판정이 출력됩니다.
 
 ### 재건축 추천 데모
 
@@ -531,7 +531,7 @@ uv run python main.py nearby --lat 35.9682723 --lon 128.931526 --radius-km 2
 
 ## 7. 현재 구현상 주의점
 
-- `GOOGLE_API_KEY`가 없으면 Gemini 기반 실제 이미지 판독은 실행되지 않고 목업/fallback 응답이 반환됩니다.
+- `GOOGLE_API_KEY`와 `GEMINI_API_KEY`가 없으면 Gemini 기반 실제 이미지 판독은 실행되지 않고 목업/fallback 응답이 반환됩니다.
 - `/agents/redevelopment-recommendation` API는 반드시 VWorld 지오코딩을 거치므로 `GEO_CODING_API_KEY`가 없으면 실행되지 않습니다.
 - CLI `redevelopment`는 주소 자동 지오코딩을 하지 않으므로 주변 데이터 분석이 필요하면 좌표를 직접 넘겨야 합니다.
 - 건축물대장 API 키가 없거나 주소 파싱/조회가 실패하면 추천 흐름은 중단되지 않고 `mock-building-ledger` 정보로 계속 진행됩니다.

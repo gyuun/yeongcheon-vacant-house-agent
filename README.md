@@ -7,7 +7,7 @@
 순찰 로봇이 특정 스팟에서 촬영한 위치 정보와 현재 이미지를 base64로 전달하면 로컬 파일 시스템의 평상시 이미지와 비교하여 이상 여부를 판단합니다.
 
 - 기본 모델명: `gemini-3-flash-preview`
-- 실제 호출 조건: `GOOGLE_API_KEY` 환경변수 설정
+- 실제 호출 조건: `GOOGLE_API_KEY` 또는 `GEMINI_API_KEY` 환경변수 설정
 - 입력: `PatrolImageInput`
 - 출력: `PatrolImageAssessment`
 
@@ -24,6 +24,7 @@
 - 현재 판단 요소: 건축물대장 정보, 사진 기반 외관/주변 경관 맥락, 주변 공공데이터, 노후도, 공실 기간, 구조 등급, 민원 건수, 도로 접근성, 공공시설 거리, 토지 면적
 
 `data/` 아래 CSV들은 `LocalCsvGeoDataRepository`가 CSV별 레이어로 읽습니다. 각 행은 `GeoDataObject`로 정규화되고, 원본 row는 `properties`에 보존됩니다.
+추천용 CSV 공통 스키마와 신규 데이터 처리 결과는 [`docs/redevelopment_data_schema.md`](docs/redevelopment_data_schema.md)에 정리되어 있습니다.
 
 CSV 레이어는 세 종류로 나뉩니다.
 

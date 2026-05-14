@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import logging
 from pathlib import Path
 from typing import TypedDict
 
@@ -15,6 +16,9 @@ from src.models import (
     RiskLevel,
 )
 from src.services.gemini import build_gemini_chat_model
+
+
+logger = logging.getLogger(__name__)
 
 
 class PatrolImageState(TypedDict, total=False):
@@ -111,20 +115,52 @@ def _mock_assessment(request: PatrolImageInput) -> PatrolImageAssessment:
 
 def infer_image_anomaly(state: PatrolImageState) -> PatrolImageState:
     request = state["request"]
+    logger.info(
+        "patrol.infer_image_anomaly.start house_id=%s spot_id=%s baseline_base64_length=%s captured_base64_length=%s",
+        request.house_id,
+        request.spot_id,
+        len(request.baseline_image_base64),
+        len(request.captured_image_base64),
+    )
     model = build_gemini_chat_model()
     if model is None:
-        return {"request": request, "assessment": _mock_assessment(request)}
+        logger.warning(
+            "patrol.infer_image_anomaly.fallback house_id=%s spot_id=%s reason=no_gemini_model",
+            request.house_id,
+            request.spot_id,
+        )
+        assessment = _mock_assessment(request)
+        logger.info(
+            "patrol.infer_image_anomaly.complete house_id=%s spot_id=%s is_anomaly=%s risk_level=%s source=mock",
+            assessment.house_id,
+            assessment.spot_id,
+            assessment.is_anomaly,
+            assessment.risk_level.value,
+        )
+        return {"request": request, "assessment": assessment}
 
     message = HumanMessage(content=_build_prompt(request))
     structured_model = model.with_structured_output(PatrolImageDecision)
     try:
+        logger.info("patrol.infer_image_anomaly.invoke_model house_id=%s spot_id=%s", request.house_id, request.spot_id)
         decision = structured_model.invoke([message])
         if not isinstance(decision, PatrolImageDecision):
             decision = PatrolImageDecision.model_validate(decision)
     except (ValidationError, ValueError, TypeError) as exc:
-        return {"request": request, "assessment": _fallback_assessment(request, exc)}
+        logger.exception("patrol.infer_image_anomaly.structured_output_failed house_id=%s spot_id=%s", request.house_id, request.spot_id)
+        assessment = _fallback_assessment(request, exc)
+        return {"request": request, "assessment": assessment}
 
-    return {"request": request, "assessment": _build_assessment(request, decision)}
+    assessment = _build_assessment(request, decision)
+    logger.info(
+        "patrol.infer_image_anomaly.complete house_id=%s spot_id=%s is_anomaly=%s risk_level=%s evidence_count=%s source=gemini",
+        assessment.house_id,
+        assessment.spot_id,
+        assessment.is_anomaly,
+        assessment.risk_level.value,
+        len(assessment.evidence),
+    )
+    return {"request": request, "assessment": assessment}
 
 
 def build_patrol_image_graph():

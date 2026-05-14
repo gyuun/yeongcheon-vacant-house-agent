@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import logging
 import os
 from dataclasses import dataclass
 from pathlib import Path
@@ -12,6 +13,7 @@ from urllib.request import urlopen
 
 VWORLD_ADDRESS_URL = "https://api.vworld.kr/req/address"
 DEFAULT_CRS = "EPSG:4326"
+logger = logging.getLogger(__name__)
 
 
 @dataclass(frozen=True)
@@ -40,7 +42,7 @@ def load_env_file(env_path: Path | str = ".env") -> None:
             key, value = line.split("=", 1)
             key = key.strip()
             value = value.strip().strip("'\"")
-            if key and key not in os.environ:
+            if key and not os.getenv(key):
                 os.environ[key] = value
 
 
@@ -56,8 +58,10 @@ class VWorldGeocoder:
         self.timeout_seconds = timeout_seconds
         if not self.api_key:
             raise GeocodingError("GEO_CODING_API_KEY is not set")
+        logger.info("vworld_geocoder.configured timeout_seconds=%s", self.timeout_seconds)
 
     def geocode(self, address: str, address_type: str) -> GeocodeResult:
+        logger.info("vworld_geocode.start address=%r address_type=%s", address, address_type)
         query = urlencode(
             {
                 "service": "address",
@@ -77,9 +81,36 @@ class VWorldGeocoder:
             with urlopen(f"{VWORLD_ADDRESS_URL}?{query}", timeout=self.timeout_seconds) as response:
                 payload = json.loads(response.read().decode("utf-8"))
         except (TimeoutError, URLError, OSError) as exc:
+            logger.warning(
+                "vworld_geocode.request_failed address=%r address_type=%s error=%s",
+                address,
+                address_type,
+                exc,
+            )
             raise GeocodingError(f"geocoding request failed: {exc}") from exc
 
-        return _parse_vworld_response(payload)
+        try:
+            result = _parse_vworld_response(payload)
+        except GeocodingError:
+            response = payload.get("response") or {}
+            logger.warning(
+                "vworld_geocode.parse_failed address=%r address_type=%s status=%r error=%r",
+                address,
+                address_type,
+                response.get("status"),
+                response.get("error"),
+            )
+            raise
+
+        logger.info(
+            "vworld_geocode.success address=%r address_type=%s latitude=%s longitude=%s matched_address=%r",
+            address,
+            address_type,
+            result.latitude,
+            result.longitude,
+            result.matched_address,
+        )
+        return result
 
 
 def _parse_vworld_response(payload: dict[str, Any]) -> GeocodeResult:

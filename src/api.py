@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import logging
+import os
+from uuid import uuid4
 from dataclasses import asdict, is_dataclass
 from enum import Enum
 from functools import lru_cache
@@ -16,6 +19,13 @@ from src.services.local_csv_data import LocalCsvGeoDataRepository
 
 
 JIBUN_ADDRESS_TYPE = "PARCEL"
+ROAD_ADDRESS_TYPE = "ROAD"
+
+logging.basicConfig(
+    level=os.getenv("LOG_LEVEL", "INFO").upper(),
+    format="%(asctime)s %(levelname)s %(name)s %(message)s",
+)
+logger = logging.getLogger(__name__)
 
 
 class RedevelopmentRecommendationRequest(BaseModel):
@@ -72,14 +82,27 @@ def _geocoder():
     return VWorldGeocoder()
 
 
-def _geocode_jibun_address(address: str) -> GeocodeResult:
-    try:
-        return _geocoder().geocode(address, JIBUN_ADDRESS_TYPE)
-    except GeocodingError as exc:
-        detail = f"지번 주소를 좌표로 변환하지 못했습니다: {exc}"
-        if "GEO_CODING_API_KEY" in str(exc):
-            raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=detail) from exc
-        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=detail) from exc
+def _geocode_jibun_address(address: str, trace_id: str = "-") -> GeocodeResult:
+    errors: list[str] = []
+    for address_type in (JIBUN_ADDRESS_TYPE, ROAD_ADDRESS_TYPE):
+        try:
+            logger.info("api.geocode.attempt trace_id=%s address=%r address_type=%s", trace_id, address, address_type)
+            return _geocoder().geocode(address, address_type)
+        except GeocodingError as exc:
+            errors.append(f"{address_type}: {exc}")
+            logger.warning(
+                "api.geocode.failed trace_id=%s address=%r address_type=%s error=%s",
+                trace_id,
+                address,
+                address_type,
+                exc,
+            )
+            if "GEO_CODING_API_KEY" in str(exc):
+                detail = f"주소를 좌표로 변환하지 못했습니다: {exc}"
+                raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail=detail) from exc
+
+    detail = f"주소를 좌표로 변환하지 못했습니다: {'; '.join(errors)}"
+    raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=detail)
 
 
 app = FastAPI(
@@ -96,23 +119,67 @@ def health() -> dict[str, str]:
 
 @app.post("/agents/patrol-image")
 def run_patrol_image_agent(request: PatrolImageInput) -> dict[str, Any]:
+    trace_id = uuid4().hex[:12]
+    logger.info("api.patrol.start trace_id=%s house_id=%s spot_id=%s", trace_id, request.house_id, request.spot_id)
     result = _patrol_graph().invoke({"request": request})
-    return _jsonable(result["assessment"])
+    assessment = result["assessment"]
+    logger.info(
+        "api.patrol.complete trace_id=%s house_id=%s spot_id=%s is_anomaly=%s risk_level=%s",
+        trace_id,
+        assessment.house_id,
+        assessment.spot_id,
+        assessment.is_anomaly,
+        assessment.risk_level.value,
+    )
+    return _jsonable(assessment)
 
 
 @app.post("/agents/redevelopment-recommendation")
 def run_redevelopment_recommendation_agent(request: RedevelopmentRecommendationRequest) -> dict[str, Any]:
+    trace_id = uuid4().hex[:12]
+    logger.info(
+        "api.redevelopment.start trace_id=%s house_id=%s address=%r radius_km=%s has_photo=%s",
+        trace_id,
+        request.house_id,
+        request.address,
+        request.radius_km,
+        bool(request.photo_image_base64),
+    )
     payload = request.model_dump(exclude_none=True)
-    geocode_result = _geocode_jibun_address(request.address)
+    geocode_result = _geocode_jibun_address(request.address, trace_id)
     payload["latitude"] = geocode_result.latitude
     payload["longitude"] = geocode_result.longitude
+    payload["trace_id"] = trace_id
+    logger.info(
+        "api.redevelopment.geocoded trace_id=%s address=%r latitude=%s longitude=%s matched_address=%r",
+        trace_id,
+        request.address,
+        geocode_result.latitude,
+        geocode_result.longitude,
+        geocode_result.matched_address,
+    )
 
     result = _redevelopment_graph().invoke(payload)
-    return _jsonable(result["recommendation"])
+    recommendation = result["recommendation"]
+    logger.info(
+        "api.redevelopment.complete trace_id=%s house_id=%s recommended_use=%r rationale_count=%s",
+        trace_id,
+        recommendation.house_id,
+        recommendation.recommended_use,
+        len(recommendation.rationale),
+    )
+    return _jsonable(recommendation)
 
 
 @app.post("/nearby")
 def find_nearby_data(request: NearbyDataRequest) -> dict[str, Any]:
+    logger.info(
+        "api.nearby.start latitude=%s longitude=%s radius_km=%s administrative_area=%r",
+        request.latitude,
+        request.longitude,
+        request.radius_km,
+        request.administrative_area,
+    )
     bundle = _local_csv_repository().find_nearby(
         latitude=request.latitude,
         longitude=request.longitude,
@@ -120,6 +187,13 @@ def find_nearby_data(request: NearbyDataRequest) -> dict[str, Any]:
         administrative_area=request.administrative_area,
         max_records_per_layer=request.max_records_per_layer,
         max_total_records=request.max_total_records,
+    )
+    logger.info(
+        "api.nearby.complete latitude=%s longitude=%s layers=%s returned_records=%s",
+        request.latitude,
+        request.longitude,
+        len(bundle.layers),
+        bundle.returned_records,
     )
     return _jsonable(
         {

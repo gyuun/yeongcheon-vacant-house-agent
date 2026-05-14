@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import logging
+import os
 from dataclasses import asdict, is_dataclass
 from enum import Enum
 from typing import Any
@@ -118,6 +120,7 @@ def run_nearby_data(
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Yeongcheon vacant house agent demos")
+    parser.add_argument("--log-level", default=os.getenv("LOG_LEVEL", "INFO"), help="Python log level")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     serve_parser = subparsers.add_parser("serve", help="Run localhost API server")
@@ -147,11 +150,15 @@ def main() -> None:
     nearby_parser.add_argument("--max-per-layer", type=int, default=5, help="Maximum results per CSV layer")
     nearby_parser.add_argument("--max-total", type=int, default=20, help="Maximum results across all layers")
     args = parser.parse_args()
+    logging.basicConfig(
+        level=args.log_level.upper(),
+        format="%(asctime)s %(levelname)s %(name)s %(message)s",
+    )
 
     if args.command == "serve":
         import uvicorn
 
-        uvicorn.run("src.api:app", host=args.host, port=args.port, reload=args.reload)
+        uvicorn.run("src.api:app", host=args.host, port=args.port, reload=args.reload, log_level=args.log_level.lower())
         return
     if args.command == "patrol":
         result = run_patrol_demo()
