@@ -73,8 +73,8 @@ curl http://127.0.0.1:8000/health
 | --- | --- | --- | --- |
 | `GOOGLE_API_KEY` 또는 `GEMINI_API_KEY` | 이미지 판정/사진 해석 사용 시 필수 | `src/services/gemini.py` | Gemini `gemini-3-flash-preview` 호출용 |
 | `GEO_CODING_API_KEY` | 재건축 추천 API 사용 시 필수 | `src/services/geocoding.py` | VWorld 주소 좌표 변환 API 키 |
-| `BUILDING_OPEN_API_KEY_ENCODING` | 선택 | `src/services/building_ledger.py` | 건축물대장 API Encoding 인증키 |
-| `BUILDING_OPEN_API_KEY_DECODING` | 선택 | `src/services/building_ledger.py` | 건축물대장 API Decoding 인증키 |
+| `BUILDING_OPEN_API_KEY_DECODING` | 재건축 추천 API 사용 시 필수 | `src/services/building_ledger.py` | 공공데이터포털 건축물대장 API Decoding 인증키. 우선 사용 |
+| `BUILDING_OPEN_API_KEY_ENCODING` | 선택 | `src/services/building_ledger.py` | 건축물대장 API Encoding 인증키. Decoding 키가 없을 때 사용 |
 | `BUILDING_OPEN_API_KEY` | 선택 | `src/services/building_ledger.py` | 기존 환경 변수명 호환용 키 |
 | `BUILDING_LEGAL_DONG_CODES` | 선택 | `src/services/building_ledger.py` | 로컬 법정동 CSV에 없는 법정동 코드를 JSON으로 보강 |
 | `LOG_LEVEL` | 선택 | `src/api.py`, `src/cli.py` | 기본값 `INFO` |
@@ -84,9 +84,11 @@ curl http://127.0.0.1:8000/health
 ```bash
 GOOGLE_API_KEY=AI************************************
 GEO_CODING_API_KEY=************************************
-BUILDING_OPEN_API_KEY_ENCODING=************************************
 BUILDING_OPEN_API_KEY_DECODING=************************************
+BUILDING_OPEN_API_KEY_ENCODING=************************************
 ```
+
+건축물대장 연동 코드는 Decoding 키를 우선 읽고, 요청 시 URL 파라미터로 다시 인코딩합니다.
 
 ## API 계약
 
@@ -355,6 +357,13 @@ recommend_redevelopment_use
 | `analyze_nearby_context` | 좌표와 행정구역으로 주변 CSV 레이어 검색 및 입지 신호 요약 |
 | `recommend_redevelopment_use` | 건축물대장, 사진, 주변 데이터, 노후도, 공실 기간, 구조 등급 등을 종합해 최종 추천 |
 
+건축물대장 연동:
+
+- 지번 주소를 `sigunguCd`, `bjdongCd`, `bun`, `ji`로 파싱한 뒤 공공데이터포털 건축물대장 기본개요(`/getBrBasisOulnInfo`)와 표제부(`/getBrTitleInfo`)를 조회합니다.
+- 에이전트에는 원문 응답 전체를 넘기지 않고 `address`, `main_use`, `structure`, `roof_structure`, `land_area_m2`, `building_area_m2`, `total_floor_area_m2`, `building_coverage_ratio`, `floor_area_ratio`, `parking_count`, `district_zone`, `approval_year` 등 재건축 추천에 필요한 정규화 필드만 전달합니다.
+- LangChain tool `search_building_ledger_by_jibun` 응답은 `ledger`와 `field_descriptions`를 포함합니다. `raw` 원문 페이로드는 에이전트 응답에서 제외합니다.
+- 필드 선별 기준과 원문 필드 매핑은 `docs/building_api.md`에 정리되어 있습니다.
+
 현재 추천 방향:
 
 | 신호 | 추천 방향 |
@@ -466,6 +475,14 @@ uv run scripts/run_user_tests.py
 ```
 
 이 테스트는 Gemini/VWorld 키가 설정되어 있고 API 응답에 가짜 데이터 표시 문자열이 없어야 통과하도록 설계되어 있습니다.
+
+건축물대장 API 원문 응답과 에이전트가 실제로 보는 정규화 정보를 같이 확인하려면 다음 스크립트를 사용합니다.
+
+```bash
+uv run python scripts/dump_building_api_mapping_responses.py
+```
+
+출력에는 엔드포인트별 raw 응답 뒤에 `agent_view: normalized fields shown to redevelopment agent` 섹션이 붙습니다. 원문 응답만 보고 싶으면 `--no-agent-view`를 추가합니다.
 
 간단한 수동 검증 순서:
 
