@@ -3,8 +3,10 @@ from __future__ import annotations
 
 import argparse
 import csv
+import importlib.util
 import json
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -109,6 +111,43 @@ def api_is_ready(base_url: str, timeout: float = 2.0) -> bool:
     return response.get("status") == "ok"
 
 
+def has_building_open_api_key() -> bool:
+    return bool(
+        os.getenv("BUILDING_OPEN_API_KEY_ENCODING")
+        or os.getenv("BUILDING_OPEN_API_KEY_DECODING")
+        or os.getenv("BUILDING_OPEN_API_KEY")
+    )
+
+
+def validate_building_ledger_api(fixtures: list[HouseFixture]) -> dict[str, Any]:
+    from src.services.building_ledger import BuildingLedgerError, fetch_building_ledger_by_jibun_address
+
+    fixture = fixtures[0]
+    try:
+        ledger = fetch_building_ledger_by_jibun_address(fixture.address)
+    except BuildingLedgerError as exc:
+        return result(
+            False,
+            "preflight:building_ledger_api",
+            f"Building ledger API check failed for {fixture.address}: {exc}",
+            {"fixture": asdict(fixture)},
+        )
+    return result(
+        True,
+        "preflight:building_ledger_api",
+        f"building ledger API returned {ledger.source} for {fixture.address}",
+        {"fixture": asdict(fixture), "ledger_source": ledger.source},
+    )
+
+
+def uvicorn_command() -> list[str]:
+    if importlib.util.find_spec("uvicorn") is not None:
+        return [sys.executable, "-m", "uvicorn"]
+    if (REPO_ROOT / "uv.lock").exists() and shutil.which("uv"):
+        return ["uv", "run", "python", "-m", "uvicorn"]
+    return [sys.executable, "-m", "uvicorn"]
+
+
 def start_api_server(base_url: str, timeout: float) -> subprocess.Popen[str] | None:
     if api_is_ready(base_url):
         print(f"Using existing API server: {base_url}", file=sys.stderr)
@@ -122,9 +161,7 @@ def start_api_server(base_url: str, timeout: float) -> subprocess.Popen[str] | N
     try:
         process = subprocess.Popen(
             [
-                sys.executable,
-                "-m",
-                "uvicorn",
+                *uvicorn_command(),
                 "src.api:app",
                 "--host",
                 host,
@@ -175,8 +212,8 @@ def contains_marker(value: Any, markers: tuple[str, ...]) -> bool:
     return any(marker.lower() in json.dumps(value, ensure_ascii=False).lower() for marker in markers)
 
 
-def result(ok: bool, name: str, detail: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
-    return {"ok": ok, "name": name, "detail": detail, "payload": payload or {}}
+def result(passed: bool, name: str, detail: str, payload: dict[str, Any] | None = None) -> dict[str, Any]:
+    return {"passed": passed, "name": name, "detail": detail, "payload": payload or {}}
 
 
 def print_case_start(name: str) -> float:
@@ -185,7 +222,7 @@ def print_case_start(name: str) -> float:
 
 
 def print_case_result(item: dict[str, Any], started_at: float) -> None:
-    status = "PASS" if item["ok"] else "FAIL"
+    status = "PASS" if item["passed"] else "FAIL"
     elapsed = time.monotonic() - started_at
     print(f"{status} {item['name']} ({elapsed:.1f}s) - {item['detail']}", flush=True)
 
@@ -214,7 +251,7 @@ def run_patrol_case(base_url: str, fixture: HouseFixture, timeout: float) -> dic
         failures.append("response does not mention roof change")
 
     return result(
-        ok=not failures,
+        passed=not failures,
         name=f"patrol:{fixture.house_id}",
         detail="; ".join(failures) if failures else "roof-change anomaly detected by live model response",
         payload=response,
@@ -249,7 +286,7 @@ def run_redevelopment_case(base_url: str, fixture: HouseFixture, timeout: float)
         failures.append("response contains mock/fallback marker")
 
     return result(
-        ok=not failures,
+        passed=not failures,
         name=f"redevelopment:{fixture.house_id}",
         detail="; ".join(failures) if failures else "recommendation generated without visible mock/fallback markers",
         payload=response,
@@ -279,7 +316,7 @@ def run_geocode_checks(fixtures: list[HouseFixture], max_distance_m: float) -> l
         ) * 1000
         checks.append(
             result(
-                ok=distance_m <= max_distance_m,
+                passed=distance_m <= max_distance_m,
                 name=f"geocode:{fixture.house_id}",
                 detail=f"distance_m={distance_m:.2f}",
                 payload={
@@ -365,22 +402,47 @@ def main() -> int:
     needs_api_server = not (args.skip_patrol and args.skip_redevelopment)
     needs_gemini = needs_api_server
     needs_geocoding = not (args.skip_redevelopment and args.skip_geocode)
+    api_server_ready = not needs_api_server
+    gemini_ready = not needs_gemini
+    geocoding_ready = not needs_geocoding
+    building_ledger_ready = args.skip_redevelopment
 
     try:
         if needs_api_server and not args.no_start_server:
             try:
                 server_process = start_api_server(args.base_url, args.server_timeout)
+                api_server_ready = True
             except RuntimeError as exc:
                 results.append(result(False, "preflight:api_server", str(exc)))
         elif needs_api_server and not api_is_ready(args.base_url):
             results.append(result(False, "preflight:api_server", f"API server is not ready: {args.base_url}"))
+        elif needs_api_server:
+            api_server_ready = True
 
         if needs_gemini and not os.getenv("GOOGLE_API_KEY") and not os.getenv("GEMINI_API_KEY"):
             results.append(result(False, "preflight:gemini_key", "GOOGLE_API_KEY or GEMINI_API_KEY is required"))
+        else:
+            gemini_ready = True
         if needs_geocoding and not os.getenv("GEO_CODING_API_KEY"):
             results.append(result(False, "preflight:geocoding_key", "GEO_CODING_API_KEY is required for geocoding tests"))
+        else:
+            geocoding_ready = True
+        if not args.skip_redevelopment and not has_building_open_api_key():
+            results.append(
+                result(
+                    False,
+                    "preflight:building_open_api_key",
+                    "BUILDING_OPEN_API_KEY_ENCODING or BUILDING_OPEN_API_KEY_DECODING is required for redevelopment tests",
+                )
+            )
+        else:
+            building_ledger_ready = True
+        if building_ledger_ready and not args.skip_redevelopment:
+            item = validate_building_ledger_api(fixtures)
+            results.append(item)
+            building_ledger_ready = item["passed"]
 
-        if not args.skip_patrol:
+        if not args.skip_patrol and api_server_ready and gemini_ready:
             for fixture in fixtures:
                 started_at = print_case_start(f"patrol:{fixture.house_id}")
                 try:
@@ -390,7 +452,7 @@ def main() -> int:
                 results.append(item)
                 print_case_result(item, started_at)
 
-        if not args.skip_redevelopment:
+        if not args.skip_redevelopment and api_server_ready and gemini_ready and geocoding_ready and building_ledger_ready:
             for fixture in fixtures:
                 started_at = print_case_start(f"redevelopment:{fixture.house_id}")
                 try:
@@ -400,7 +462,7 @@ def main() -> int:
                 results.append(item)
                 print_case_result(item, started_at)
 
-        if not args.skip_geocode:
+        if not args.skip_geocode and geocoding_ready:
             print("RUN geocode:*", flush=True)
             started_at = time.monotonic()
             geocode_results = run_geocode_checks(fixtures, args.max_geocode_distance_m)
@@ -415,7 +477,7 @@ def main() -> int:
         stop_api_server(server_process)
 
     report = {
-        "ok": all(item["ok"] for item in results),
+        "passed": all(item["passed"] for item in results),
         "base_url": args.base_url,
         "fixture_count": len(fixtures),
         "results": results,
@@ -424,14 +486,14 @@ def main() -> int:
     if args.output:
         args.output.write_text(rendered + "\n", encoding="utf-8")
         print(f"Wrote JSON report: {args.output}", file=sys.stderr)
-    passed = sum(1 for item in results if item["ok"])
-    failed = len(results) - passed
+    passed_count = sum(1 for item in results if item["passed"])
+    failed = len(results) - passed_count
     print(
         json.dumps(
             {
-                "ok": report["ok"],
+                "passed": report["passed"],
                 "fixture_count": len(fixtures),
-                "passed": passed,
+                "passed_count": passed_count,
                 "failed": failed,
                 "output": str(args.output) if args.output else None,
             },
@@ -439,7 +501,7 @@ def main() -> int:
             indent=2,
         )
     )
-    return 0 if report["ok"] else 1
+    return 0 if report["passed"] else 1
 
 
 if __name__ == "__main__":

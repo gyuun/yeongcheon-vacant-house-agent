@@ -22,6 +22,7 @@ YEONGCHEON_SIGUNGU_CD = "47230"
 DEFAULT_TIMEOUT_SECONDS = 10
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DATA_DIR = PROJECT_ROOT / "data"
+HOUSE_MAPPING_PATH = DATA_DIR / "house" / "mapping.csv"
 
 
 @dataclass(frozen=True)
@@ -83,6 +84,10 @@ def parse_yeongcheon_jibun_address(jibun_address: str) -> BuildingLedgerQuery:
     """Parse a Yeongcheon parcel address into building-register request params."""
 
     normalized = _normalize_address(jibun_address)
+    mapping_query = _query_from_house_mapping(normalized)
+    if mapping_query is not None:
+        return mapping_query
+
     lot_match = re.search(r"(산\s*)?(\d+)(?:\s*-\s*(\d+))?", normalized)
     if lot_match is None:
         raise BuildingLedgerError(f"Cannot parse parcel number from address: {jibun_address}")
@@ -97,6 +102,75 @@ def parse_yeongcheon_jibun_address(jibun_address: str) -> BuildingLedgerQuery:
         bun=lot_match.group(2).zfill(4),
         ji=(lot_match.group(3) or "0").zfill(4),
         legal_area_name=legal_area,
+    )
+
+
+def _query_from_house_mapping(jibun_address: str) -> BuildingLedgerQuery | None:
+    if not HOUSE_MAPPING_PATH.is_file():
+        return None
+
+    try:
+        with HOUSE_MAPPING_PATH.open("r", encoding="utf-8-sig", newline="") as mapping_file:
+            reader = csv.DictReader(mapping_file)
+            for row in reader:
+                normalized = {
+                    (key or "").strip(): (value or "").strip()
+                    for key, value in row.items()
+                    if key is not None
+                }
+                row_address = _normalize_address(normalized.get("real_address") or "")
+                if row_address != jibun_address:
+                    continue
+                return _building_ledger_query_from_mapping_row(row_address, normalized)
+    except OSError as exc:
+        raise BuildingLedgerError(f"Cannot read house mapping CSV: {HOUSE_MAPPING_PATH}") from exc
+
+    return None
+
+
+def _building_ledger_query_from_mapping_row(
+    jibun_address: str,
+    row: dict[str, str],
+) -> BuildingLedgerQuery:
+    lot_match = re.search(r"(산\s*)?(\d+)(?:\s*-\s*(\d+))?", jibun_address)
+    if lot_match is None:
+        raise BuildingLedgerError(f"Cannot parse parcel number from mapped address: {jibun_address}")
+
+    legal_dong_code = (
+        row.get("legal_dong_cd")
+        or row.get("legal_dong_code")
+        or row.get("법정동코드")
+        or ""
+    ).strip()
+    sigungu_cd = (
+        row.get("sigungu_cd")
+        or row.get("sigunguCd")
+        or row.get("시군구코드")
+        or (legal_dong_code[:5] if len(legal_dong_code) == 10 else "")
+    ).strip()
+    bjdong_cd = (
+        row.get("bjdong_cd")
+        or row.get("bjdongCd")
+        or row.get("법정동코드")
+        or (legal_dong_code[5:] if len(legal_dong_code) == 10 else legal_dong_code)
+    ).strip()
+    bun = (row.get("bun") or row.get("번") or lot_match.group(2)).strip().zfill(4)
+    ji = (row.get("ji") or row.get("지") or lot_match.group(3) or "0").strip().zfill(4)
+
+    if not sigungu_cd or not bjdong_cd:
+        raise BuildingLedgerError(f"Missing building ledger codes in house mapping for {jibun_address}")
+    if len(bjdong_cd) == 10:
+        bjdong_cd = bjdong_cd[5:]
+
+    legal_area_prefix = jibun_address[: lot_match.start()].strip()
+    return BuildingLedgerQuery(
+        jibun_address=jibun_address,
+        sigungu_cd=sigungu_cd.zfill(5),
+        bjdong_cd=bjdong_cd.zfill(5),
+        plat_gb_cd="1" if lot_match.group(1) else "0",
+        bun=bun,
+        ji=ji,
+        legal_area_name=legal_area_prefix,
     )
 
 
@@ -171,6 +245,9 @@ def _request_endpoint(
     except URLError as exc:
         raise BuildingLedgerError(f"Building ledger API request failed: {exc}") from exc
 
+    if not body.strip():
+        raise BuildingLedgerError(f"Building ledger API returned an empty response for {endpoint}")
+
     try:
         return json.loads(body)
     except json.JSONDecodeError:
@@ -189,7 +266,11 @@ def _first_item(payload: dict[str, Any]) -> dict[str, Any] | None:
 
 
 def _xml_to_dict(body: str) -> dict[str, Any]:
-    root = ElementTree.fromstring(body)
+    try:
+        root = ElementTree.fromstring(body)
+    except ElementTree.ParseError as exc:
+        preview = body[:200].replace("\n", " ")
+        raise BuildingLedgerError(f"Building ledger API returned an unparseable response: {preview}") from exc
 
     def convert(element: ElementTree.Element) -> Any:
         children = list(element)
