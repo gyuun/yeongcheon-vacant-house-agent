@@ -134,7 +134,6 @@ env.bak/
 venv.bak/
 
 # Local test outputs
-test_result.json
 test_server.log
 
 # Spyder project settings
