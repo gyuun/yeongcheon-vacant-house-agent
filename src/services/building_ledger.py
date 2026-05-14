@@ -10,8 +10,8 @@ from pathlib import Path
 from typing import Any
 import unicodedata
 from urllib.error import URLError
-from urllib.parse import urlencode
-from urllib.request import urlopen
+from urllib.parse import unquote, urlencode
+from urllib.request import Request, urlopen
 from xml.etree import ElementTree
 
 from src.models import BuildingLedgerInfo
@@ -229,18 +229,16 @@ def _request_endpoint(
     timeout_seconds: int,
 ) -> dict[str, Any]:
     params = {
+        "serviceKey": _normalize_service_key_for_url(service_key),
         "sigunguCd": query.sigungu_cd,
         "bjdongCd": query.bjdong_cd,
-        "platGbCd": query.plat_gb_cd,
         "bun": query.bun,
         "ji": query.ji,
-        "numOfRows": "10",
-        "pageNo": "1",
-        "_type": "json",
     }
-    url = f"{BUILDING_LEDGER_BASE_URL}/{endpoint}?{urlencode(params)}&serviceKey={service_key}"
+    url = f"{BUILDING_LEDGER_BASE_URL}/{endpoint}?{urlencode(params)}"
+    request = Request(url, headers={"User-Agent": "curl/8.0", "Accept": "*/*"})
     try:
-        with urlopen(url, timeout=timeout_seconds) as response:
+        with urlopen(request, timeout=timeout_seconds) as response:
             body = response.read().decode("utf-8")
     except URLError as exc:
         raise BuildingLedgerError(f"Building ledger API request failed: {exc}") from exc
@@ -299,10 +297,14 @@ def _normalize_address(address: str) -> str:
 
 def _building_open_api_key() -> str | None:
     return (
-        os.getenv("BUILDING_OPEN_API_KEY_ENCODING")
-        or os.getenv("BUILDING_OPEN_API_KEY_DECODING")
+        os.getenv("BUILDING_OPEN_API_KEY_DECODING")
+        or os.getenv("BUILDING_OPEN_API_KEY_ENCODING")
         or os.getenv("BUILDING_OPEN_API_KEY")
     )
+
+
+def _normalize_service_key_for_url(service_key: str) -> str:
+    return unquote(service_key.strip())
 
 
 def _resolve_legal_area(address_prefix: str) -> tuple[str, str, str]:
