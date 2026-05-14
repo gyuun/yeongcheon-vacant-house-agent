@@ -8,6 +8,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 
 DEFAULT_GEMINI_MODEL = "gemini-3-flash-preview"
+DEFAULT_GEMINI_RETRIES = 0
 GEMINI_API_KEY_ENV_NAMES = ("GOOGLE_API_KEY", "GEMINI_API_KEY")
 logger = logging.getLogger(__name__)
 
@@ -52,14 +53,16 @@ def build_gemini_chat_model(model: str = DEFAULT_GEMINI_MODEL) -> ChatGoogleGene
         return None
 
     logger.info(
-        "gemini.model.build model=%s temperature=1.0 top_p=0.95 top_k=64 include_thoughts=True thinking_level=high",
+        "gemini.model.build model=%s temperature=1.0 top_p=0.95 top_k=64 include_thoughts=True thinking_level=high retries=%s",
         model,
+        DEFAULT_GEMINI_RETRIES,
     )
     return ChatGoogleGenerativeAI(
         model=model,
         temperature=1.0,
         top_p=0.95,
         top_k=64,
+        retries=DEFAULT_GEMINI_RETRIES,
         include_thoughts=True,
         thinking_level="high",
         api_key=api_key,

@@ -433,6 +433,53 @@ def _recommend_use(record: VacantHouseRecord, reports: list[RedevelopmentSubAgen
     return "임시 녹지 및 경관 정비"
 
 
+def _build_recommendation_explanation(
+    recommended_use: str,
+    record: VacantHouseRecord,
+    reports: list[RedevelopmentSubAgentReport],
+) -> str:
+    nearby_report = next((report for report in reports if report.kind == RedevelopmentReportKind.NEARBY_CONTEXT), None)
+    photo_report = next(
+        (report for report in reports if report.kind == RedevelopmentReportKind.PHOTO_INTERPRETATION),
+        None,
+    )
+
+    condition_sentence = (
+        f"대상지는 건축물 노후도 {record.building_age_years}년, 공실 {record.vacancy_years}년, "
+        f"구조 등급 {record.structure_grade}로 정비 필요성이 있습니다."
+    )
+    use_sentence = f"사진 해석과 주변 공공데이터를 함께 보면 {_explanation_basis(recommended_use, nearby_report, photo_report)}"
+    follow_up_sentence = "최종 실행 전에는 소유자 동의, 상세 공부 확인, 예산과 주민 수요를 추가로 확인해야 합니다."
+    return "\n".join([condition_sentence, use_sentence, follow_up_sentence])
+
+
+def _explanation_basis(
+    recommended_use: str,
+    nearby_report: RedevelopmentSubAgentReport | None,
+    photo_report: RedevelopmentSubAgentReport | None,
+) -> str:
+    nearby_has_matches = bool(nearby_report and nearby_report.confidence >= 0.5)
+    photo_has_signal = bool(
+        photo_report
+        and photo_report.confidence >= 0.4
+        and (photo_report.context_signals or photo_report.opportunity_signals)
+    )
+
+    if any(keyword in recommended_use for keyword in ["쉼터", "정원", "경관", "녹지"]):
+        return "여유 부지, 경관, 녹지 활용 가능성이 있어 주민 휴식형 공간으로 전환하는 방향이 적합합니다."
+    if any(keyword in recommended_use for keyword in ["복지", "돌봄", "생활복지"]):
+        return "생활권 복지 수요와 공공서비스 연계 가능성이 있어 돌봄 또는 생활복지 거점으로 검토할 수 있습니다."
+    if any(keyword in recommended_use for keyword in ["상권", "관광", "체류"]):
+        return "주변 상권 및 체류 자원과 연결될 여지가 있어 관광 안내 또는 로컬 상권 연계 공간으로 활용할 수 있습니다."
+    if any(keyword in recommended_use for keyword in ["창업", "작업장", "일자리"]):
+        return "제조, 일자리, 작업 수요와 연결될 가능성이 있어 소규모 창업 또는 작업장 거점으로 검토할 수 있습니다."
+    if "주차장" in recommended_use or "골목" in recommended_use:
+        return "도로 접근성이 비교적 좋아 소규모 주차장이나 골목 환경개선 부지로 활용하기 쉽습니다."
+    if nearby_has_matches or photo_has_signal:
+        return "현장 사진과 주변 입지 신호를 바탕으로 공공성이 있는 저강도 활용부터 검토하는 것이 적합합니다."
+    return "현재 확보된 정보만으로는 고강도 개발보다 임시 정비와 경관 개선을 우선 검토하는 것이 적합합니다."
+
+
 def recommend_redevelopment_use(state: RedevelopmentState) -> RedevelopmentState:
     trace_id = state.get("trace_id", "-")
     logger.info(
@@ -471,9 +518,11 @@ def recommend_redevelopment_use(state: RedevelopmentState) -> RedevelopmentState
         rationale.extend(report.context_signals[:3])
         rationale.extend(report.opportunity_signals[:3])
 
+    recommended_use = _recommend_use(record, reports)
     recommendation = RedevelopmentRecommendation(
         house_id=record.house_id,
-        recommended_use=_recommend_use(record, reports),
+        recommended_use=recommended_use,
+        explanation=_build_recommendation_explanation(recommended_use, record, reports),
         rationale=rationale,
         required_data=[
             "소유자 동의 여부",

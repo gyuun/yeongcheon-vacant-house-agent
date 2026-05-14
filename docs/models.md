@@ -14,16 +14,13 @@
 
 ## PatrolImageInput
 
-순찰 로봇이 특정 빈집의 특정 촬영 지점에서 보낸 이미지 비교 요청 데이터다. 기준 이미지와 현재 촬영 이미지를 함께 전달해 이상 여부를 추론한다.
+순찰 로봇이 특정 빈집에서 촬영한 현재 이미지를 보낸다. 기준 이미지는 클라이언트가 보내지 않고, 서버가 `house_id`를 기준으로 로컬 기준 이미지 파일에서 조회한다.
 
 | 필드 | 타입 | 설명 |
 | --- | --- | --- |
 | `house_id` | `str` | 빈집 식별자 |
-| `spot_id` | `str` | 촬영 지점 식별자. 예: `front-gate`, `back-yard` |
 | `captured_image_base64` | `str` | 순찰 로봇이 현재 촬영한 이미지의 base64 문자열 |
-| `baseline_image_base64` | `str` | 평상시 상태를 나타내는 기준 이미지의 base64 문자열 |
 | `captured_at` | `str \| None` | 촬영 시각. 아직 형식은 고정하지 않았지만 ISO 8601 문자열 사용을 권장 |
-| `metadata` | `dict[str, Any]` | 로봇 ID, 위치 좌표, 날씨, 촬영 각도 등 부가 정보 |
 
 ## PatrolImageAssessment
 
@@ -32,7 +29,6 @@
 | 필드 | 타입 | 설명 |
 | --- | --- | --- |
 | `house_id` | `str` | 판정 대상 빈집 식별자 |
-| `spot_id` | `str` | 판정 대상 촬영 지점 식별자 |
 | `is_anomaly` | `bool` | 기준 이미지 대비 이상 여부 |
 | `risk_level` | `RiskLevel` | 이상 징후의 위험도 |
 | `summary` | `str` | 판정 요약 |
@@ -95,7 +91,8 @@
 | --- | --- | --- |
 | `house_id` | `str` | 추천 대상 빈집 식별자 |
 | `recommended_use` | `str` | 공유공간, 생활 SOC, 주차장, 녹지, 창업/작업 공간 등 추천 재건축 용도 |
-| `rationale` | `list[str]` | 추천 판단 근거 |
+| `explanation` | `str` | 프론트 표시용 2~3줄 내외 추천 근거 요약 |
+| `rationale` | `list[str]` | 상세 추천 판단 근거. 검토/디버깅용 |
 | `required_data` | `list[str]` | 실제 행정 판단 전에 추가로 확인해야 할 데이터 |
 
 ## 확장 메모

@@ -133,27 +133,17 @@ class NearbyGeoDataBundle:
 class PatrolImageInput:
     """Image comparison request submitted by a patrol robot.
 
-    The patrol agent compares `captured_image_base64` with
-    `baseline_image_base64` for one house and one fixed camera spot.
-    `metadata` can carry robot ID, GPS coordinates, weather, camera angle,
-    or other sensor context that may help later routing and auditing.
+    The patrol agent receives the current image and resolves the baseline image
+    from local house fixtures by `house_id`.
     """
 
     house_id: str = field(metadata={"description": "Vacant house identifier."})
-    spot_id: str = field(metadata={"description": "Fixed patrol camera spot identifier."})
     captured_image_base64: str = field(
         metadata={"description": "Base64-encoded image captured by the patrol robot."}
-    )
-    baseline_image_base64: str = field(
-        metadata={"description": "Base64-encoded baseline image for normal-state comparison."}
     )
     captured_at: str | None = field(
         default=None,
         metadata={"description": "Image capture timestamp. ISO 8601 string is recommended."},
-    )
-    metadata: dict[str, Any] = field(
-        default_factory=dict,
-        metadata={"description": "Additional patrol context such as robot ID, GPS, weather, or angle."},
     )
 
 
@@ -170,7 +160,6 @@ class PatrolImageAssessment:
     """
 
     house_id: str = field(metadata={"description": "Vacant house identifier."})
-    spot_id: str = field(metadata={"description": "Fixed patrol camera spot identifier."})
     is_anomaly: bool = field(
         metadata={"description": "Whether the current patrol image shows abnormal changes."}
     )
@@ -300,15 +289,18 @@ class RedevelopmentRecommendation:
     """Redevelopment-use recommendation for one vacant house.
 
     `recommended_use` describes the proposed redevelopment direction,
-    `rationale` explains the decision, and `required_data` lists administrative
-    data needed before a real-world decision is finalized.
+    `explanation` is a short user-facing reason for the recommendation,
+    `rationale` keeps detailed decision evidence for review/debugging, and
+    `required_data` lists administrative data needed before a real-world
+    decision is finalized.
     """
 
     house_id: str = field(metadata={"description": "Vacant house identifier."})
     recommended_use: str = field(
         metadata={"description": "Suggested redevelopment or reuse direction for the vacant property."}
     )
-    rationale: list[str] = field(metadata={"description": "Decision rationale behind the recommendation."})
+    explanation: str = field(metadata={"description": "Short frontend-facing explanation for the recommendation."})
+    rationale: list[str] = field(metadata={"description": "Detailed decision rationale for review or debugging."})
     required_data: list[str] = field(
         metadata={"description": "Additional administrative data needed before final action."}
     )

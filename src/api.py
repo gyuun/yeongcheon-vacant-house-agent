@@ -105,6 +105,23 @@ def _geocode_jibun_address(address: str, trace_id: str = "-") -> GeocodeResult:
     raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=detail)
 
 
+def _is_model_quota_error(exc: Exception) -> bool:
+    message = str(exc)
+    return "RESOURCE_EXHAUSTED" in message or "429" in message or "quota" in message.lower()
+
+
+def _model_error_response(exc: Exception) -> HTTPException:
+    if _is_model_quota_error(exc):
+        return HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Gemini API quota exceeded or rate limited. Check API quota/billing or retry later.",
+        )
+    return HTTPException(
+        status_code=status.HTTP_502_BAD_GATEWAY,
+        detail=f"Model call failed: {exc}",
+    )
+
+
 app = FastAPI(
     title="Yeongcheon Vacant House Agent API",
     description="Localhost API endpoints for Yeongcheon vacant-house LangGraph agents.",
@@ -120,14 +137,20 @@ def health() -> dict[str, str]:
 @app.post("/agents/patrol-image")
 def run_patrol_image_agent(request: PatrolImageInput) -> dict[str, Any]:
     trace_id = uuid4().hex[:12]
-    logger.info("api.patrol.start trace_id=%s house_id=%s spot_id=%s", trace_id, request.house_id, request.spot_id)
-    result = _patrol_graph().invoke({"request": request})
+    logger.info("api.patrol.start trace_id=%s house_id=%s", trace_id, request.house_id)
+    try:
+        result = _patrol_graph().invoke({"request": request})
+    except (FileNotFoundError, ValueError) as exc:
+        logger.warning("api.patrol.invalid_fixture trace_id=%s house_id=%s error=%s", trace_id, request.house_id, exc)
+        raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail=str(exc)) from exc
+    except Exception as exc:
+        logger.exception("api.patrol.model_failed trace_id=%s house_id=%s", trace_id, request.house_id)
+        raise _model_error_response(exc) from exc
     assessment = result["assessment"]
     logger.info(
-        "api.patrol.complete trace_id=%s house_id=%s spot_id=%s is_anomaly=%s risk_level=%s",
+        "api.patrol.complete trace_id=%s house_id=%s is_anomaly=%s risk_level=%s",
         trace_id,
         assessment.house_id,
-        assessment.spot_id,
         assessment.is_anomaly,
         assessment.risk_level.value,
     )
@@ -159,7 +182,11 @@ def run_redevelopment_recommendation_agent(request: RedevelopmentRecommendationR
         geocode_result.matched_address,
     )
 
-    result = _redevelopment_graph().invoke(payload)
+    try:
+        result = _redevelopment_graph().invoke(payload)
+    except Exception as exc:
+        logger.exception("api.redevelopment.model_failed trace_id=%s house_id=%s", trace_id, request.house_id)
+        raise _model_error_response(exc) from exc
     recommendation = result["recommendation"]
     logger.info(
         "api.redevelopment.complete trace_id=%s house_id=%s recommended_use=%r rationale_count=%s",

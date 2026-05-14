@@ -30,8 +30,6 @@ def run_patrol_demo() -> dict[str, Any]:
         {
             "request": PatrolImageInput(
                 house_id="YC-001",
-                spot_id="front-gate",
-                baseline_image_base64="baseline-image-placeholder",
                 captured_image_base64="captured-image-placeholder-with-visible-difference",
             )
         }
