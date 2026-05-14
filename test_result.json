@@ -1,100 +1,439 @@
 {
-  "passed": false,
+  "passed": true,
   "base_url": "http://127.0.0.1:8000",
   "fixture_count": 6,
   "results": [
     {
-      "passed": false,
+      "passed": true,
       "name": "preflight:building_ledger_api",
-      "detail": "Building ledger API check failed for 경상북도 영천시 임고면 양항리 310: Building ledger API returned an empty response for getBrBasisOulnInfo",
+      "detail": "building ledger API returned building-ledger-api for 경상북도 영천시 청통면 호당리 596",
       "payload": {
         "fixture": {
           "house_id": "YC-001",
           "simulated_house": "H1",
-          "latitude": 36.0121264,
-          "longitude": 128.9746239,
-          "address": "경상북도 영천시 임고면 양항리 310"
-        }
+          "latitude": 35.9928533,
+          "longitude": 128.8980133,
+          "address": "경상북도 영천시 청통면 호당리 596"
+        },
+        "ledger_source": "building-ledger-api"
+      }
+    },
+    {
+      "passed": true,
+      "name": "patrol:YC-001",
+      "detail": "roof-change anomaly detected by live model response",
+      "payload": {
+        "house_id": "YC-001",
+        "is_anomaly": true,
+        "risk_level": "high",
+        "summary": "기준 이미지와 비교했을 때 건물의 지붕이 완전히 소실된 중대한 변화가 확인되었습니다.",
+        "evidence": [
+          "기준 이미지에서 보이던 경사 지붕이 현재 순찰 이미지에서는 완전히 사라짐",
+          "지붕 소실로 인해 건물의 상부 구조가 외부에 노출되어 있음"
+        ],
+        "recommended_actions": [
+          "현장 정밀 점검을 통해 구조적 안정성 및 붕괴 위험 확인",
+          "낙하물 및 붕괴 위험에 대비하여 건물 주변 출입 통제",
+          "건물 소유주 연락 및 긴급 안전 조치 명령"
+        ],
+        "raw_model_output": null
+      }
+    },
+    {
+      "passed": true,
+      "name": "patrol:YC-002",
+      "detail": "roof-change anomaly detected by live model response",
+      "payload": {
+        "house_id": "YC-002",
+        "is_anomaly": true,
+        "risk_level": "high",
+        "summary": "기준 이미지와 비교했을 때 건물의 지붕이 완전히 소실된 심각한 변화가 관찰되었습니다.",
+        "evidence": [
+          "기준 이미지에서 확인되는 골판 형태의 지붕 구조물이 현재 순찰 이미지에서는 보이지 않음",
+          "지붕이 없어지고 벽체 상단이 하늘로 노출되어 있는 등 구조적 붕괴 또는 철거 상태가 의심됨"
+        ],
+        "recommended_actions": [
+          "현장 긴급 방문을 통한 잔여 벽체의 붕괴 위험성 및 구조물 안전 점검 실시",
+          "안전사고 예방을 위한 건물 주변 통제 및 경고 표지 설치",
+          "지붕 소실 원인 파악 및 소유자 연락을 통한 후속 조치(보강 또는 철거) 논의"
+        ],
+        "raw_model_output": null
+      }
+    },
+    {
+      "passed": true,
+      "name": "patrol:YC-003",
+      "detail": "roof-change anomaly detected by live model response",
+      "payload": {
+        "house_id": "YC-003",
+        "is_anomaly": true,
+        "risk_level": "high",
+        "summary": "기준 이미지와 비교하여 건물의 지붕 구조 전체가 유실된 중대한 구조적 변화가 확인되었습니다.",
+        "evidence": [
+          "기존의 경사진 금속 지붕이 완전히 사라지고 벽체 상단이 노출됨",
+          "지붕 유실로 인해 내부 구조물이 외부 날씨에 직접 노출됨",
+          "우측 창문의 유리가 파손되거나 탈락된 징후가 관찰됨"
+        ],
+        "recommended_actions": [
+          "즉시 현장 방문을 통한 구조적 안전성 정밀 점검 실시",
+          "건물 주변에 안전 펜스 및 경고 표지판을 설치하여 통행인 접근 차단",
+          "소유주에게 긴급 보수 또는 철거 관련 행정 명령 검토"
+        ],
+        "raw_model_output": null
+      }
+    },
+    {
+      "passed": true,
+      "name": "patrol:YC-004",
+      "detail": "roof-change anomaly detected by live model response",
+      "payload": {
+        "house_id": "YC-004",
+        "is_anomaly": true,
+        "risk_level": "high",
+        "summary": "기준 이미지와 비교했을 때 건물의 지붕이 완전히 소실된 상태가 확인되었습니다. 이는 매우 심각한 구조적 결함으로 공공 안전에 큰 위협이 될 수 있습니다.",
+        "evidence": [
+          "기준 이미지에서 확인되던 경사진 함석 지붕이 현재 이미지에서는 완전히 사라짐",
+          "지붕 구조체 소실로 인해 건물 내부 및 벽체 상단이 외부로 노출됨"
+        ],
+        "recommended_actions": [
+          "즉각적인 현장 방문을 통한 구조 안전 점검 실시",
+          "추가 붕괴 및 낙하물로 인한 인명 피해 방지를 위해 해당 구역 출입 통제 및 안전 펜스 설치",
+          "건축주 확인 후 긴급 보수 또는 철거 절차 검토"
+        ],
+        "raw_model_output": null
+      }
+    },
+    {
+      "passed": true,
+      "name": "patrol:YC-005",
+      "detail": "roof-change anomaly detected by live model response",
+      "payload": {
+        "house_id": "YC-005",
+        "is_anomaly": true,
+        "risk_level": "high",
+        "summary": "기준 이미지와 비교했을 때 건물의 지붕 구조물이 완전히 소실되거나 붕괴된 상태가 확인되었습니다.",
+        "evidence": [
+          "기준 이미지에서 보이던 지붕이 현재 이미지에서는 보이지 않음",
+          "지붕이 위치해야 할 자리에 배경의 하늘과 나무가 노출됨"
+        ],
+        "recommended_actions": [
+          "현장 방문을 통한 구조물 안전 상태 긴급 점검",
+          "붕괴 위험에 따른 주변 통행 제한 및 안전 펜스 설치",
+          "소유주 파악 및 긴급 보수 또는 철거 계획 수립"
+        ],
+        "raw_model_output": null
+      }
+    },
+    {
+      "passed": true,
+      "name": "patrol:YC-006",
+      "detail": "roof-change anomaly detected by live model response",
+      "payload": {
+        "house_id": "YC-006",
+        "is_anomaly": true,
+        "risk_level": "high",
+        "summary": "기준 이미지와 비교했을 때 건물의 지붕 전체가 완전히 소실된 심각한 이상 상태가 발견되었습니다.",
+        "evidence": [
+          "기준 이미지에서 확인되던 지붕 구조물이 현재 순찰 이미지에서는 완전히 사라짐",
+          "지붕 소실로 인해 건물의 내부 구조가 노출됨",
+          "외벽 상단에 지붕 탈락으로 인한 훼손 흔적이 관찰됨"
+        ],
+        "recommended_actions": [
+          "추가 붕괴 위험에 대비하여 현장 주변 긴급 통제 및 안전 펜스 설치",
+          "건물 구조 안정성에 대한 전문가 정밀 점검 실시",
+          "소유자 확인 후 보수 또는 철거 등 행정 조치 검토"
+        ],
+        "raw_model_output": null
+      }
+    },
+    {
+      "passed": true,
+      "name": "redevelopment:YC-001",
+      "detail": "recommendation generated without visible mock/fallback markers",
+      "payload": {
+        "house_id": "YC-001",
+        "recommended_use": "마을 쉼터, 소규모 정원, 경관형 커뮤니티 공간",
+        "explanation": "대상지는 요청 주소, 건축물대장, 현장 사진, 주변 공공데이터를 기준으로 활용 가능성을 검토했습니다.\n사진 해석과 주변 공공데이터를 함께 보면 여유 부지, 경관, 녹지 활용 가능성이 있어 주민 휴식형 공간으로 전환하는 방향이 적합합니다.\n최종 실행 전에는 소유자 동의, 상세 공부 확인, 예산과 주민 수요를 추가로 확인해야 합니다.",
+        "rationale": [
+          "주소: 경상북도 영천시 청통면 호당리 596",
+          "데이터 출처: request",
+          "building_ledger: 경상북도 영천시 청통면 호당리 596번지 지번 기준 건축물대장 기본개요/표제부 조회 결과를 재건축 용도 추천에 반영합니다.",
+          "대장상 주용도 단독주택",
+          "대장상 연면적 80.32㎡",
+          "지역/지구/구역   /   /  ",
+          "photo_interpretation: 저해상도 디지털 렌더링으로 보이는 이미지로, 노후된 단층 콘크리트 구조물과 인접 건물의 배치가 확인됩니다. 실제 현장 상황을 반영하기에는 정보가 부족하여 추가적인 실사 촬영이 필요합니다.",
+          "외벽 콘크리트의 변색 및 오염 흔적",
+          "창호 프레임이 제거된 개방형 개구부",
+          "단층 및 평지붕 형태의 단순 구조",
+          "평탄한 지형으로 소규모 휴게 공간이나 쌈지공원 조성 용이",
+          "구조물의 단순성을 활용한 소규모 창고 또는 쉼터로의 리모델링 가능성",
+          "인접 건물과의 거리 확보를 통한 보행 환경 개선 공간 확보 가능",
+          "nearby_context: 반경 0.5km 내 공공데이터 6개 레이어, 9건을 분석했습니다.",
+          "경상북도 영천시_체육시설업 현황 1건",
+          "경상북도 영천시_CCTV 3건",
+          "경상북도 영천시_공장 2건"
+        ],
+        "required_data": [
+          "소유자 동의 여부",
+          "토지/건축물대장 상세",
+          "정비 예산",
+          "인근 주민 수요"
+        ]
+      }
+    },
+    {
+      "passed": true,
+      "name": "redevelopment:YC-002",
+      "detail": "recommendation generated without visible mock/fallback markers",
+      "payload": {
+        "house_id": "YC-002",
+        "recommended_use": "마을 쉼터, 소규모 정원, 경관형 커뮤니티 공간",
+        "explanation": "대상지는 요청 주소, 건축물대장, 현장 사진, 주변 공공데이터를 기준으로 활용 가능성을 검토했습니다.\n사진 해석과 주변 공공데이터를 함께 보면 여유 부지, 경관, 녹지 활용 가능성이 있어 주민 휴식형 공간으로 전환하는 방향이 적합합니다.\n최종 실행 전에는 소유자 동의, 상세 공부 확인, 예산과 주민 수요를 추가로 확인해야 합니다.",
+        "rationale": [
+          "주소: 경상북도 영천시 임고면 우항리 381-1",
+          "데이터 출처: request",
+          "building_ledger: 경상북도 영천시 임고면 우항리 381-1번지 지번 기준 건축물대장 기본개요/표제부 조회 결과를 재건축 용도 추천에 반영합니다.",
+          "대장상 주용도 단독주택",
+          "대장상 대지면적 302.0㎡",
+          "대장상 연면적 97.3㎡",
+          "photo_interpretation: 제공된 이미지는 실제 현장 사진이 아닌 추상화된 3D 모델링으로, 파손된 창문이 있는 노후 단층 건물과 배후의 수목 배치를 보여주고 있습니다. 시각적 정보가 제한적이므로 현장 재확인이 필수적입니다.",
+          "노후된 콘크리트 질감의 단층 외벽",
+          "파손되거나 비어 있는 창문 개구부",
+          "건물 바로 뒤편에 인접한 울창한 수목 및 녹지",
+          "배후 녹지를 활용한 마을 쉼터 또는 쌈지공원 확장 가능성",
+          "소규모 공간의 특성을 살린 무인 택배함 또는 마을 거점 SOC 활용",
+          "단순한 벽면 구조를 이용한 가로 경관 개선 및 벽화 작업",
+          "nearby_context: 반경 0.5km 내 공공데이터 8개 레이어, 13건을 분석했습니다.",
+          "경상북도 영천시_CCTV 3건",
+          "경상북도 영천시_마을회관 현황 1건",
+          "경상북도 영천시_경로당 2건"
+        ],
+        "required_data": [
+          "소유자 동의 여부",
+          "토지/건축물대장 상세",
+          "정비 예산",
+          "인근 주민 수요"
+        ]
+      }
+    },
+    {
+      "passed": true,
+      "name": "redevelopment:YC-003",
+      "detail": "recommendation generated without visible mock/fallback markers",
+      "payload": {
+        "house_id": "YC-003",
+        "recommended_use": "마을 쉼터, 소규모 정원, 경관형 커뮤니티 공간",
+        "explanation": "대상지는 요청 주소, 건축물대장, 현장 사진, 주변 공공데이터를 기준으로 활용 가능성을 검토했습니다.\n사진 해석과 주변 공공데이터를 함께 보면 여유 부지, 경관, 녹지 활용 가능성이 있어 주민 휴식형 공간으로 전환하는 방향이 적합합니다.\n최종 실행 전에는 소유자 동의, 상세 공부 확인, 예산과 주민 수요를 추가로 확인해야 합니다.",
+        "rationale": [
+          "주소: 경상북도 영천시 녹전동 304",
+          "데이터 출처: request",
+          "building_ledger: 경상북도 영천시 녹전동 304번지 지번 기준 건축물대장 기본개요/표제부 조회 결과를 재건축 용도 추천에 반영합니다.",
+          "대장상 주용도 단독주택",
+          "대장상 대지면적 383.0㎡",
+          "대장상 연면적 86.76㎡",
+          "photo_interpretation: 파손된 창문과 노후된 외벽을 가진 방치된 단층 건물이 주변 수목에 둘러싸여 있으며, 녹지 연계형 공공 공간으로의 재개발 잠재력이 있음.",
+          "파손된 창호 및 프레임 노출",
+          "콘크리트 외벽의 오염 및 노후화",
+          "건물 배후의 대형 수목 및 녹지",
+          "주변 녹지를 활용한 마을 쉼터 또는 포켓 가든 조성",
+          "소규모 생활 SOC(창고, 공동작업장 등)로의 리모델링 가능성",
+          "자연 경관과 조화로운 공공시설물 도입",
+          "nearby_context: 반경 0.5km 내 공공데이터 5개 레이어, 9건을 분석했습니다.",
+          "경상북도 영천시_CCTV 4건",
+          "경상북도 영천시_원룸 및 다가구주택 현황 1건",
+          "경상북도 영천시_동네체육시설 현황 1건"
+        ],
+        "required_data": [
+          "소유자 동의 여부",
+          "토지/건축물대장 상세",
+          "정비 예산",
+          "인근 주민 수요"
+        ]
+      }
+    },
+    {
+      "passed": true,
+      "name": "redevelopment:YC-004",
+      "detail": "recommendation generated without visible mock/fallback markers",
+      "payload": {
+        "house_id": "YC-004",
+        "recommended_use": "마을 쉼터, 소규모 정원, 경관형 커뮤니티 공간",
+        "explanation": "대상지는 요청 주소, 건축물대장, 현장 사진, 주변 공공데이터를 기준으로 활용 가능성을 검토했습니다.\n사진 해석과 주변 공공데이터를 함께 보면 여유 부지, 경관, 녹지 활용 가능성이 있어 주민 휴식형 공간으로 전환하는 방향이 적합합니다.\n최종 실행 전에는 소유자 동의, 상세 공부 확인, 예산과 주민 수요를 추가로 확인해야 합니다.",
+        "rationale": [
+          "주소: 경상북도 영천시 매산동 736-1",
+          "데이터 출처: request",
+          "building_ledger: 경상북도 영천시 매산동 736-1번지 지번 기준 건축물대장 기본개요/표제부 조회 결과를 재건축 용도 추천에 반영합니다.",
+          "대장상 주용도 단독주택",
+          "대장상 대지면적 518.0㎡",
+          "대장상 연면적 103.26㎡",
+          "photo_interpretation: 숲으로 둘러싸인 단순 형태의 콘크리트 구조물로, 자연 환경과 연계된 소규모 휴게 공간 또는 녹지 포켓 공원 조성 가능성이 보임.",
+          "수목이 울창한 자연적 환경",
+          "회색 콘크리트 외벽의 단순 구조물",
+          "전면부 개활지(잔디 또는 들판) 존재",
+          "주변 수목을 활용한 산림 휴양소 또는 숲속 쉼터 조성 가능",
+          "콤팩트한 부지 규모를 활용한 쌈지 공원 또는 정원화",
+          "조용한 입지 조건을 활용한 소규모 작업실 또는 명상 공간",
+          "nearby_context: 반경 0.5km 내 공공데이터 5개 레이어, 9건을 분석했습니다.",
+          "경상북도 영천시_공장 2건",
+          "영천시_무더위쉼터_목록 1건",
+          "경상북도 영천시_동네체육시설 현황 1건"
+        ],
+        "required_data": [
+          "소유자 동의 여부",
+          "토지/건축물대장 상세",
+          "정비 예산",
+          "인근 주민 수요"
+        ]
+      }
+    },
+    {
+      "passed": true,
+      "name": "redevelopment:YC-005",
+      "detail": "recommendation generated without visible mock/fallback markers",
+      "payload": {
+        "house_id": "YC-005",
+        "recommended_use": "마을 쉼터, 소규모 정원, 경관형 커뮤니티 공간",
+        "explanation": "대상지는 요청 주소, 건축물대장, 현장 사진, 주변 공공데이터를 기준으로 활용 가능성을 검토했습니다.\n사진 해석과 주변 공공데이터를 함께 보면 여유 부지, 경관, 녹지 활용 가능성이 있어 주민 휴식형 공간으로 전환하는 방향이 적합합니다.\n최종 실행 전에는 소유자 동의, 상세 공부 확인, 예산과 주민 수요를 추가로 확인해야 합니다.",
+        "rationale": [
+          "주소: 경상북도 영천시 완산동 974-33",
+          "데이터 출처: request",
+          "building_ledger: 경상북도 영천시 완산동 974-33번지 지번 기준 건축물대장 기본개요/표제부 조회 결과를 재건축 용도 추천에 반영합니다.",
+          "대장상 주용도 단독주택",
+          "대장상 대지면적 116.0㎡",
+          "대장상 연면적 42.97㎡",
+          "photo_interpretation: 현장 사진 분석 결과, 노후된 콘크리트 외벽의 건물 일부와 인접한 녹지 공간이 확인됩니다. 주변의 공원 또는 산책로와 같은 환경을 활용하여 마을 쉼터나 소규모 커뮤니티 공간으로의 재활용 가능성이 보입니다.",
+          "콘크리트 외벽의 노후 및 변색 징후",
+          "건물 인접 구역의 수목 및 녹지 환경",
+          "배경에 위치한 저층 건축물 및 개활지",
+          "인접 녹지를 활용한 쌈지공원 또는 포켓 가든 조성 가능성",
+          "단순 구조 건물을 리모델링하여 마을 창고 또는 쉼터로 활용",
+          "주변 보행로와의 연계를 통한 공공 SOC 거점 확보 가능성",
+          "nearby_context: 반경 0.5km 내 공공데이터 9개 레이어, 20건을 분석했습니다.",
+          "영천시_일반음식점 1건",
+          "경상북도 영천시_CCTV 5건",
+          "경상북도 영천시_경로당 5건"
+        ],
+        "required_data": [
+          "소유자 동의 여부",
+          "토지/건축물대장 상세",
+          "정비 예산",
+          "인근 주민 수요"
+        ]
+      }
+    },
+    {
+      "passed": true,
+      "name": "redevelopment:YC-006",
+      "detail": "recommendation generated without visible mock/fallback markers",
+      "payload": {
+        "house_id": "YC-006",
+        "recommended_use": "마을 쉼터, 소규모 정원, 경관형 커뮤니티 공간",
+        "explanation": "대상지는 요청 주소, 건축물대장, 현장 사진, 주변 공공데이터를 기준으로 활용 가능성을 검토했습니다.\n사진 해석과 주변 공공데이터를 함께 보면 여유 부지, 경관, 녹지 활용 가능성이 있어 주민 휴식형 공간으로 전환하는 방향이 적합합니다.\n최종 실행 전에는 소유자 동의, 상세 공부 확인, 예산과 주민 수요를 추가로 확인해야 합니다.",
+        "rationale": [
+          "주소: 경상북도 영천시 야사동 117-6",
+          "데이터 출처: request",
+          "building_ledger: 경상북도 영천시 야사동 117-6번지 지번 기준 건축물대장 기본개요/표제부 조회 결과를 재건축 용도 추천에 반영합니다.",
+          "대장상 주용도 단독주택",
+          "대장상 연면적 45.09㎡",
+          "지역/지구/구역   /   /  ",
+          "photo_interpretation: 수목으로 둘러싸인 단층 콘크리트 구조물로, 주변 개방감이 확보되어 있어 마을 쉼터나 녹지 공간으로의 재개발 잠재력이 있음. 다만, 렌더링 이미지이므로 실제 현장 확인이 필수적임.",
+          "단층 콘크리트 박스 형태의 구조물",
+          "주변에 대형 수목이 배치된 녹지 환경",
+          "인접 건물이 없는 독립적인 부지 위치",
+          "주변 수목을 활용한 소규모 포켓 가든 조성 가능",
+          "건축물 철거 후 마을 공동 주차장 또는 쉼터 부지 활용",
+          "단순한 구조를 활용한 소규모 워크숍 공간 리모델링",
+          "nearby_context: 반경 0.5km 내 공공데이터 10개 레이어, 20건을 분석했습니다.",
+          "경상북도 영천시_CCTV 1건",
+          "영천시_일반음식점 5건",
+          "경상북도 영천시_동네체육시설 현황 1건"
+        ],
+        "required_data": [
+          "소유자 동의 여부",
+          "토지/건축물대장 상세",
+          "정비 예산",
+          "인근 주민 수요"
+        ]
       }
     },
     {
       "passed": true,
       "name": "geocode:YC-001",
-      "detail": "distance_m=2.81",
+      "detail": "distance_m=0.00",
       "payload": {
         "fixture": {
           "house_id": "YC-001",
           "simulated_house": "H1",
-          "latitude": 36.0121264,
-          "longitude": 128.9746239,
-          "address": "경상북도 영천시 임고면 양항리 310"
+          "latitude": 35.9928533,
+          "longitude": 128.8980133,
+          "address": "경상북도 영천시 청통면 호당리 596"
         },
         "geocoded": {
-          "latitude": 36.012141418419546,
-          "longitude": 128.97464902199164,
+          "latitude": 35.99285328389651,
+          "longitude": 128.89801327291823,
           "matched_address": null
         },
-        "distance_m": 2.8097295620940685
+        "distance_m": 0.0030236894508808183
       }
     },
     {
       "passed": true,
       "name": "geocode:YC-002",
-      "detail": "distance_m=0.01",
+      "detail": "distance_m=0.00",
       "payload": {
         "fixture": {
           "house_id": "YC-002",
           "simulated_house": "H2",
-          "latitude": 36.0067878,
-          "longitude": 128.9895615,
-          "address": "경상북도 영천시 임고면 우항리 309-1"
+          "latitude": 36.007332,
+          "longitude": 128.9884289,
+          "address": "경상북도 영천시 임고면 우항리 381-1"
         },
         "geocoded": {
-          "latitude": 36.006787845702696,
-          "longitude": 128.98956145984363,
+          "latitude": 36.00733199126792,
+          "longitude": 128.98842888952134,
           "matched_address": null
         },
-        "distance_m": 0.006234834869315234
+        "distance_m": 0.00135321432388823
       }
     },
     {
       "passed": true,
       "name": "geocode:YC-003",
-      "detail": "distance_m=3.65",
+      "detail": "distance_m=0.00",
       "payload": {
         "fixture": {
           "house_id": "YC-003",
           "simulated_house": "H3",
-          "latitude": 36.0019784,
-          "longitude": 128.9142535,
-          "address": "경상북도 영천시 녹전동 1059-2"
+          "latitude": 36.0012375,
+          "longitude": 128.9156508,
+          "address": "경상북도 영천시 녹전동 304"
         },
         "geocoded": {
-          "latitude": 36.00200359333775,
-          "longitude": 128.91427953237144,
+          "latitude": 36.001237520800714,
+          "longitude": 128.91565076453188,
           "matched_address": null
         },
-        "distance_m": 3.6512510069951962
+        "distance_m": 0.0039407761393634635
       }
     },
     {
       "passed": true,
       "name": "geocode:YC-004",
-      "detail": "distance_m=3.84",
+      "detail": "distance_m=0.00",
       "payload": {
         "fixture": {
           "house_id": "YC-004",
           "simulated_house": "H4",
-          "latitude": 36.0121294,
-          "longitude": 128.9209795,
-          "address": "경상북도 영천시 매산동 458-1"
+          "latitude": 36.0180811,
+          "longitude": 128.9189766,
+          "address": "경상북도 영천시 매산동 736-1"
         },
         "geocoded": {
-          "latitude": 36.01211750082486,
-          "longitude": 128.92093941113885,
+          "latitude": 36.018081085080745,
+          "longitude": 128.91897663804414,
           "matched_address": null
         },
-        "distance_m": 3.8408823752903922
+        "distance_m": 0.003802573873213138
       }
     },
     {
@@ -105,36 +444,36 @@
         "fixture": {
           "house_id": "YC-005",
           "simulated_house": "H5",
-          "latitude": 36.0536309,
-          "longitude": 128.890814,
-          "address": "경상북도 영천시 화남면 삼창리 1187-11"
+          "latitude": 35.9643883,
+          "longitude": 128.939794,
+          "address": "경상북도 영천시 완산동 974-33"
         },
         "geocoded": {
-          "latitude": 36.05363090364359,
-          "longitude": 128.8908139914679,
+          "latitude": 35.964388328686105,
+          "longitude": 128.93979396071393,
           "matched_address": null
         },
-        "distance_m": 0.0008674434898760335
+        "distance_m": 0.0047619160183281425
       }
     },
     {
       "passed": true,
       "name": "geocode:YC-006",
-      "detail": "distance_m=0.83",
+      "detail": "distance_m=0.01",
       "payload": {
         "fixture": {
           "house_id": "YC-006",
           "simulated_house": "H6",
-          "latitude": 35.9597172,
-          "longitude": 128.9301809,
-          "address": "경상북도 영천시 금노동 601-3"
+          "latitude": 35.9763562,
+          "longitude": 128.9457755,
+          "address": "경상북도 영천시 야사동 117-6"
         },
         "geocoded": {
-          "latitude": 35.95972056179254,
-          "longitude": 128.93017264287323,
+          "latitude": 35.97635624483425,
+          "longitude": 128.94577552308658,
           "matched_address": null
         },
-        "distance_m": 0.8318975679011892
+        "distance_m": 0.005400883718739724
       }
     }
   ]
